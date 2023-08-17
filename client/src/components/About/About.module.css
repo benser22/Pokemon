@@ -1,0 +1,114 @@
+.aboutContainer {
+  position: relative;
+  height: 66vh;
+  width: 75%;
+  margin-left: 10%;
+  overflow: hidden;
+  border-radius: 0 40px 0 40px;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: fade-in 0.5s ease-in-out forwards;
+  box-shadow: 6px 5px 5px #0c2327;
+  border: 1px groove #23626d;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.background {
+  border-radius: 0 20px 0 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(-45deg,#251d2e, #2e788d, #3799ab, #251d2e);
+  z-index: -1;
+}
+
+.begin {
+  font-weight: bolder;
+  font-size: 1em;
+}
+
+.content {
+  position: relative;
+  text-align: center;
+  color: white;
+  padding: 40px;
+  width: 70%;
+  margin: 0 auto;
+  font-family: Verdana, sans-serif;
+}
+
+.profileImageContainer {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  filter: grayscale(95%);
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.description {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.me {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: -5px;
+}
+
+.navLink {
+  color: white;
+  font-size: 2em;
+  padding: 10px 15px;
+}
+
+.navLink:hover {
+  color: #c0df3e;
+}
+
+@media (max-width: 767px) {
+
+  .aboutContainer {
+    height: 70vh;
+    width: 85%;
+  }
+
+  .profileImageContainer {
+    width: 100px;
+    height: 100px;
+  }
+
+  .me {
+    font-size: 1em;
+  }
+  .content {
+    font-size: 0.8em;
+  }
+  .home {
+    position: absolute;
+    margin-top: 2%;
+    margin-left: -8%;
+  } 
+}
