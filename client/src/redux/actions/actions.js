@@ -1,91 +1,146 @@
-import axios from "axios";
+import {
+  GET_ALL_POKEMONS,
+  GET_POKEMON_DETAILS,
+  SEARCH_POKEMON,
+  GET_TYPES,
+  POST_POKEMON,
+  FILTER_TYPES,
+  RESTORE_POKEMONS,
+  FILTER_CREATES,
+  ORDER_NAME,
+  DELETE_POKEMON,
+} from './types.js';
 
-export const ADD_FAV = "ADD_FAV";
-export const REMOVE_FAV = "REMOVE_FAV";
-export const FILTER = "FILTER";
-export const ORDER = "ORDER";
-export const REMOVE_ALL_FAVORITES = "REMOVE_ALL_FAVORITES";
-export const LOAD_FAVORITES = "LOAD_FAVORITES"; 
+const URLDIR = 'https://pokemon-app-production-d853.up.railway.app';
+//const URLDIR = 'http://localhost:3001';
 
+export const getAllPokemons = () => {
+  return async function (dispatch) {
+    console.log(URLDIR);
+    return fetch(`${URLDIR}/pokemons`)
+      .then((response) => response.json())
+      .then((json) =>
+        dispatch({
+          type: GET_ALL_POKEMONS,
+          payload: json,
+        })
+      );
+  };
+};
 
-export const loadFavorites = () => {
-  const endpoint = "http://localhost:3001/rickandmorty/fav"; 
+export const getPokemonDetails = (id) => {
+  return async function (dispatch) {
+    return fetch(`${URLDIR}/pokemons/${id}`)
+      .then((response) => response.json())
+      .then((json) =>
+        dispatch({
+          type: GET_POKEMON_DETAILS,
+          payload: json,
+        })
+      );
+  };
+};
+
+export const getTypes = () => {
+  return async function (dispatch) {
+    return fetch(`${URLDIR}/types`)
+      .then((response) => response.json())
+      .then((json) =>
+        dispatch({
+          type: GET_TYPES,
+          payload: json,
+        })
+      );
+  };
+};
+
+export const postPokemon = (values) => {
+  const input = {
+    name: values.name,
+    types: [values.types],
+    image: values.image,
+    hp: values.hp,
+    attack: values.attack,
+    defense: values.defense,
+    speed: values.speed,
+    height: values.height,
+    weight: values.weight,
+    created: true,
+  };
+  return async function (dispatch) {
+    return fetch(`${URLDIR}/pokemons`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input),
+    })
+      .then((response) => response.json())
+      .then((json) =>
+        dispatch({
+          type: POST_POKEMON,
+          payload: json,
+          types: input.types,
+        })
+      );
+  };
+};
+
+export const deletePokemon = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(endpoint);
-      if (!data) {
-        throw new Error("An error occurred while loading favorites");
-      }
-      return dispatch({
-        type: LOAD_FAVORITES,
-        payload: data, 
-      });
+      return fetch(`${URLDIR}/pokemons/delete/${id}`, {
+        method: 'DELETE',
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          dispatch({
+            type: DELETE_POKEMON,
+            payload: json.id,
+          });
+        })
+        .catch((error) => console.log(error));
     } catch (error) {
-      console.log(error.message);
+      console.error(error);
     }
   };
 };
 
-// ACTION | addFav
-export const addFav = (character) => {
-  const endpoint = "http://localhost:3001/rickandmorty/fav";
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.post(endpoint, character);
-      if (!data) {
-        throw new Error("An error occurred in the action of adding a favorite");
-      }
-      return dispatch({
-        type: "ADD_FAV",
-        payload: data,
+export const searchByName = (name) => {
+  return async function (dispatch) {
+    return fetch(`${URLDIR}/pokemons?name=${name}`)
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({
+          type: SEARCH_POKEMON,
+          payload: json,
+        });
       });
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 };
 
-// ACTION | removeFav
-export const removeFav = (id) => {
-  const endpoint = "http://localhost:3001/rickandmorty/fav/" + id;
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.delete(endpoint);
-      if (!data) {
-        throw new Error(
-          "An error occurred in the action of removing a favorite"
-        );
-      }
-      return dispatch({
-        type: "REMOVE_FAV",
-        payload: data,
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
+export const filterByTypes = (value) => {
+  return {
+    type: FILTER_TYPES,
+    payload: value,
   };
 };
 
-// Acción para eliminar todos los favoritos
-export const removeAllFavorites = () => {
-  const endpoint = "http://localhost:3001/rickandmorty/fav";
-  return (dispatch) => {
-    axios.delete(endpoint).then(() => {
-      dispatch({
-        type: REMOVE_ALL_FAVORITES,
-      });
-    });
+export const restorePokemons = () => {
+  return {
+    type: RESTORE_POKEMONS,
+    payload: null,
   };
 };
 
-// Acción para ordenar las tarjetas
-export const orderCards = (order) => ({
-  type: "ORDER",
-  payload: order,
-});
+export const filterPokeCreated = (value) => {
+  return {
+    type: FILTER_CREATES,
+    payload: value,
+  };
+};
 
-// Acción para filtrar las tarjetas por género
-export const filterCards = (gender) => ({
-  type: "FILTER",
-  payload: gender,
-});
+export const orderName = (order, sortOrder) => {
+  return {
+    type: ORDER_NAME,
+    payload: { order, sortOrder },
+  };
+};
