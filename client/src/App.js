@@ -1,19 +1,19 @@
 import "./App.css";
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
-import axios from "axios";
 import CreatePokemon from "./components/CreatePokemon/CreatePokemon";
 import About from "./components/About/About";
 import LandingPage from "./components/LandingPage/LandingPage";
-import Navbar from "./components/Navbar/Navbar"
+import Navbar from "./components/Navbar/Navbar";
+import { getTypes } from "./redux/actions/actions";
 
 function App() {
-  // Cargo los types en la tabla de mi BDD cuando inicia el programa
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    axios.get("http://localhost:3001/pokemons/types").catch((error) => {
-      console.log(error.message);
-    });
-  }, []);
+    dispatch(getTypes()); // Lleno la base de datos con los Types cuando se inicia el programa, utilizando redux
+  }, [dispatch]);
 
   // Obtener la ubicación actual usando useLocation
   const location = useLocation();

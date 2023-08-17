@@ -2,7 +2,7 @@ const { Pokemon, Type } = require("../db");
 
 const postPokemons = async (req, res) => {
   try {
-    const { name, img, hp, attack, defense, speed, height, weight, types } =
+    const { name, img, hp, attack, defense, speed, height, weight, types, created } =
       req.body;
 
       // me aseguro de que el type sea minuscula, aunque esto podria eliminarlo si lo fuerzo en el front luego...
@@ -18,7 +18,8 @@ const postPokemons = async (req, res) => {
       speed,
       height,
       weight,
-      lowerCaseTypes
+      lowerCaseTypes,
+      created
     });
 
 

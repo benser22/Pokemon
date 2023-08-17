@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./CreatePokemon.module.css";
-
+import axios from "axios";
 function CreatePokemon() {
+  // busco del estado de redux todos los types de los pokemones, que ya vienen con su imagen
+  const allTypes = useSelector((state) => state.allTypes);
+
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
   const [hp, setHp] = useState(0);
@@ -13,22 +16,7 @@ function CreatePokemon() {
   const [weight, setWeight] = useState(0);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
-  const [typesWithImages, setTypesWithImages] = useState([]);
   const [maxTypes, setMaxTypes] = useState(false);
-
-  useEffect(() => {
-    fetchTypesWithImages().then((types) => setTypesWithImages(types));
-  }, []);
-
-  const fetchTypesWithImages = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/pokemons/types");
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching types:", error.message);
-      return [];
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +31,7 @@ function CreatePokemon() {
       height,
       weight,
       types: selectedTypes,
+      created: true, 
     };
 
     try {
@@ -162,7 +151,7 @@ function CreatePokemon() {
             Types
           </label>
           <div className={styles.checkboxContainer}>
-            {typesWithImages.map((type) => (
+            {allTypes.map((type) => (
               <div key={type.name} className={styles.checkboxGroup}>
                 <label className={styles.checkboxLabel}>
                   <input
@@ -198,5 +187,4 @@ function CreatePokemon() {
     </div>
   );
 }
-
 export default CreatePokemon;
