@@ -1,19 +1,16 @@
 import "./App.css";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import CreatePokemon from "./components/CreatePokemon/CreatePokemon";
-import About from "./components/About/About";
-import LandingPage from "./components/LandingPage/LandingPage";
+
+import CreatePokemon from "./Pages/CreatePokemon/CreatePokemon";
+import LandingPage from "./Pages/LandingPage/LandingPage";
+import Home from "./Pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
-import { getTypes } from "./redux/actions/actions";
+import Error404 from "./components/Error404/Error404";
+
 
 function App() {
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getTypes()); // Lleno la base de datos con los Types cuando se inicia el programa, utilizando redux
-  }, [dispatch]);
 
   // Obtener la ubicación actual usando useLocation
   const location = useLocation();
@@ -26,12 +23,22 @@ function App() {
       {/* Renderizar la Navbar solo si no es la página de inicio */}
       {!isHomePage && <Navbar />}
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route exact path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/create" element={<CreatePokemon />} />
-        <Route path="/about" element={<About />} />
+        <Route path="*" element={Error404} />
       </Routes>
     </div>
   );
 }
 
 export default App;
+
+/*
+        <Route exact path='/' element={<LandingPage />} />
+        <Route exact path='/pokemons' element={<Home />} />
+        <Route path='/pokemons/:id' element={<Details />} />
+        <Route path='/create' element={<CreateForm />} />
+        <Route path='/play' element={<HTPGame />} />
+        <Route path='*' element={<Error />} />
+*/

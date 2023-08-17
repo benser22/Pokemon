@@ -18,15 +18,22 @@ export const getAllPokemons = () => {
   return async function (dispatch) {
     try {
       const response = await axios.get(`${URL}/`);
+      console.log(response.data.results);
+      // const pokemonsWithTypes = response.data.results.map(pokemon => ({
+      //   ...pokemon,
+      //   types: pokemon.types.map(type => type.name), // Assuming each type has a 'name' property
+      // }));
+      
       dispatch({
         type: GET_ALL_POKEMONS,
-        payload: response.data,
+        payload: response.data.results,
       });
     } catch (error) {
       console.error(error);
     }
   };
 };
+
 
 export const getPokemonDetails = (id) => {
   return async function (dispatch) {
@@ -59,8 +66,8 @@ export const getTypes = () => {
 export const postPokemon = (values) => {
   const input = {
     name: values.name,
-    types: [values.types],
-    image: values.image,
+    types: values.types,
+    img: values.img,
     hp: values.hp,
     attack: values.attack,
     defense: values.defense,
@@ -74,8 +81,7 @@ export const postPokemon = (values) => {
       const response = await axios.post(`${URL}/`, input);
       dispatch({
         type: POST_POKEMON,
-        payload: response.data,
-        types: input.types,
+        payload: response.data
       });
     } catch (error) {
       console.error(error);

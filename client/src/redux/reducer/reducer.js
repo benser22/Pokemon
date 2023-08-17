@@ -13,6 +13,7 @@ import {
 
 const initialState = {
   pokemons: [],
+  pokemonsApi: [],
   pokemon: {},
   allTypes: [],
   filteredPokemons: [],
@@ -23,8 +24,7 @@ function rootReducer(state = initialState, action) {
     case GET_ALL_POKEMONS:
       return {
         ...state,
-        pokemons: action.payload,
-        filteredPokemons: action.payload,
+        pokemonsApi: action.payload
       };
 
     case GET_POKEMON_DETAILS:
@@ -33,13 +33,15 @@ function rootReducer(state = initialState, action) {
         pokemon: action.payload,
       };
 
-    case POST_POKEMON:
-      action.payload.types = action.types[0].map((type) => ({ name: type }));
-      return {
-        ...state,
-        pokemons: [action.payload, ...state.pokemons],
-        filteredPokemons: [action.payload, ...state.filteredPokemons],
-      };
+      case POST_POKEMON:
+        console.log("Received POST_POKEMON action with payload:", action.payload);
+      
+        return {
+          ...state,
+          pokemons: [...state.pokemons, action.payload],
+          filteredPokemons: [...state.filteredPokemons, action.payload]
+        };
+      
 
     case DELETE_POKEMON:
       const toDelete = state.pokemons;

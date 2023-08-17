@@ -1,0 +1,86 @@
+/* Home.module.css */
+
+.title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.pokemonList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.buttonR {
+  background-color: #375da4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 1em;
+}
+.buttonL {
+  background-color: #375da4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 1em;
+}
+
+.buttonL:hover,
+.buttonR:hover {
+  background-color: #213770;
+  filter: brightness(110%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.buttonL:active,
+.buttonR:active {
+  font-weight: bold;
+  box-shadow: unset;
+}
+
+.pageButton {
+  background-color: #ccc;
+  background-image: linear-gradient(to bottom, #eee, #ccc);
+  color: black;
+  border: none;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 0.4rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.pageButton:hover {
+  background-image: linear-gradient(to bottom, #d6b21f, #ffcb05);
+  transform: scale(1.2);
+}
+
+.currentPageButton {
+  background-image: linear-gradient(to bottom, #d6b21f, #ffcb05);
+  transform: scale(1.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.buttonContainer {
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}

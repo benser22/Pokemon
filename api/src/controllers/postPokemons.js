@@ -22,7 +22,6 @@ const postPokemons = async (req, res) => {
       created
     });
 
-
     // Relacionar el Pokémon con sus tipos
     const selectedTypes = await Type.findAll({
       where: {
@@ -32,7 +31,6 @@ const postPokemons = async (req, res) => {
 
     // Agregar la relación a la tabla intermedia "pokemon_type"
     await newPokemon.addTypes(selectedTypes);
-
     res.status(201).json(newPokemon);
   } catch (error) {
     console.error(error);

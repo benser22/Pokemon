@@ -1,0 +1,42 @@
+.error {
+  text-align: center;
+  padding: 20px;
+  height: 60vh;
+}
+
+h1 {
+  font-size: 72px;
+  color: #0066ff;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+p {
+  font-size: 18px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3598aa;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #266f7c;
+}
+
+.error {
+  border: 2px solid #133343;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+}

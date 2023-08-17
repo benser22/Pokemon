@@ -1,0 +1,125 @@
+/* Welcome.module.css */
+.welcomeContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.videoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  z-index: 999;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  margin: 0 20px;
+  cursor: pointer;
+  color: white;
+}
+
+.navLink {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer; /* Agrega cursor */
+}
+
+.navLink:hover {
+  color: #007bff;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  padding: 80px 0;
+}
+
+.title {
+  font-family: 'Pacifico', cursive;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.description {
+  font-family: 'Pacifico', cursive;
+  font-size: 18px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+
+}
+
+
+.getStartedButton {
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #213770;
+
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+  box-shadow: 2px 2px 6px rgba(255, 255, 255, 0.1); 
+}
+
+.getStartedButton:hover {
+  background-color: #375da4;
+  box-shadow: 1px 1px 6px rgba(255, 255, 255, 0.5); /* Ajustamos la sombra al hacer hover */
+  transform: scale(1.05);
+}
+
+.getStartedButton:active {
+  background-color: #172347;
+  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.7); /* Sombras blancas al presionar */
+  transform: scale(0.95);
+}
+
+
+.anchorLink {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.anchorLink:hover {
+  color: #007bff;
+}
+
+.banner{
+  max-width: 30%;
+  max-height: 30%;
+  z-index: 99999;
+}
