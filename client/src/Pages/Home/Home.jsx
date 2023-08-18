@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllPokemons, getTypes } from "../../redux/actions/actions";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
+import Loader from "../../components/Loader/Loader2";
 
 const Home = () => {
   const pokemonsCreated = useSelector((state) => state.pokemons);
@@ -16,13 +17,28 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(allPokemons.length / pokemonsPerPage);
-
-
+  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
 
   useEffect(() => {
-    dispatch(getTypes()); // Lleno la base de datos con los Types cuando se inicia el programa, utilizando Redux
-    dispatch(getAllPokemons()); // Traigo los pokemons de la Api también
-  }, [dispatch]);
+    // Solo dispatch si no tengo los datos en los archivos Redux
+    if (!pokemonsApi.length) {
+      dispatch(getAllPokemons());
+    }
+
+    if (!allTypes.length) {
+      dispatch(getTypes());
+    }
+
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(loadingTimeout);
+  }, [dispatch, pokemonsApi.length, allTypes.length]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const getType = (name) => {
     if (allTypes.length > 0) {
@@ -36,10 +52,6 @@ const Home = () => {
     setCurrentPage(pageNumber);
   };
 
-  if (!allPokemons && !allTypes) {
-    return <h1>Loading...</h1>;
-  }
-  
   // const handlePrevPage = () => {
   //   if (currentPage > 1) {
   //     setCurrentPage(currentPage - 1);
