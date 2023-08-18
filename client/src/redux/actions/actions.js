@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   GET_ALL_POKEMONS,
   GET_POKEMON_DETAILS,
@@ -10,23 +10,17 @@ import {
   FILTER_CREATES,
   ORDER_NAME,
   DELETE_POKEMON,
-} from './types.js';
+} from "./types.js";
 
-const URL = 'http://localhost:3001/pokemons';
+const URL = "http://localhost:3001/pokemons";
 
 export const getAllPokemons = () => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${URL}/`);
-      console.log(response.data.results);
-      // const pokemonsWithTypes = response.data.results.map(pokemon => ({
-      //   ...pokemon,
-      //   types: pokemon.types.map(type => type.name), // Assuming each type has a 'name' property
-      // }));
-      
+      const { data } = await axios.get(`${URL}/`);
       dispatch({
         type: GET_ALL_POKEMONS,
-        payload: response.data.results,
+        payload: data.results,
       });
     } catch (error) {
       console.error(error);
@@ -34,14 +28,13 @@ export const getAllPokemons = () => {
   };
 };
 
-
 export const getPokemonDetails = (id) => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${URL}/${id}`);
+      const { data } = await axios.get(`${URL}/${id}`);
       dispatch({
         type: GET_POKEMON_DETAILS,
-        payload: response.data,
+        payload: data,
       });
     } catch (error) {
       console.error(error);
@@ -52,10 +45,10 @@ export const getPokemonDetails = (id) => {
 export const getTypes = () => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${URL}/types`);
+      const { data } = await axios.get(`${URL}/types`);
       dispatch({
         type: GET_TYPES,
-        payload: response.data,
+        payload: data,
       });
     } catch (error) {
       console.error(error);
@@ -76,12 +69,13 @@ export const postPokemon = (values) => {
     weight: values.weight,
     created: true,
   };
+
   return async function (dispatch) {
     try {
-      const response = await axios.post(`${URL}/`, input);
+      const { data } = await axios.post(`${URL}/`, input);
       dispatch({
         type: POST_POKEMON,
-        payload: response.data
+        payload: data,
       });
     } catch (error) {
       console.error(error);
@@ -92,10 +86,10 @@ export const postPokemon = (values) => {
 export const deletePokemon = (id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.delete(`${URL}/delete/${id}`);
+      const { data } = await axios.delete(`${URL}/delete/${id}`);
       dispatch({
         type: DELETE_POKEMON,
-        payload: response.data.id,
+        payload: data.id,
       });
     } catch (error) {
       console.error(error);
@@ -106,10 +100,10 @@ export const deletePokemon = (id) => {
 export const searchByName = (name) => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${URL}/?name=${name}`);
+      const { data } = await axios.get(`${URL}/?name=${name}`);
       dispatch({
         type: SEARCH_POKEMON,
-        payload: response.data,
+        payload: data,
       });
     } catch (error) {
       console.error(error);

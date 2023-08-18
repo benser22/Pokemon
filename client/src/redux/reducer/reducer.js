@@ -34,8 +34,6 @@ function rootReducer(state = initialState, action) {
       };
 
       case POST_POKEMON:
-        console.log("Received POST_POKEMON action with payload:", action.payload);
-      
         return {
           ...state,
           pokemons: [...state.pokemons, action.payload],

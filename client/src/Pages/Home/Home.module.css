@@ -64,6 +64,7 @@
 
 .pageButton:hover {
   background-image: linear-gradient(to bottom, #d6b21f, #ffcb05);
+  filter: brightness(110%);
   transform: scale(1.2);
 }
 
@@ -75,7 +76,7 @@
 
 .buttonContainer {
   position: fixed;
-  bottom: 5%;
+  bottom: 2%;
   left: 50%;
   width: 100%;
   transform: translateX(-50%);

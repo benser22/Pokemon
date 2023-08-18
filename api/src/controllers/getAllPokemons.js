@@ -8,25 +8,23 @@ const getAllPokemons = async (req, res) => {
     const response = await axios.get(`${BASE_URL}?limit=${LIMIT}`);
     const pokemons = response.data.results;
 
-    // Fetch additional details for each pokemon to get their types
-    const pokemonsWithTypes = await Promise.all(
+    // Fetch additional details for each pokemon to get their types and image URLs
+    const pokemonsWithDetails = await Promise.all(
       pokemons.map(async (pokemon) => {
         const detailsResponse = await axios.get(pokemon.url);
         const types = detailsResponse.data.types.map((type) => type.type.name);
+        const imageUrl = detailsResponse.data.sprites.other['official-artwork'].front_default; // Obtener la ruta de la imagen
+
         return {
           ...pokemon,
           types: types,
+          img: imageUrl,
         };
       })
     );
 
-    const nextUrl = response.data.next;
-    const prevUrl = response.data.previous;
-
     const responseData = {
-      next: nextUrl,
-      previous: prevUrl,
-      results: pokemonsWithTypes,
+      results: pokemonsWithDetails,
     };
 
     res.status(200).json(responseData);

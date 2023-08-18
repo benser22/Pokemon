@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./CreatePokemon.module.css";
-import { postPokemon } from "../../redux/actions/actions"; // Importa tu acción
-import { useNavigate } from "react-router-dom";
+import { postPokemon } from "../../redux/actions/actions";
+import { useNavigate, NavLink } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import validateForm from "./validateForm";
+import PokemonForm from "./PokemonsForm";
+import TypesSection from "./TypesSection";
 
 function CreatePokemon() {
   const allTypes = useSelector((state) => state.allTypes);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
   const [hp, setHp] = useState(0);
@@ -19,9 +24,32 @@ function CreatePokemon() {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
   const [maxTypes, setMaxTypes] = useState(false);
+  const [minTypes, setMinTypes] = useState(false);
+  const [disableImageInput, setDisableImageInput] = useState(false);
+  const [validation, setValidation] = useState({});
+
+  const handleImageCheckboxChange = () => {
+    setDisableImageInput(!disableImageInput);
+    if (!disableImageInput) {setImg("default");} else {setImg("")}
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = validateForm({
+      name,
+      img,
+      hp,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
+    });
+
+    if (Object.keys(validationErrors).length > 0) {
+      setValidation(validationErrors);
+      return;
+    }
 
     const newPokemon = {
       name,
@@ -36,6 +64,13 @@ function CreatePokemon() {
       created: true,
     };
 
+    if (selectedTypes.length === 0) {
+      setMinTypes(true);
+      setTimeout(() => {
+        setMinTypes(false);
+      }, 2000);
+      return;
+    }
     dispatch(postPokemon(newPokemon));
 
     setSuccessMessage("Pokemon successfully created!");
@@ -46,16 +81,47 @@ function CreatePokemon() {
     }, 2000);
   };
 
+  const handleInputChange = (field, value) => {
+    switch (field) {
+      case "name":
+        setName(value);
+        break;
+      case "hp":
+        setHp(value);
+        break;
+      case "attack":
+        setAttack(value);
+        break;
+      case "defense":
+        setDefense(value);
+        break;
+      case "speed":
+        setSpeed(value);
+        break;
+      case "height":
+        setHeight(value);
+        break;
+      case "weight":
+        setWeight(value);
+        break;
+      case "img":
+        setImg(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleTypeChange = (type) => {
     if (selectedTypes.includes(type)) {
       setSelectedTypes(selectedTypes.filter((t) => t !== type));
-    } else if (selectedTypes.length < 2) {
-      setSelectedTypes([...selectedTypes, type]);
-    } else {
+    } else if (selectedTypes.length === 2) {
       setMaxTypes(true);
       setTimeout(() => {
         setMaxTypes(false);
       }, 2000);
+    } else {
+      setSelectedTypes([...selectedTypes, type]);
     }
   };
 
@@ -69,121 +135,48 @@ function CreatePokemon() {
     setHeight(0);
     setWeight(0);
     setSelectedTypes([]);
+    setImg("");
   };
 
   return (
-    <div className={styles.formContainer}>
-      <h2 className={styles.formHeader}>Create new Pokemon</h2>
-      {successMessage && (
-        <p className={styles.successMessage}>{successMessage}</p>
-      )}
-      <form onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Nombre:</label>
-          <input
-            className={styles.formInput}
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <label className={styles.formLabel}>HP:</label>
-          <input
-            className={styles.formInput}
-            type="number"
-            value={hp}
-            onChange={(e) => setHp(e.target.value)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Ataque:</label>
-          <input
-            className={styles.formInput}
-            type="number"
-            value={attack}
-            onChange={(e) => setAttack(e.target.value)}
-          />
-          <label className={styles.formLabel}>Defensa:</label>
-          <input
-            className={styles.formInput}
-            type="number"
-            value={defense}
-            onChange={(e) => setDefense(e.target.value)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Velocidad:</label>
-          <input
-            className={styles.formInput}
-            type="number"
-            value={speed}
-            onChange={(e) => setSpeed(e.target.value)}
-          />
-          <label className={styles.formLabel}>Altura:</label>
-          <input
-            className={styles.formInput}
-            type="number"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Peso:</label>
-          <input
-            className={styles.formInput}
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-          />
-          <label className={styles.formLabel}>Imagen:</label>
-          <input
-            className={styles.formInput}
-            type="text"
-            value={img}
-            onChange={(e) => setImg(e.target.value)}
-          />
-        </div>
-        <div style={{ width: "90%", marginBottom: "3%" }}>
-          <label
-            className={styles.formLabel}
-            style={{ marginLeft: "38%", marginTop: "5%", fontSize: "1.5em" }}
-          >
-            Types
-          </label>
-          <div className={styles.checkboxContainer}>
-            {allTypes.map((type) => (
-              <div key={type.name} className={styles.checkboxGroup}>
-                <label className={styles.checkboxLabel}>
-                  <input
-                    type="checkbox"
-                    checked={selectedTypes.includes(type.name)}
-                    onChange={() => handleTypeChange(type.name)}
-                    style={{ display: "none" }}
-                  />
-                  <img
-                    src={type.image_type}
-                    alt={type.name}
-                    className={`${styles.typeImage} ${
-                      selectedTypes.includes(type.name)
-                        ? styles.typeImageSelected
-                        : ""
-                    }`}
-                    title={type.name.toUpperCase()}
-                  />
-                </label>
-              </div>
-            ))}
-          </div>
-        </div>
-        {maxTypes && (
-          <h2 className={styles.errorMessage}>
-            Only 2 types can be chosen at most
-          </h2>
+    <div className={styles.Overlay}>
+      <div className={styles.formContainer}>
+        {successMessage && (
+          <p className={styles.successMessage}>{successMessage}</p>
         )}
-        <button className={styles.formButton} type="submit">
-          Crear Pokemon
-        </button>
-      </form>
+        <PokemonForm
+          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChange}
+          handleImageCheckboxChange={handleImageCheckboxChange}
+          name={name}
+          hp={hp}
+          attack={attack}
+          defense={defense}
+          speed={speed}
+          height={height}
+          weight={weight}
+          disableImageInput={disableImageInput}
+          validation={validation}
+        />
+
+        <TypesSection
+          allTypes={allTypes}
+          selectedTypes={selectedTypes}
+          handleTypeChange={handleTypeChange}
+          img={img}
+        />
+        {maxTypes && (
+          <h2 className={styles.errorMessage}>Only 2 types can be chosen at most</h2>
+        )}
+        {minTypes && (
+          <h2 className={styles.errorMessage}>Must have at least one type</h2>
+        )}
+        <NavLink to="/home" className={styles.navLink}>
+          <FaHome title="Back to Home" />
+        </NavLink>
+      </div>
     </div>
   );
 }
+
 export default CreatePokemon;

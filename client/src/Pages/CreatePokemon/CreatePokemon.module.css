@@ -1,18 +1,29 @@
 /* CreatePokemon.module.css */
+.Overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
 
 .formContainer {
-  max-width: 110vh;
+  display: flex;
+  width: 36%;
   margin: 0 auto;
-  margin-top: 5em;
   padding: 20px;
   border-radius: 10px;
-  background-image: linear-gradient(-45deg,#251d2e, #2e788d, #3799ab, #251d2e);
+  background-image: linear-gradient(-45deg, #251d2e, #2e788d, #3799ab, #251d2e);
   transform: scale(0.5);
   animation: fade-in 0.8s ease-in-out forwards;
   box-shadow: 6px 5px 5px #0c2327;
   border: 1px groove #23626d;
 }
-
 
 @keyframes fade-in {
   0% {
@@ -32,39 +43,33 @@
 
 .formGroup {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2em;
-  margin-bottom: 20px;
-  margin-right: 5vh;
-
+  flex-direction: column;
 }
 
 .formLabel {
   font-family: Verdana, sans-serif;
   color: white;
   display: flex;
-  justify-content: flex-end;
-  width: 20%;
+  justify-content: flex-start;
   font-weight: bold;
+  margin-top: 20px;
   margin-bottom: 5px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-
 .formInput {
-  width: 60%;
-  padding: 10px;
+  width: 100%;
+  max-width: 40vh;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-}
-
-.formCheckbox {
-  margin-top: 5px;
+  margin-right: 35vh;
 }
 
 .formButton {
+  margin-top: 3vh;
+  margin-inline-start: 15vh;
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
@@ -79,18 +84,23 @@
 }
 
 .checkboxGroup {
-  display: inline-flex;
-  align-items: flex-start;
+  display: inline-block;
+  max-width: 20vh;
   padding: 1em;
-  gap: 10px;
+  gap: 5px;
   font-size: 14px;
   color: #666;
+  margin-left: 6vh;
 }
 
 .successMessage {
-  color: #ffcb05;
-  font-weight: bold;
-  margin-top: 10px;
+  position: absolute;
+  left: 0;
+  right: 20%;
+  top: 0;
+  font-size: 1.2em;
+  color: rgb(229, 255, 0);
+  text-shadow: 0 0 10px rgba(0, 0, 0);
 }
 
 .typeImage {
@@ -115,6 +125,41 @@
 }
 
 .errorMessage {
-  font-size: 1em;
-  color: rgb(203, 245, 18);
+  position: absolute;
+  left: 0;
+  right: 20%;
+  top: 0;
+  font-size: 1.2em;
+  color: rgb(229, 255, 0);
+  text-shadow: 0 0 10px rgba(0, 0, 0);;
+}
+
+.checkboxLabel {
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rangeValue {
+  width: max-content;
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  margin: 0 auto;
+  margin-top: -5px;
+  font-weight: bold;
+  color: rgb(72, 255, 0);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.navLink {
+  position: absolute;
+  bottom:0;
+  color: white;
+  font-size: 2em;
+  padding: 10px 15px;
+}
+
+.navLink:hover {
+  color: #c0df3e;
 }

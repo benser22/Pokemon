@@ -10,8 +10,6 @@ import Error404 from "./components/Error404/Error404";
 
 
 function App() {
-
-
   // Obtener la ubicación actual usando useLocation
   const location = useLocation();
 

@@ -1,14 +1,17 @@
 const { Pokemon, Type } = require("../db");
 
 const postPokemons = async (req, res) => {
+
   try {
-    const { name, img, hp, attack, defense, speed, height, weight, types, created } =
+    let { img } = req.body;
+    if (img === "default") img = "https://i.ibb.co/k4nd0M0/pika.png";
+
+    const { name, hp, attack, defense, speed, height, weight, types, created } =
       req.body;
 
-      // me aseguro de que el type sea minuscula, aunque esto podria eliminarlo si lo fuerzo en el front luego...
-    const lowerCaseTypes = types.map(type => type.toLowerCase());
-    
-    // Crear el Pokémon en la base de datos
+    const lowerCaseTypes = types.map((type) => type.toLowerCase());
+
+    // Creo el pokemon en la base de datos
     const newPokemon = await Pokemon.create({
       name,
       img,
@@ -19,22 +22,25 @@ const postPokemons = async (req, res) => {
       height,
       weight,
       lowerCaseTypes,
-      created
+      created,
     });
 
-    // Relacionar el Pokémon con sus tipos
+    // Relaciono el Pokémon con sus tipos
     const selectedTypes = await Type.findAll({
       where: {
         name: lowerCaseTypes,
       },
     });
 
-    // Agregar la relación a la tabla intermedia "pokemon_type"
+    // Agrego la relación a la tabla intermedia "pokemon_type"
     await newPokemon.addTypes(selectedTypes);
-    res.status(201).json(newPokemon);
+
+    // Agrego el campo "types" al objeto newPokemon
+    newPokemon.dataValues.types = selectedTypes.map((type) => type.name);
+    res.status(201).json(newPokemon.dataValues);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error al crear el Pokémon." });
+    res.status(500).json({ message: "Error creating the pokemon" });
   }
 };
 

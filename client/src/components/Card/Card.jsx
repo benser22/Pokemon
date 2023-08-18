@@ -1,41 +1,29 @@
-import React from 'react';
-import { IMGTYPES, TYPES } from '../../constants/types.js';
-import { Link } from 'react-router-dom';
-import styles from './Card.module.css';
-import { IMAGES } from '../../constants/types.js';
+import React from "react";
+import styles from "./Card.module.css";
 
-export default function Card({ id, name, image, types,toggle }) {
+export default function Card({ pokemon, getType }) {
+  const formattedName = capitalizeFirstLetter(pokemon.name);
+
+  function capitalizeFirstLetter(input) {
+    return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+  }
+
   return (
-    types && (
-      <div
-        className={styles.card}
-        style={{ background: TYPES[types[0]?.name] }}
-      >
-        <div className={styles.info}>
-          <h2>{name}</h2>
-          <div className={styles.containerTypes}>
-            {types &&
-              types.map((poke) => (
-                <div className={styles.imgAndName} key={`${id}${poke.name}`}>
-                  <img
-                    src={IMGTYPES[poke.name]}
-                    alt={poke.name}
-                    className={styles.typesImg}
-                  />
-                  <h3>{poke.name}</h3>
-                </div>
-              ))}
-          </div>
-        </div>
-
-        <Link to={`/pokemons/${id}`}>
-          {IMAGES[id] && toggle ? (
-            <img src={IMAGES[id]} alt={name} className={styles.imgPoke} />
-          ) : (
-            <img src={image} alt={name} className={styles.imgPoke} />
-          )}
-        </Link>
+    <div className={styles.card}>
+      <img
+        src={pokemon.img}
+        alt={pokemon.name}
+        className={styles.pokemonImage}
+      />
+      <h2 className={styles.pokemonName}>{formattedName}</h2>
+      <div className={styles.types}>
+        {pokemon.types.map((type, index) => (
+          <span key={index} className={styles.type}>
+            <img src={getType(type)} alt={type} className={styles.typeImage} />
+            <label className={styles.typeLabel}>{type.toUpperCase()}</label>
+          </span>
+        ))}
       </div>
-    )
+    </div>
   );
 }
