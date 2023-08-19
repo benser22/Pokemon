@@ -25,12 +25,12 @@ const Navbar = () => {
       </Link>
       <Link to='/create' style={{ textDecoration: 'none', color: 'black' }}>
         <div className={styles.links}>
-          <p>CREATE POKEMON</p>
+          <p>Create Pokemon</p>
         </div>
       </Link>
       <Link to='/' style={{ textDecoration: 'none', color: 'black' }}>
         <div className={styles.links}>
-          <p>xxxxxxxxxxxxxxxx</p>
+          <p>Logout</p>
         </div>
       </Link>
 

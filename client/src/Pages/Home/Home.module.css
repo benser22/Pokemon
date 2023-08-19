@@ -1,4 +1,11 @@
 /* Home.module.css */
+.container {
+  background-image: url("/src/assets/backgrounds/pokemonfondo.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+}
 
 .title {
   font-size: 24px;
@@ -75,13 +82,14 @@
 }
 
 .buttonContainer {
-  position: fixed;
-  bottom: 2%;
-  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 90%;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  padding: 10px;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  z-index: 999;
 }

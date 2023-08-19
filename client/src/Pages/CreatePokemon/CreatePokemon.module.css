@@ -13,12 +13,16 @@
 }
 
 .formContainer {
+  position: relative;
   display: flex;
   width: 42%;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
-  background-image: linear-gradient(-45deg, #251d2e, #2e788d, #3799ab, #251d2e);
+  background-image: url("/src/assets/backgrounds/design2.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   transform: scale(0.5);
   animation: fade-in 0.8s ease-in-out forwards;
   box-shadow: 6px 5px 5px #0c2327;
@@ -74,16 +78,25 @@
   bottom: 0;
   margin-bottom: 2%;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-image: linear-gradient(-45deg, darkblue, #0056b3, darkblue);
   color: #fff;
-  border: none;
-  border-radius: 5px;
+  border: groove 1px black;
+  border-radius: 10px;
   font-size: 14px;
   cursor: pointer;
+  box-shadow: 0 0 2px rgb(162, 162, 162);
+  transition: all 0.1s ease; /* Agrega una transición suave */
 }
 
 .formButton:hover {
-  background-color: #0056b3;
+  filter: brightness(130%);
+  box-shadow: 0 0 4px rgb(255, 255, 255);
+  transform: translateY(-1px); 
+}
+
+.formButton:active {
+  transform: translateY(1px); 
+  box-shadow: none;
 }
 
 .checkboxGroup {
@@ -113,6 +126,7 @@
   border-radius: 8px;
   min-width: 4em;
   max-width: 4em;
+  border: solid 2px orange;
 }
 
 .typeImage:hover {
@@ -125,7 +139,7 @@
   filter: grayscale(0);
   filter: saturate(110%);
   transform: scale(1.2);
-  border: solid gray 1px;
+  border: solid 1px yellow;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
@@ -142,6 +156,7 @@
 }
 
 .checkboxLabel {
+  color: rgb(198, 198, 198);
   font-size: 12px;
   font-weight: bold;
   display: flex;

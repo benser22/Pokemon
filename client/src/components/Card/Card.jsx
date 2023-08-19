@@ -17,6 +17,7 @@ export default function Card({ pokemon, getType }) {
   };
 
   return (
+    <div className={styles.cardContainer}>
     <div className={styles.card}>
       <img
         src={pokemon.img}
@@ -39,6 +40,7 @@ export default function Card({ pokemon, getType }) {
           </span>
         ))}
       </div>
+    </div>
     </div>
   );
 }

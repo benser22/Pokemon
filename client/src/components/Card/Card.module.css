@@ -1,17 +1,22 @@
 /* Card.module.css */
 
+.cardContainer{
+  display: inline-block;
+  flex-wrap: wrap;
+  margin-top: 6%;
+}
+
 .card {
   display: inline-block;
   padding: 10px;
   background-image: linear-gradient(45deg, #c51e04, #c3a209, #ffcb05, #c3a209, #c51e04);
   border-radius: 0 20px 0 20px;
   overflow: hidden;
-  height: 28vh;
+  height: 33vh;
   min-width: 25vh;
   max-width: 25vh;
   transition: transform 0.4s, box-shadow 0.3s ease;
-  margin-top: 4vh;
-  margin-bottom: 1vh;
+  margin-bottom: -11vh;
   margin-left: 6vh;
   border: 1px groove #23626d;
   box-shadow: 6px 5px 5px #0c2327;
@@ -26,8 +31,8 @@
 .pokemonImage {
   margin: 0;
   margin-right: 5%;
-  min-width: 16vh;
-  max-width: 16vh;
+  width: 16vh;
+  width: 16vh;
   border-radius: 8px;
   border: 1px solid #23626d;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.4) inset;

@@ -31,12 +31,12 @@ const Home = () => {
 
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 300);
 
     return () => clearTimeout(loadingTimeout);
   }, [dispatch, allPokemons.length, allTypes.length]);
 
-  if (isLoading) {
+  if (isLoading || !allTypes.length || !allPokemons.length) {
     return <Loader />;
   }
 
