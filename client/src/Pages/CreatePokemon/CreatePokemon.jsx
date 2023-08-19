@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./CreatePokemon.module.css";
 import { postPokemon } from "../../redux/actions/actions";
 import { useNavigate, NavLink } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import validateForm from "./validateForm";
 import PokemonForm from "./PokemonsForm";
 import TypesSection from "./TypesSection";
 
 function CreatePokemon() {
   const allTypes = useSelector((state) => state.allTypes);
+  // me traigo los types de redux
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,12 +26,7 @@ function CreatePokemon() {
   const [successMessage, setSuccessMessage] = useState("");
   const [maxTypes, setMaxTypes] = useState(false);
   const [minTypes, setMinTypes] = useState(false);
-  const [disableImageInput, setDisableImageInput] = useState(false);
   const [validation, setValidation] = useState({});
-
-  const handleImageCheckboxChange = () => {
-    setDisableImageInput(!disableImageInput);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +43,7 @@ function CreatePokemon() {
 
     if (Object.keys(validationErrors).length > 0) {
       setValidation(validationErrors);
+      // si hay algun error en los campos, no me dejará avanzar en el submit
       return;
     }
 
@@ -63,6 +60,7 @@ function CreatePokemon() {
       created: true,
     };
 
+    // compruebo que al menos haya seleccionado 1 type
     if (selectedTypes.length === 0) {
       setMinTypes(true);
       setTimeout(() => {
@@ -70,16 +68,17 @@ function CreatePokemon() {
       }, 2000);
       return;
     }
-    dispatch(postPokemon(newPokemon));
 
+    // Si todo está en orden, agrego el nuevo Pokemón!!
+    dispatch(postPokemon(newPokemon));
     setSuccessMessage("Pokemon successfully created!");
-    clearFields();
     setTimeout(() => {
       setSuccessMessage("");
       navigate("/home");
     }, 2000);
   };
 
+  // mantengo actualizado los valores del nuevo pokemon a medida que cambian en el input
   const handleInputChange = (field, value) => {
     switch (field) {
       case "name":
@@ -113,27 +112,16 @@ function CreatePokemon() {
 
   const handleTypeChange = (type) => {
     if (selectedTypes.includes(type)) {
-      setSelectedTypes(selectedTypes.filter((t) => t !== type));
+      setSelectedTypes(selectedTypes.filter((t) => t !== type)); // me quedo con los types seleccionados si es que los hubiera
     } else if (selectedTypes.length === 2) {
+      // controlo que no haya seleccionado mas de 2 types
       setMaxTypes(true);
       setTimeout(() => {
         setMaxTypes(false);
       }, 2000);
     } else {
-      setSelectedTypes([...selectedTypes, type]);
+      setSelectedTypes([...selectedTypes, type]); // update de los types seleccionados
     }
-  };
-
-  const clearFields = () => {
-    setName("");
-    setImg("");
-    setHp(0);
-    setAttack(0);
-    setDefense(0);
-    setSpeed(0);
-    setHeight(0);
-    setWeight(0);
-    setSelectedTypes([]);
   };
 
   return (
@@ -144,19 +132,17 @@ function CreatePokemon() {
         )}
         <PokemonForm
           handleSubmit={handleSubmit}
-          handleInputChange={handleInputChange}
-          handleImageCheckboxChange={handleImageCheckboxChange}
+          handleInputChange={handleInputChange} // con esta función voy a tener actualizado los valores del nuevo Poke
           name={name}
           hp={hp}
           attack={attack}
           defense={defense}
           img={img}
-          setImg={setImg}
           speed={speed}
           height={height}
           weight={weight}
-          disableImageInput={disableImageInput}
           validation={validation}
+          setImg={setImg} // paso esta funcion porque con el checkbox setearé img dinámicamente
         />
 
         <TypesSection
@@ -165,14 +151,18 @@ function CreatePokemon() {
           handleTypeChange={handleTypeChange}
           img={img}
         />
+
+        {/* Mensajes de error de validaction de los types */}
         {maxTypes && (
-          <h2 className={styles.errorMessage}>Only 2 types can be chosen at most</h2>
+          <h2 className={styles.errorMessage}>
+            Only 2 types can be chosen at most
+          </h2>
         )}
         {minTypes && (
           <h2 className={styles.errorMessage}>Must have at least one type</h2>
         )}
         <NavLink to="/home" className={styles.navLink}>
-          <FaHome title="Back to Home" />
+          <FaTimes title="Close" />
         </NavLink>
       </div>
     </div>

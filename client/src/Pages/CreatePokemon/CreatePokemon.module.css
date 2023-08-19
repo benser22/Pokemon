@@ -1,5 +1,5 @@
 /* CreatePokemon.module.css */
-.Overlay{
+.Overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@
 
 .formContainer {
   display: flex;
-  width: 36%;
+  width: 42%;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
@@ -37,8 +37,7 @@
 }
 
 .formHeader {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+  font-size: 1rem;
 }
 
 .formGroup {
@@ -47,12 +46,13 @@
 }
 
 .formLabel {
+  font-size: 12px;
   font-family: Verdana, sans-serif;
   color: white;
   display: flex;
   justify-content: flex-start;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 5px;
   margin-bottom: 5px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
@@ -65,17 +65,20 @@
   border-radius: 5px;
   font-size: 16px;
   margin-right: 35vh;
+  margin-bottom: 5px;
 }
 
 .formButton {
-  margin-top: 3vh;
-  margin-inline-start: 15vh;
+  position: absolute;
+  right: 15%;
+  bottom: 0;
+  margin-bottom: 2%;
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -88,17 +91,19 @@
   max-width: 20vh;
   padding: 1em;
   gap: 5px;
-  font-size: 14px;
+  font-size: 12px;
   color: #666;
   margin-left: 6vh;
 }
 
 .successMessage {
+  font-family: Verdana, sans-serif;
+  font-weight: bold;
   position: absolute;
   left: 0;
-  right: 20%;
+  right: 10%;
   top: 0;
-  font-size: 1.2em;
+  font-size: 13px;
   color: rgb(229, 255, 0);
   text-shadow: 0 0 10px rgba(0, 0, 0);
 }
@@ -125,22 +130,26 @@
 }
 
 .errorMessage {
+  font-family: Verdana, sans-serif;
+  font-weight: bold;
   position: absolute;
   left: 0;
-  right: 20%;
+  right: 10%;
   top: 0;
-  font-size: 1.2em;
+  font-size: 13px;
   color: rgb(229, 255, 0);
-  text-shadow: 0 0 10px rgba(0, 0, 0);;
+  text-shadow: 0 0 10px rgba(0, 0, 0);
 }
 
 .checkboxLabel {
+  font-size: 12px;
   font-weight: bold;
   display: flex;
   justify-content: flex-start;
 }
 
 .rangeValue {
+  font-size: 12px;
   width: max-content;
   border-radius: 8px;
   padding: 4px;
@@ -154,9 +163,10 @@
 
 .navLink {
   position: absolute;
-  bottom:0;
+  right: 0;
+  top: 0;
   color: white;
-  font-size: 2em;
+  font-size: 30px;
   padding: 10px 15px;
 }
 

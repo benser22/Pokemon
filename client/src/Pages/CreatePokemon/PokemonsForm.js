@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 function PokemonForm({
   handleSubmit,
   handleInputChange,
-  handleImageCheckboxChange,
   name,
   hp,
   attack,
@@ -15,10 +14,14 @@ function PokemonForm({
   weight,
   img,
   setImg,
-  disableImageInput,
   validation,
 }) {
   const [displayValidation, setDisplayValidation] = useState({});
+  const [disableImageInput, setDisableImageInput] = useState(false);
+
+ const handleImageCheckboxChange = () => {
+    setDisableImageInput(!disableImageInput);
+  };
 
   useEffect(()=>{
     disableImageInput ? setImg("default") : setImg(img)

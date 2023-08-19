@@ -6,7 +6,7 @@ function TypesSection({ allTypes, selectedTypes, handleTypeChange, maxTypes, min
     <div>
       <label
         className={styles.formLabel}
-        style={{ marginLeft: "50%", marginTop: "-2%", fontSize: "1em" }}
+        style={{ marginLeft: "50%", marginTop: "0%", fontSize: "1em" }}
       >
         Types
       </label>
