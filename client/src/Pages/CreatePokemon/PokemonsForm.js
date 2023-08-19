@@ -14,11 +14,16 @@ function PokemonForm({
   height,
   weight,
   img,
+  setImg,
   disableImageInput,
   validation,
 }) {
   const [displayValidation, setDisplayValidation] = useState({});
 
+  useEffect(()=>{
+    disableImageInput ? setImg("default") : setImg(img)
+  }, [disableImageInput, img, setImg]);
+  
   useEffect(() => {
     setDisplayValidation(validation);
     const timeout = setTimeout(() => {
@@ -153,9 +158,7 @@ function PokemonForm({
       <div className={styles.formGroup}>
         <label className={styles.formLabel}>Url Image:</label>
         <input
-          className={`${styles.formInput} ${
-            disableImageInput ? styles.disabledInput : ""
-          }`}
+          className={styles.formInput}
           type="text"
           value={disableImageInput ? "" : img}
           onChange={(e) => handleImageInputChange(e.target.value)}

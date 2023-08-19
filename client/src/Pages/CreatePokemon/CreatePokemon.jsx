@@ -30,7 +30,6 @@ function CreatePokemon() {
 
   const handleImageCheckboxChange = () => {
     setDisableImageInput(!disableImageInput);
-    if (!disableImageInput) {setImg("default");} else {setImg("")}
   };
 
   const handleSubmit = async (e) => {
@@ -135,7 +134,6 @@ function CreatePokemon() {
     setHeight(0);
     setWeight(0);
     setSelectedTypes([]);
-    setImg("");
   };
 
   return (
@@ -152,6 +150,8 @@ function CreatePokemon() {
           hp={hp}
           attack={attack}
           defense={defense}
+          img={img}
+          setImg={setImg}
           speed={speed}
           height={height}
           weight={weight}
