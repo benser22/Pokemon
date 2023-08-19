@@ -9,7 +9,7 @@ import {
   FILTER_CREATES,
   ORDER_NAME,
   DELETE_POKEMON,
-} from '../actions/types.js';
+} from "../actions/types.js";
 
 const initialState = {
   pokemons: [],
@@ -24,7 +24,7 @@ function rootReducer(state = initialState, action) {
     case GET_ALL_POKEMONS:
       return {
         ...state,
-        pokemonsApi: action.payload
+        pokemonsApi: action.payload,
       };
 
     case GET_POKEMON_DETAILS:
@@ -33,21 +33,24 @@ function rootReducer(state = initialState, action) {
         pokemon: action.payload,
       };
 
-      case POST_POKEMON:
-        return {
-          ...state,
-          pokemons: [...state.pokemons, action.payload],
-          filteredPokemons: [...state.filteredPokemons, action.payload]
-        };
-      
-
-    case DELETE_POKEMON:
-      const toDelete = state.pokemons;
-      const pokeUpdates = toDelete.filter((poke) => poke.id !== action.payload);
+    case POST_POKEMON:
       return {
         ...state,
-        pokemons: pokeUpdates,
-        filteredPokemons: pokeUpdates,
+        pokemons: [...state.pokemons, action.payload],
+        filteredPokemons: [...state.filteredPokemons, action.payload],
+      };
+
+    case DELETE_POKEMON:
+      let newArray = [];
+      if (typeof action.payload === "number") {
+        newArray = state.pokemonsApi.filter((poke) => poke.id !== action.payload);
+        state.pokemonsApi = newArray;
+      } else {
+        newArray = state.pokemons.filter((poke) => poke.id !== action.payload);
+        state.pokemons = newArray;
+      }
+      return {
+        ...state,
       };
 
     case SEARCH_POKEMON:
@@ -90,7 +93,7 @@ function rootReducer(state = initialState, action) {
 
     case ORDER_NAME:
       const sortOrder = action.payload.sortOrder;
-      const order = action.payload.order === 'ascending' ? 1 : -1;
+      const order = action.payload.order === "ascending" ? 1 : -1;
       const sortedPokemons = [...state.filteredPokemons].sort((a, b) => {
         if (a[sortOrder] > b[sortOrder]) return order;
         if (a[sortOrder] < b[sortOrder]) return -order;

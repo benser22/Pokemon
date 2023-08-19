@@ -21,7 +21,7 @@ const Home = () => {
 
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
-    if (!pokemonsApi.length) {
+    if (!allPokemons.length) {
       dispatch(getAllPokemons());
     }
 
@@ -34,7 +34,7 @@ const Home = () => {
     }, 1000);
 
     return () => clearTimeout(loadingTimeout);
-  }, [dispatch, pokemonsApi.length, allTypes.length]);
+  }, [dispatch, allPokemons.length, allTypes.length]);
 
   if (isLoading) {
     return <Loader />;

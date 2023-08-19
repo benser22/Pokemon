@@ -3,10 +3,9 @@ const { Pokemon } = require("../db");
 const deletePokemon = async (req, res) => {
   try {
     const { id } = req.params;
-
+    
     // Buscar el Pokémon en la base de datos
     const pokemonToDelete = await Pokemon.findByPk(id);
-
     if (!pokemonToDelete) {
       return res.status(404).json({ message: "Pokemon not found" });
     }

@@ -86,13 +86,15 @@ export const postPokemon = (values) => {
 export const deletePokemon = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(`${URL}/delete/${id}`);
+      if (typeof id !== "number") {
+        await axios.delete(`${URL}/${id}`);
+      }
       dispatch({
         type: DELETE_POKEMON,
-        payload: data.id,
+        payload: id,
       });
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   };
 };

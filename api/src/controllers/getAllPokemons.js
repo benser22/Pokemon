@@ -14,8 +14,10 @@ const getAllPokemons = async (req, res) => {
         const detailsResponse = await axios.get(pokemon.url);
         const types = detailsResponse.data.types.map((type) => type.type.name);
         const imageUrl = detailsResponse.data.sprites.other['official-artwork'].front_default; // Obtener la ruta de la imagen
+        const id = pokemon.url.match(/\/(\d+)\/$/)[1];
 
         return {
+          id: Number(id),
           ...pokemon,
           types: types,
           img: imageUrl,
