@@ -1,26 +1,25 @@
 .error {
-  text-align: center;
-  padding: 20px;
-  height: 60vh;
+  height: 100%;
+  width: 100%;
 }
 
-h1 {
+.myh1 {
   font-size: 72px;
   color: #0066ff;
 }
 
-h2 {
+.myh2 {
   font-size: 36px;
 }
 
-p {
+.myp {
   font-size: 18px;
 }
 
-button {
+.mybutton {
   padding: 10px 20px;
-  font-size: 16px;
-  background-color: #3598aa;
+  font-size: 28px;
+  background-color: #277280;
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -28,15 +27,11 @@ button {
   margin-top: 20px;
 }
 
-button:hover {
-  background-color: #266f7c;
+.mybutton:hover {
+  filter: brightness(120%);
+  color: #ffcb05;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+
 }
 
-.error {
-  border: 2px solid #133343;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 20px;
-}
+
