@@ -52,7 +52,7 @@ function PokemonForm({
       const randomIndex = Math.floor(Math.random() * pokemonImages.length);
       setImg(pokemonImages[randomIndex].url);
     }
-  }, [randomImage]);
+  }, [randomImage, setImg]);
 
   const handleImageInputChange = (value) => {
     if (!disableImageInput && !randomImage) {
@@ -60,9 +60,9 @@ function PokemonForm({
     }
   };
 
-  const handleCheckbox = () => {
-    handleImageCheckboxChange(disableImageInput);
-  };
+  // const handleCheckbox = () => {
+  //   handleImageCheckboxChange(disableImageInput);
+  // };
 
   return (
     <form onSubmit={handleSubmit}>
