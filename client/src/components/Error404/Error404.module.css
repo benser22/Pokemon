@@ -4,6 +4,7 @@
 }
 
 .myh1 {
+  margin-top: 16vh;
   font-size: 72px;
   color: #0066ff;
 }
@@ -17,7 +18,7 @@
 }
 
 .mybutton {
-  padding: 10px 20px;
+  padding: 5px 8px;
   font-size: 28px;
   background-color: #277280;
   color: #ffffff;
@@ -30,7 +31,7 @@
 .mybutton:hover {
   filter: brightness(120%);
   color: #ffcb05;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 
 }
 
