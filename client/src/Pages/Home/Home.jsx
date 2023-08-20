@@ -52,17 +52,17 @@ const Home = () => {
     setCurrentPage(pageNumber);
   };
 
-  // const handlePrevPage = () => {
-  //   if (currentPage > 1) {
-  //     setCurrentPage(currentPage - 1);
-  //   }
-  // };
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
-  // const handleNextPage = () => {
-  //   if (currentPage < totalPages) {
-  //     setCurrentPage(currentPage + 1);
-  //   }
-  // };
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -75,17 +75,19 @@ const Home = () => {
           <Card pokemon={pokemon} getType={getType} key={index} />
         ))}
       <div className={styles.buttonContainer}>
+        <button className={styles.pageButton} onClick={handlePrevPage}>{"<"}</button>
         {Array.from({ length: totalPages }, (_, index) => (
           <button
-            key={index}
-            className={`${styles.pageButton} ${
-              currentPage === index + 1 ? styles.currentPageButton : ""
-            }`}
-            onClick={() => handleChangePage(index + 1)}
+          key={index}
+          className={`${styles.pageButton} ${
+            currentPage === index + 1 ? styles.currentPageButton : ""
+          }`}
+          onClick={() => handleChangePage(index + 1)}
           >
             {index + 1}
           </button>
         ))}
+        <button className={styles.pageButton} onClick={handleNextPage}>{">"}</button>
       </div>
     </div>
   );

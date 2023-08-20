@@ -8,10 +8,10 @@
 
 .card {
   display: inline-block;
-  padding: 10px;
-  background-image: linear-gradient(45deg, #c51e04, #c3a209, #ffcb05, #c3a209, #c51e04);
+  padding: 10px;  
   border-radius: 0 20px 0 20px;
   overflow: hidden;
+  background-size: cover;
   height: 33vh;
   min-width: 25vh;
   max-width: 25vh;
@@ -29,22 +29,21 @@
 }
 
 .pokemonImage {
-  margin: 0;
-  margin-right: 5%;
-  width: 16vh;
-  width: 16vh;
+  margin-top: -3.5vh;
+  height: 20vh;
+  width: 20vh;
   border-radius: 8px;
-  border: 1px solid #23626d;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.4) inset;
+
 }
 
 .pokemonName {
-  margin: 1vh;
+  margin-top: -2vh;
+  margin-bottom: 3vh;
   cursor: pointer;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 1.5em;
+  font-size: 1em;
   color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.9);
 }
 
 .pokemonName:hover {
@@ -60,9 +59,10 @@
 .type {
   display: flex;
   align-items: center;
+  justify-content:flex-start;
   padding: 2px 4px;
   margin: 4px;
-  background-color: #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 16px;
   font-size: 0.8rem;
 }
@@ -70,25 +70,113 @@
 .typeImage {
   width: 20px;
   height: 20px;
-  margin-left: 20%;
+  margin-right: 2vh;
+  border-radius: 16px;
 }
 
 .typeLabel{
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  margin-left: 10%;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
 }
 
 
 .deleteIcon {
-  margin-bottom: 65%;
-  margin-right: -20%;
+  margin-left: 90%;
+  margin-top: 3%;
   width: 20px;
-  height: 20px;
+  height: 15px;
   cursor: pointer;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px 1px 5px 1px;
+  padding: 1px;
 }
 
 .deleteIcon:active {
   transform: scale(0.8);
   filter:saturate(0.9);
-  /* filter:invert(0.7); */
 }
+
+/* 
+Estilos dinamicos para los fondos de las cartas
+*/
+
+.bugBackground {
+  background-image: url("../../assets/types/background/bug.jpg");
+}
+
+.grassBackground {
+  background-image: url("../../assets/types/background/grass.jpg");
+}
+
+.poisonBackground {
+  background-image: url("../../assets/types/background/poison.jpg");
+}
+
+.darkBackground {
+  background-image: url("../../assets/types/background/dark.jpg");
+}
+
+.dragonBackground {
+  background-image: url("../../assets/types/background/dragon.jpg");
+}
+
+.electricBackground {
+  background-image: url("../../assets/types/background/electric.jpg");
+}
+
+.fairyBackground {
+  background-image: url("../../assets/types/background/fairy.jpg");
+}
+
+.fightingBackground {
+  background-image: url("../../assets/types/background/fighting.jpg");
+}
+
+.fireBackground {
+  background-image: url("../../assets/types/background/fire.jpg");
+}
+
+.flyingBackground {
+  background-image: url("../../assets/types/background/flying.jpg");
+}
+
+.ghostBackground {
+  background-image: url("../../assets/types/background/ghost.jpg");
+}
+
+.groundBackground {
+  background-image: url("../../assets/types/background/ground.jpg");
+}
+
+.iceBackground {
+  background-image: url("../../assets/types/background/ice.jpg");
+}
+
+.normalBackground {
+  background-image: url("../../assets/types/background/normal.jpg");
+}
+
+.psychicBackground {
+  background-image: url("../../assets/types/background/psychic.jpg");
+}
+
+.rockBackground {
+  background-image: url("../../assets/types/background/rock.jpg");
+}
+
+.shadowBackground {
+  background-image: url("../../assets/types/background/shadow.jpg");
+}
+
+.steelBackground {
+  background-image: url("../../assets/types/background/steel.jpg");
+}
+
+.unknownBackground {
+  background-image: url("../../assets/types/background/unknown.jpg");
+}
+
+.waterBackground {
+  background-image: url("../../assets/types/background/water.jpg");
+}
+

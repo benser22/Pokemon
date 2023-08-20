@@ -46,7 +46,7 @@ const Navbar = () => {
       </Link>
       <Link to="/create" style={{ textDecoration: "none", color: "black" }}>
         <div className={styles.links}>
-          <p>Create Pokemon</p>
+          <p>Create</p>
         </div>
       </Link>
       <Link

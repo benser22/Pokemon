@@ -1,7 +1,7 @@
 const pokemonImages = [
   {
     id: 1,
-    url: "https://www.sopitas.com/wp-content/uploads/2016/07/lickilicki-pokemon-go-16-e1468367529150.png",
+    url: "https://cdn.pixabay.com/photo/2022/08/07/22/52/character-7371553_1280.png",
   },
   {
     id: 2,
@@ -62,11 +62,19 @@ const pokemonImages = [
   { id: 16, url: "https://i.imgur.com/R0hhTZG.jpeg" },
   {
     id: 17,
-    url: "https://mgxm.replicate.delivery/e5d19b32-7991-4252-8cb4-baca92bc55ef/out-0.png",
+    url: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/666.png",
   },
   {
     id: 18,
     url: "https://mgxm.replicate.delivery/7b31c812-6651-4c34-8886-db5afc73faf0/out-2.png",
+  },
+  {
+    id: 19,
+    url: "https://images.vexels.com/media/users/3/285032/isolated/preview/d029fbdac9320aaca883078de1eb5f05-beba-draga-n-fuego-criatura-mitola-gica.png",
+  },
+  {
+    id: 20,
+    url: "https://i.kym-cdn.com/photos/images/original/001/411/608/091.png",
   },
 ];
 

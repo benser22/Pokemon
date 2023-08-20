@@ -4,12 +4,10 @@ const postPokemons = async (req, res) => {
 
   try {
     let { img } = req.body;
-    if (img === "default") img = "https://i.ibb.co/k4nd0M0/pika.png";
+    if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
 
     const { name, hp, attack, defense, speed, height, weight, types, created } =
       req.body;
-
-    const lowerCaseTypes = types.map((type) => type.toLowerCase());
 
     // Creo el pokemon en la base de datos
     const newPokemon = await Pokemon.create({
@@ -21,14 +19,14 @@ const postPokemons = async (req, res) => {
       speed,
       height,
       weight,
-      lowerCaseTypes,
+      types,
       created,
     });
 
     // Relaciono el Pokémon con sus tipos
     const selectedTypes = await Type.findAll({
       where: {
-        name: lowerCaseTypes,
+        name: types,
       },
     });
 
