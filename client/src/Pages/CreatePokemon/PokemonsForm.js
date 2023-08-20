@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./CreatePokemon.module.css";
 import { useEffect, useState } from "react";
+import pokemonImages from "../../constants/pokeImages"; // Importa el arreglo con las URLs de las imágenes
 
 function PokemonForm({
   handleSubmit,
@@ -18,6 +19,14 @@ function PokemonForm({
 }) {
   const [displayValidation, setDisplayValidation] = useState({});
   const [disableImageInput, setDisableImageInput] = useState(false);
+  const [randomImage, setRandomImage] = useState(false);
+
+  const handleRandomImageChange = () => {
+    setRandomImage(!randomImage);
+    if (randomImage) {
+      setImg(""); // Limpia la imagen si desactivas "Random image"
+    }
+  };
 
  const handleImageCheckboxChange = () => {
     setDisableImageInput(!disableImageInput);
@@ -38,8 +47,15 @@ function PokemonForm({
     };
   }, [validation]);
 
+  useEffect(() => {
+    if (randomImage) {
+      const randomIndex = Math.floor(Math.random() * pokemonImages.length);
+      setImg(pokemonImages[randomIndex].url);
+    }
+  }, [randomImage]);
+
   const handleImageInputChange = (value) => {
-    if (!disableImageInput) {
+    if (!disableImageInput && !randomImage) {
       handleInputChange("img", value);
     }
   };
@@ -163,21 +179,30 @@ function PokemonForm({
         <input
           className={styles.formInput}
           type="text"
-          value={disableImageInput ? "" : img}
+          value={disableImageInput || randomImage ? "" : img}
           onChange={(e) => handleImageInputChange(e.target.value)}
-          readOnly={disableImageInput}
+          readOnly={disableImageInput || randomImage}
           style={{
-            backgroundColor: disableImageInput ? "darkGray" : "white",
+            backgroundColor: disableImageInput || randomImage ? "darkGray" : "white",
           }}
         />
         <label className={styles.checkboxLabel}>
           <input
             type="checkbox"
             checked={disableImageInput}
-            onClick={(e) => handleCheckbox(e.target.value)}
-            onChange={handleImageCheckboxChange}
+            onClick={handleImageCheckboxChange}
+            onChange={() => {}}
           />
           Default Image
+        </label>
+        <label className={styles.checkboxLabel}>
+          <input
+            type="checkbox"
+            checked={randomImage}
+            onClick={handleRandomImageChange}
+            onChange={() => {}}
+          />
+          Random Image
         </label>
         {displayValidation.img && (
           <h2 className={styles.errorMessage}>{displayValidation.img}</h2>

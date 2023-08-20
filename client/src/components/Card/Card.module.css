@@ -86,3 +86,9 @@
   height: 20px;
   cursor: pointer;
 }
+
+.deleteIcon:active {
+  transform: scale(0.8);
+  filter:saturate(0.9);
+  /* filter:invert(0.7); */
+}
