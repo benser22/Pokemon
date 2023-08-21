@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   GET_ALL_POKEMONS,
   GET_POKEMON_DETAILS,
-  SEARCH_POKEMON,
+  GET_POKEMON_BY_NAME,
   GET_TYPES,
   POST_POKEMON,
   FILTER_TYPES,
@@ -99,12 +99,12 @@ export const deletePokemon = (id) => {
   };
 };
 
-export const searchByName = (name) => {
+export const getPokemonByName = (name) => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(`${URL}/?name=${name}`);
+      const { data } = await axios.get(`${URL}/${name}`);
       dispatch({
-        type: SEARCH_POKEMON,
+        type: GET_POKEMON_BY_NAME,
         payload: data,
       });
     } catch (error) {

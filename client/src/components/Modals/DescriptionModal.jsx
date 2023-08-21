@@ -7,15 +7,15 @@ import img3 from "../../assets/images/p3.png";
 const DescriptionModal = ({ onClose }) => {
   const paragraphs = [
     {
-      text: "Este es el primer párrafo de la descripción.",
+      text: `Personalización: Esta aplicación permite a los usuarios crear sus propios Pokemones a partir de información como nombre, estadísticas, imagenes randoms y tipo. La interfaz interactiva hace que el proceso de creación sea intuitivo y atractivo.`,
       image: img1,
     },
     {
-      text: "Aquí tienes el segundo párrafo de la descripción.",
+      text: `Diseño Interactivo: La aplicación presenta una experiencia de usuario interactiva con controles deslizantes, casillas de verificación y campos de entrada. Los usuarios pueden ver los cambios en tiempo real y recibir retroalimentación en caso de errores.`,
       image: img2,
     },
     {
-      text: "Y finalmente, el tercer párrafo de la descripción.",
+      text: `Creación Visual y Divertida: Con su diseño visualmente atractivo y opciones de personalización, la aplicación brinda a los fanáticos de Pokémon una forma divertida de dar vida a sus propias creaciones en el mundo Pokémon.`,
       image: img3,
     },
   ];
@@ -27,11 +27,11 @@ const DescriptionModal = ({ onClose }) => {
       setActiveIndex((prevIndex) =>
         prevIndex === paragraphs.length - 1 ? 0 : prevIndex + 1
       );
-    }, 4000);
+    }, 6000);
 
     return () => {
       clearInterval(interval);
-    };// eslint-disable-next-line
+    }; // eslint-disable-next-line
   }, []);
 
   const handleIndicatorClick = (index) => {
@@ -39,25 +39,28 @@ const DescriptionModal = ({ onClose }) => {
   };
 
   return (
-    <ModalContainer>
-      <ModalContent>
-        <ModalImage
-          src={paragraphs[activeIndex].image}
-          alt={`Imagen ${activeIndex + 1}`}
-        />
-        <ModalParagraph>{paragraphs[activeIndex].text}</ModalParagraph>
-        <IndicatorContainer>
-          {paragraphs.map((_, index) => (
-            <IndicatorDot
-              key={index}
-              active={index === activeIndex}
-              onClick={() => handleIndicatorClick(index)}
-            />
-          ))}
-        </IndicatorContainer>
-        <ModalButton onClick={onClose}>Close</ModalButton>
-      </ModalContent>
-    </ModalContainer>
+    <Overlay>
+      <ModalContainer>
+        <ModalContent>
+          <ModalImage
+            src={paragraphs[activeIndex].image}
+            alt={`Imagen ${activeIndex + 1}`}
+          />
+          <ModalParagraph>{paragraphs[activeIndex].text}</ModalParagraph>
+          <IndicatorContainer>
+            {paragraphs.map((_, index) => (
+              <IndicatorDot
+                key={index}
+                className={index === activeIndex ? "active" : ""}
+                onClick={() => handleIndicatorClick(index)}
+                as="div"
+              />
+            ))}
+          </IndicatorContainer>
+          <ModalButton onClick={onClose}>Close</ModalButton>
+        </ModalContent>
+      </ModalContainer>
+    </Overlay>
   );
 };
 
@@ -83,7 +86,6 @@ const fadeIn = keyframes`
   }
 `;
 
-
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
@@ -106,10 +108,10 @@ const ModalContent = styled.div`
   min-width: 30%;
   text-align: center;
   position: relative;
-  margin-top: 20%;
-  @media (max-width: 768px) { 
-  margin-top: 90%;
-}
+  margin: 0 auto;
+  @media (max-width: 768px) {
+    margin-top: 90%;
+  }
 `;
 
 const ModalParagraph = styled.p`
@@ -119,7 +121,6 @@ const ModalParagraph = styled.p`
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 `;
-
 
 const ModalImage = styled.img`
   max-width: 20%;
@@ -131,23 +132,23 @@ const ModalImage = styled.img`
 `;
 
 const ModalButton = styled.button`
-background-color: #375da4;
-color: white;
-border: none;
-padding: 10px;
-border-radius: 4px;
-cursor: pointer;
-transition: transform 0.2s ease;
-margin-left: 85%;
+  background-color: #375da4;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin-left: 85%;
 
-&:hover {
-  filter: brightness(1.2);
-}
+  &:hover {
+    filter: brightness(1.2);
+  }
 
-&:active {
-  animation: ${pressAnimation} 0.2s ease;
-  transform: translateY(3px);
-}
+  &:active {
+    animation: ${pressAnimation} 0.2s ease;
+    transform: translateY(3px);
+  }
 `;
 
 const IndicatorContainer = styled.div`
@@ -161,8 +162,22 @@ const IndicatorDot = styled.div`
   width: 8px;
   height: 8px;
   border: solid darkblue 0.5px;
-  background-color: ${({ active }) => (active ? "#007bff" : "#ccc")};
+  background-color: #ccc;
   border-radius: 50%;
   margin: 0 5px;
   cursor: pointer;
+
+  &.active {
+    background-color: #007bff;
+  }
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10000;
 `;

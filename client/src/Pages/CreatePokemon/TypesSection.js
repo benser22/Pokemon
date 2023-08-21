@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CreatePokemon.module.css";
 
-function TypesSection({ allTypes, selectedTypes, handleTypeChange, maxTypes, minTypes }) {
+function TypesSection({ allTypes, selectedTypes, handleTypeChange }) {
   return (
     <div>
       <label
@@ -35,11 +35,6 @@ function TypesSection({ allTypes, selectedTypes, handleTypeChange, maxTypes, min
           </div>
         ))}
       </div>
-      {maxTypes && (
-        <h2 className={styles.errorMessage}>
-          Only 2 types can be chosen at most
-        </h2>
-      )}
     </div>
   );
 }

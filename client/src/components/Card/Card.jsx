@@ -47,7 +47,7 @@ export default function Card({ pokemon, getType }) {
                 alt={type}
                 className={styles.typeImage}
               />
-              <label className={styles.typeLabel}>{type.toUpperCase()}</label>
+              <span className={styles.typeSpan}>{type.toUpperCase()}</span>
             </span>
           ))}
         </div>

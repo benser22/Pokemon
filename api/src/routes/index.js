@@ -8,6 +8,7 @@ const getAllPokemons = require("../controllers/getAllPokemons");
 const postPokemons = require("../controllers/postPokemons");
 const deletePokemon = require("../controllers/deletePokemonById");
 const postMail = require("../controllers/postMail");
+const searchDuplicated = require("../controllers/searchDuplicated");
 const router = Router();
 
 // Configurar los routers
@@ -19,4 +20,5 @@ router.get("/", getAllPokemons);
 router.post("/", postPokemons);
 router.delete("/:id", deletePokemon);
 router.post("/send-email", postMail);
+router.get("/search/duplicated/", searchDuplicated);
 module.exports = router;

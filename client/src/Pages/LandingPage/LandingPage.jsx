@@ -43,7 +43,7 @@ const LandingPage = () => {
           onClick={openDescriptionModal}
           style={{ cursor: "pointer" }}
         >
-          What is it about
+          Overview
         </div>
         <div
           className={styles.navItem}

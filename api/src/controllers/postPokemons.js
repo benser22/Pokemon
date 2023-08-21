@@ -33,9 +33,20 @@ const postPokemons = async (req, res) => {
     // Agrego la relación a la tabla intermedia "pokemon_type"
     await newPokemon.addTypes(selectedTypes);
 
-    // Agrego el campo "types" al objeto newPokemon
-    newPokemon.dataValues.types = selectedTypes.map((type) => type.name);
-    res.status(201).json(newPokemon.dataValues);
+    const dataValues = {
+      name,
+      img,
+      hp,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
+      created,
+      types
+    }
+
+    res.status(201).json(dataValues);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error creating the pokemon" });

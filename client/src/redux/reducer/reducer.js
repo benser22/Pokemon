@@ -1,7 +1,7 @@
 import {
   GET_ALL_POKEMONS,
   GET_POKEMON_DETAILS,
-  SEARCH_POKEMON,
+  GET_POKEMON_BY_NAME,
   POST_POKEMON,
   RESTORE_POKEMONS,
   GET_TYPES,
@@ -37,7 +37,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         pokemons: [...state.pokemons, action.payload],
-        filteredPokemons: [...state.filteredPokemons, action.payload],
+        // filteredPokemons: [...state.filteredPokemons, action.payload],
       };
 
     case DELETE_POKEMON:
@@ -53,10 +53,10 @@ function rootReducer(state = initialState, action) {
         ...state,
       };
 
-    case SEARCH_POKEMON:
+    case GET_POKEMON_BY_NAME:
       return {
         ...state,
-        filteredPokemons: action.payload,
+        // filteredPokemons: action.payload,
       };
 
     case GET_TYPES:

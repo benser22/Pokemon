@@ -7,6 +7,7 @@ import { FaTimes } from "react-icons/fa";
 import validateForm from "./validateForm";
 import PokemonForm from "./PokemonsForm";
 import TypesSection from "./TypesSection";
+import axios from "axios";
 
 function CreatePokemon() {
   const allTypes = useSelector((state) => state.allTypes);
@@ -23,7 +24,7 @@ function CreatePokemon() {
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
   const [selectedTypes, setSelectedTypes] = useState([]);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [maxTypes, setMaxTypes] = useState(false);
   const [minTypes, setMinTypes] = useState(false);
   const [validation, setValidation] = useState({});
@@ -69,15 +70,27 @@ function CreatePokemon() {
       return;
     }
 
-    // Si todo está en orden, agrego el nuevo Pokemón!!
-    dispatch(postPokemon(newPokemon));
-    setSuccessMessage("Pokemon successfully created!");
-    setTimeout(() => {
-      setSuccessMessage("");
-      navigate("/home");
-    }, 2000);
-  };
+    try {
+      const {data} = await axios(`http://localhost:3001/pokemons/search/duplicated/?name=${newPokemon.name.toLowerCase()}`)
+      if (data.duplicated) {
+        setMessage("The chosen name already exists in the Pokedex");
+        setTimeout(() => {
+          setMessage("");
+        }, 1500);
+        return;
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
 
+    dispatch(postPokemon(newPokemon));
+    setMessage("Pokemon successfully created!");
+    setTimeout(() => {
+      setMessage("");
+      navigate("/home");
+    }, 1500);
+  };
+  
   // mantengo actualizado los valores del nuevo pokemon a medida que cambian en el input
   const handleInputChange = (field, value) => {
     switch (field) {
@@ -120,16 +133,13 @@ function CreatePokemon() {
         setMaxTypes(false);
       }, 2000);
     } else {
-      setSelectedTypes([...selectedTypes, type]); // update de los types seleccionados
+      setSelectedTypes([...selectedTypes, type]);
     }
   };
-
   return (
     <div className={styles.Overlay}>
       <div className={styles.formContainer}>
-        {successMessage && (
-          <p className={styles.successMessage}>{successMessage}</p>
-        )}
+        {message && <p className={styles.message}>{message}</p>}
         <PokemonForm
           handleSubmit={handleSubmit}
           handleInputChange={handleInputChange} // con esta función voy a tener actualizado los valores del nuevo Poke
@@ -154,12 +164,12 @@ function CreatePokemon() {
 
         {/* Mensajes de error de validaction de los types */}
         {maxTypes && (
-          <h2 className={styles.errorMessage}>
+          <h2 className={styles.message}>
             Only 2 types can be chosen at most
           </h2>
         )}
         {minTypes && (
-          <h2 className={styles.errorMessage}>Must have at least one type</h2>
+          <h2 className={styles.message}>Must have at least one type</h2>
         )}
         <NavLink to="/home" className={styles.navLink}>
           <FaTimes title="Close" />

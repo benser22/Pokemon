@@ -109,12 +109,12 @@
   margin-left: 6vh;
 }
 
-.successMessage {
+.message {
   font-family: Verdana, sans-serif;
   font-weight: bold;
   position: absolute;
   left: 0;
-  right: 10%;
+  right: 15%;
   top: 0;
   font-size: 13px;
   color: rgb(229, 255, 0);
