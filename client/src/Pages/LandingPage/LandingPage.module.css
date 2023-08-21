@@ -62,7 +62,7 @@
 }
 
 .title {
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -70,43 +70,38 @@
 }
 
 .description {
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   font-size: 18px;
   margin-bottom: 30px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-
 }
-
 
 .getStartedButton {
   padding: 12px 30px;
   font-size: 18px;
   font-weight: bold;
   background-color: #213770;
-
   color: #fff;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
-  box-shadow: 2px 2px 6px rgba(255, 255, 255, 0.1); 
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 2px 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .getStartedButton:hover {
-  background-color: #375da4;
-  box-shadow: 1px 1px 6px rgba(255, 255, 255, 0.5); /* Ajustamos la sombra al hacer hover */
+  filter: saturate(1.8);
+  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5); 
   transform: scale(1.05);
 }
 
 .getStartedButton:active {
-  background-color: #172347;
-  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.7); /* Sombras blancas al presionar */
+  box-shadow: unset;
   transform: scale(0.95);
 }
-
 
 .anchorLink {
   color: #fff;
@@ -118,7 +113,7 @@
   color: #007bff;
 }
 
-.banner{
+.banner {
   max-width: 30%;
   max-height: 30%;
   z-index: 99999;

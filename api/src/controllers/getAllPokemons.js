@@ -8,17 +8,16 @@ const getAllPokemons = async (req, res) => {
     const response = await axios.get(`${BASE_URL}?limit=${LIMIT}`);
     const pokemons = response.data.results;
 
-    // Fetch additional details for each pokemon to get their types and image URLs
     const pokemonsWithDetails = await Promise.all(
       pokemons.map(async (pokemon) => {
         const detailsResponse = await axios.get(pokemon.url);
-        const types = detailsResponse.data.types.map((type) => type.type.name);
+        const types = detailsResponse.data.types.map((pok) => pok.type.name);
         const imageUrl = detailsResponse.data.sprites.other['official-artwork'].front_default; // Obtener la ruta de la imagen
-        const id = pokemon.url.match(/\/(\d+)\/$/)[1];
-
+        const id = detailsResponse.data.id;
+        const name = detailsResponse.data.name
         return {
-          id: Number(id),
-          ...pokemon,
+          id: id,
+          name: name,
           types: types,
           img: imageUrl,
         };
