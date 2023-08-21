@@ -6,6 +6,7 @@ const postPokemons = async (req, res) => {
     let { img } = req.body;
     if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
 
+    console.log(req.body);
     const { name, hp, attack, defense, speed, height, weight, types, created } =
       req.body;
 
@@ -34,6 +35,7 @@ const postPokemons = async (req, res) => {
     await newPokemon.addTypes(selectedTypes);
 
     const dataValues = {
+      id: newPokemon.id,
       name,
       img,
       hp,
