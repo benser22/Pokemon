@@ -7,12 +7,10 @@ import { deletePokemon } from "../../redux/actions/actions";
 export default function Card({ pokemon, getType }) {
   const dispatch = useDispatch();
   const formattedName = capitalizeFirstLetter(pokemon.name);
-  const [isShiny, setIsShiny] = useState(false); // Nuevo estado para el checkbox
   const [isShinyCreated, setIsShinyCreated] = useState(false)
   function capitalizeFirstLetter(input) {
     return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
   }
-
   const handleDelete = () => {
     dispatch(deletePokemon(pokemon.id));
   };
@@ -23,7 +21,7 @@ export default function Card({ pokemon, getType }) {
   };
 
   const handleCheckboxShiny = () => {
-    setIsShiny(!isShiny);
+    pokemon.isShiny = !pokemon.isShiny;
     setIsShinyCreated(!isShinyCreated)
   };
 
@@ -38,7 +36,7 @@ export default function Card({ pokemon, getType }) {
           </label>
           <input
             type="checkbox"
-            checked={isShiny}
+            checked={pokemon.isShiny}
             onChange={handleCheckboxShiny}
             className={styles.checkShiny}
           />
@@ -52,7 +50,7 @@ export default function Card({ pokemon, getType }) {
         />
         <h2 className={styles.pokemonName}>{formattedName}</h2>
         <img
-          src={isShiny && !pokemon.created ? pokemon.imgShiny : pokemon.img}
+          src={pokemon.isShiny && !pokemon.created ? pokemon.imgShiny : pokemon.img}
           alt={pokemon.name}
           className={`${styles.pokemonImage} ${isShinyCreated && pokemon.created ? styles.createdImage : ""}`}
           id="ckeckShiny"

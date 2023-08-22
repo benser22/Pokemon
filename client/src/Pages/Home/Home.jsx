@@ -7,21 +7,20 @@ import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
 
 const Home = () => {
-  const pokemonsCreated = useSelector((state) => state.pokemons);
-  const pokemonsApi = useSelector((state) => state.pokemonsApi);
-  const allPokemons = [...pokemonsApi, ...pokemonsCreated];
+  // const pokemonsCreated = useSelector((state) => state.pokemons);
+  const pokemons = useSelector((state) => state.pokemons);
   const allTypes = useSelector((state) => state.allTypes);
 
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
-  const totalPages = Math.ceil(allPokemons.length / pokemonsPerPage);
+  const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
 
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
-    if (!allPokemons.length) {
+    if (!pokemons.length) {
       dispatch(getAllPokemons());
     }
 
@@ -34,9 +33,9 @@ const Home = () => {
     }, 300);
 
     return () => clearTimeout(loadingTimeout);
-  }, [dispatch, allPokemons.length, allTypes.length]);
+  }, [dispatch, pokemons.length, allTypes.length]);
 
-  if (isLoading || !allTypes.length || !allPokemons.length) {
+  if (isLoading || !allTypes.length || !pokemons.length) {
     return <Loader />;
   }
 
@@ -66,7 +65,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      {allPokemons
+      {pokemons
         .slice(
           (currentPage - 1) * pokemonsPerPage,
           currentPage * pokemonsPerPage

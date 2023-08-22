@@ -13,7 +13,6 @@ import {
 
 const initialState = {
   pokemons: [],
-  pokemonsApi: [],
   pokemon: {},
   allTypes: [],
   filteredPokemons: [],
@@ -24,7 +23,7 @@ function rootReducer(state = initialState, action) {
     case GET_ALL_POKEMONS:
       return {
         ...state,
-        pokemonsApi: action.payload,
+        pokemons: action.payload,
       };
 
     case GET_POKEMON_DETAILS:
@@ -42,13 +41,8 @@ function rootReducer(state = initialState, action) {
 
     case DELETE_POKEMON:
       let newArray = [];
-      if (typeof action.payload === "number") {
-        newArray = state.pokemonsApi.filter((poke) => poke.id !== action.payload);
-        state.pokemonsApi = newArray;
-      } else {
         newArray = state.pokemons.filter((poke) => poke.id !== action.payload);
         state.pokemons = newArray;
-      }
       return {
         ...state,
       };

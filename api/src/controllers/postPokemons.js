@@ -1,7 +1,6 @@
 const { Pokemon, Type } = require("../db");
 
 const postPokemons = async (req, res) => {
-
   try {
     let { img } = req.body;
     if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
@@ -9,7 +8,7 @@ const postPokemons = async (req, res) => {
     const { name, hp, attack, defense, speed, height, weight, types, created } =
       req.body;
 
-    // Creo el pokemon en la base de datos
+    // Creo el pokemon en la base de datos con los datos del body
     const newPokemon = await Pokemon.create({
       name,
       img,
@@ -23,16 +22,21 @@ const postPokemons = async (req, res) => {
       created,
     });
 
-    // Relaciono el Pokémon con sus tipos
+    // me quedo con los registros enteros de los tipos que coincidan con los types que me llegaron por body
     const selectedTypes = await Type.findAll({
       where: {
         name: types,
       },
     });
 
-    // Agrego la relación a la tabla intermedia "pokemon_type"
-    await newPokemon.addTypes(selectedTypes);
-
+    // una vez que tengo los registros enteros, hago la relación en la tabla intermedia. Utilicé un for para recorrer el arreglo de type porque si hacía el addType del arreglo completo, perdía el orden en el que fueron agregagos desde el front
+    types.forEach(async (type) => {
+      const selectedType = selectedTypes.find((myType) => myType.name === type);
+      if (selectedType) {
+        await newPokemon.addType(selectedType); // hago la relacion en la tabla intermedia de mi nuevo pokemón con cada uno de los tipos correspondientes
+      }
+    });
+    
     const dataValues = {
       id: newPokemon.id,
       name,
@@ -44,9 +48,8 @@ const postPokemons = async (req, res) => {
       height,
       weight,
       created,
-      types
-    }
-
+      types,
+    };
     res.status(201).json(dataValues);
   } catch (error) {
     console.error(error);
