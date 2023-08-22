@@ -49,7 +49,7 @@ function PokemonForm({
 
   useEffect(() => {
     if (randomImage) {
-      const randomIndex = Math.floor(Math.random() * pokemonImages.length);
+      const randomIndex = Math.floor(Math.random() * (pokemonImages.length + 1));
       setImg(pokemonImages[randomIndex].url);
     }
   }, [randomImage, setImg]);
@@ -59,10 +59,6 @@ function PokemonForm({
       handleInputChange("img", value);
     }
   };
-
-  // const handleCheckbox = () => {
-  //   handleImageCheckboxChange(disableImageInput);
-  // };
 
   return (
     <form onSubmit={handleSubmit}>

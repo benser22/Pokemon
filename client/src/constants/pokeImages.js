@@ -66,7 +66,7 @@ const pokemonImages = [
   },
   {
     id: 18,
-    url: "https://www.pngmart.com/files/4/Blue-Monster-PNG-File.png",
+    url: "https://www.pngmart.com/files/12/Monster-Ogre-PNG-Image.png",
   },
   {
     id: 19,

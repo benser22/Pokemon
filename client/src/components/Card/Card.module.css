@@ -101,7 +101,6 @@
   display: flex;
   margin-bottom: -2vh;
   align-items: center;
-  /* z-index: 9999; */
 }
 .shiny{
   color: rgb(29, 29, 29);
@@ -118,6 +117,7 @@
 .createdImage{
   filter:saturate(150%);
   filter:brightness(150%);
+  filter: sepia(0.5);
 }
 /* 
 Estilos dinamicos para los fondos de las cartas
