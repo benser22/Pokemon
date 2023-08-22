@@ -5,6 +5,9 @@ import img2 from "../../assets/images/p2.png";
 import img3 from "../../assets/images/p3.png";
 
 const DescriptionModal = ({ onClose }) => {
+  const [isPaused, setIsPaused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const paragraphs = [
     {
       text: `Personalización: Esta aplicación permite a los usuarios crear sus propios Pokemones a partir de información como nombre, estadísticas, imagenes randoms y tipo. La interfaz interactiva hace que el proceso de creación sea intuitivo y atractivo.`,
@@ -20,19 +23,26 @@ const DescriptionModal = ({ onClose }) => {
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) =>
-        prevIndex === paragraphs.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 6000);
+    let interval;
+
+    if (!isPaused) {
+      interval = setInterval(() => {
+        setActiveIndex((prevIndex) =>
+          prevIndex === paragraphs.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 3000);
+    }
 
     return () => {
       clearInterval(interval);
-    }; // eslint-disable-next-line
-  }, []);
+    };
+  }, [isPaused, paragraphs.length]);
+
+  const handlePauseToggle = () => {
+    setIsPaused((prevState) => !prevState);
+  };
 
   const handleIndicatorClick = (index) => {
     setActiveIndex(index);
@@ -57,7 +67,12 @@ const DescriptionModal = ({ onClose }) => {
               />
             ))}
           </IndicatorContainer>
-          <ModalButton onClick={onClose}>Close</ModalButton>
+          <ButtonRow>
+            <ModalButton onClick={handlePauseToggle}>
+              {isPaused ? "Resume" : "Pause"}
+            </ModalButton>
+            <ModalButton onClick={onClose} style={{marginLeft: "2vh"}}>Close</ModalButton>
+          </ButtonRow>
         </ModalContent>
       </ModalContainer>
     </Overlay>
@@ -85,12 +100,17 @@ const fadeIn = keyframes`
     transform: translateZ(0);
   }
 `;
+const ButtonRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
 
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 15%;
+  width: 70%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;

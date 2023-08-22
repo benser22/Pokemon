@@ -3,10 +3,12 @@ const { Type } = require("../db");
 const typeImageUrls = require("../utils/typeImageUrls");
 
 const getApiType = async (req, res) => {
+  console.log(req);
+
   try {
     // Consultar si ya tienes los tipos en la base de datos
-    const existingTypes = await Type.findAll();
 
+    const existingTypes = await Type.findAll();
     if (existingTypes.length > 0) {
       // Si ya tienes los tipos en la base de datos, devuélvelos
       return res.status(200).json(existingTypes);

@@ -43,6 +43,10 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      imgShiny: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+      },
       created: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
