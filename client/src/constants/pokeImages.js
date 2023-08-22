@@ -100,8 +100,6 @@ const pokemonImages = [
     id: 25,
     url: "https://www.pngmart.com/files/7/Monster-Hunter-World-Transparent-PNG.png"
   },
-
-  
 ];
 
 export default pokemonImages;
