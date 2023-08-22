@@ -1,8 +1,9 @@
 function validateForm(formData) {
   const errors = {};
-
   if (formData.name === "") {
-    errors.name = "Name is required";
+    errors.name = "The name is required";
+  } else if (formData.name.length > 20) {
+    errors.name = "The name is too long";
   } else if (Number(formData.hp) === 0) {
     errors.hp = "You must choose the 'Health Points' value";
   } else if (Number(formData.attack) === 0) {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./Card.module.css";
 import logoDelete from "../../assets/extras/delete.png";
-import { deletePokemon, postPokemon } from "../../redux/actions/actions";
+import { deletePokemon } from "../../redux/actions/actions";
 
 export default function Card({ pokemon, getType }) {
   const dispatch = useDispatch();

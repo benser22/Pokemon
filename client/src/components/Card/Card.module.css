@@ -30,16 +30,19 @@
 
 .pokemonImage {
   margin: -4vh;
-  height: 20vh;
-  width: 20vh;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  max-width: 20vh;
+  max-height: 20vh;
+
   border-radius: 8px;
   margin-bottom: 1vh;
-  /* background-color: rgba(0, 0, 0, 0.1); */
 }
 
 .pokemonName {
   margin-top: -2.5vh;
-  margin-bottom: 3.5vh;
+  margin-bottom: 3.6vh;
   cursor: pointer;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 1em;
@@ -98,18 +101,18 @@
   display: flex;
   margin-bottom: -2vh;
   align-items: center;
-  z-index: 9999;
+  /* z-index: 9999; */
 }
 .shiny{
-  color: rgb(255, 255, 255);
+  color: rgb(29, 29, 29);
   font-size: 10px;
-  font-weight: bold;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  text-shadow: 1px 1px 1px rgb(0, 0, 0);
+  font-weight: bolder;
+  font-family: Verdana, sans-serif;
+  text-shadow: 0px 0px 8px rgb(255, 255, 255); 
 }
 
 .checkShiny{
-  z-index: 999999;
+  z-index: 999;
 }
 
 .createdImage{

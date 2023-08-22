@@ -5,15 +5,15 @@ const pokemonImages = [
   },
   {
     id: 2,
-    url: "https://static.wikia.nocookie.net/espokemon/images/5/52/Articuno.png/revision/latest?cb=20160316192008",
+    url: "https://static.vecteezy.com/system/resources/previews/011/502/090/original/character-girl-cartoon-free-png.png",
   },
   {
     id: 3,
-    url: "https://static.wikia.nocookie.net/espokemon/images/0/0b/Snorlax.png/revision/latest/scale-to-width-down/1200?cb=20160904204605",
+    url: "https://static.vecteezy.com/system/resources/previews/022/484/115/original/3d-businessman-with-arms-crossed-assertive-and-authoritative-pose-transparent-background-free-png.png",
   },
   {
     id: 4,
-    url: "https://w7.pngwing.com/pngs/156/649/png-transparent-pokemon-ice-fantasma-inventado-sudowoodo-ice-shards-game-marine-mammal-dice.png",
+    url: "https://i.pinimg.com/originals/e0/1d/0c/e01d0c31ec6e6247c5ee221268a31d1b.png",
   },
   {
     id: 5,
@@ -21,61 +21,87 @@ const pokemonImages = [
   },
   {
     id: 6,
-    url: "https://www.tododigital.com/__export/1663959594721/sites/elimparcial/img/2022/09/23/6m2xfwsclfbrri2aq3otlvuo6e.jfif_1322047337.jfif",
+    url: "https://i.pinimg.com/originals/66/b6/93/66b6937b297a2b68177ce58b340ee099.png",
   },
   {
     id: 7,
-    url: "https://pxccdn.ciudadano.news/ciudadano/092022/1663859105977/out-2-1-png..jpg?cw=900&ch=900",
+    url: "https://i.pinimg.com/originals/c6/5a/e5/c65ae5b886eaad8f58a9988e83da59ff.png",
   },
   {
     id: 8,
-    url: "https://pbxt.replicate.delivery/jqfnMdfzH4i4GE4HwF9L9q0k564k2GI7MZvul0YMfyefkoZLC/out-0.png",
+    url: "https://cdn.pixabay.com/photo/2023/08/12/16/50/man-8186092_960_720.png",
   },
   {
     id: 9,
-    url: "https://pbxt.replicate.delivery/f7pDoVgm9PTmR6qU8ZQdOeVHzfqZ3VCdwAiaXaYe4eaVqoZLC/out-0.png",
+    url: "https://www.pngmart.com/files/21/Leprechaun-Vector-PNG-Transparent.png",
   },
   {
     id: 10,
-    url: "https://pbxt.replicate.delivery/lkPX2Tqj0J7LFh6k3Co95gYOyfcUvF6T02cf7wm3eLusLa2iA/out-0.png",
+    url: "https://www.pngmart.com/files/22/Reptile-PNG-Isolated-Image.png",
   },
   {
     id: 11,
-    url: "https://pbxt.replicate.delivery/yKnx78AUQ7ZsFBfbsDUQHnlfHzCJqU24P6Knuun1QpjbGNbRA/out-0.png",
+    url: "https://static.vecteezy.com/system/resources/previews/024/477/198/original/kawaii-monster-ai-generated-free-png.png",
   },
   {
     id: 12,
-    url: "https://pbxt.replicate.delivery/qOyuh9wNtBZpL5SeKLXwcTBE6yZ2fOBKMfQ2MsfNYGPLd0sFB/out-0.png",
+    url: "https://www.pngmart.com/files/22/Halloween-Background-PNG-Isolated-Pic.png",
   },
   {
     id: 13,
-    url: "https://pbxt.replicate.delivery/1Z5wQTHY93Ked6dY9ZJ41ZICvW5LmfUzalRaAZNPMz3eQa2iA/out-0.png",
+    url: "https://www.pngmart.com/files/16/Halloween-Mummy-PNG-Pic.png",
   },
   {
     id: 14,
-    url: "https://pbxt.replicate.delivery/wJxet3TccKwPKiBWh9eFVFoUZLBu0LfM6HaZP4fKlwTFS6tFB/out-0.png",
+    url: "https://www.pngmart.com/files/16/Halloween-Mummy-Transparent-PNG.png",
   },
   {
     id: 15,
-    url: "https://mgxm.replicate.delivery/4029948c-b768-48de-9691-31d4e36267c4/out-0.png",
+    url: "https://www.pngmart.com/files/1/Witch-Transparent-Background.png",
   },
-  { id: 16, url: "https://i.imgur.com/R0hhTZG.jpeg" },
+  { id: 16, url: "https://www.pngmart.com/files/4/Sand-Monster-PNG-Image.png" },
   {
     id: 17,
-    url: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/666.png",
+    url: "https://www.pngmart.com/files/4/Blue-Monster-PNG-Clipart.png",
   },
   {
     id: 18,
-    url: "https://mgxm.replicate.delivery/7b31c812-6651-4c34-8886-db5afc73faf0/out-2.png",
+    url: "https://www.pngmart.com/files/4/Blue-Monster-PNG-File.png",
   },
   {
     id: 19,
-    url: "https://images.vexels.com/media/users/3/285032/isolated/preview/d029fbdac9320aaca883078de1eb5f05-beba-draga-n-fuego-criatura-mitola-gica.png",
+    url: "https://www.pngmart.com/files/7/Monster-Hunter-World-Transparent-Background.png",
   },
   {
     id: 20,
-    url: "https://i.kym-cdn.com/photos/images/original/001/411/608/091.png",
+    url: "https://www.pngmart.com/files/7/Monster-Hunter-World-PNG-Transparent.png",
   },
+  {
+    id: 21,
+    url: "https://cpad.ask.fm/216/0c2ae/1e17/41e8/9038/6d06ef8b7e47/original/327067.png"
+  },
+  {
+    id: 21,
+    url: "https://defharo.com/grafica-publicidad/defharo_0012_Capa-4.png"
+  },
+  {
+    id: 22,
+    url: "https://minixcollection.com/wp-content/uploads/2022/09/ansu_fati-01-1.png"
+  },
+  {
+    id: 23,
+    url: "https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2022/06/117a2-bingo-bluey-png.png"
+  },
+  {
+    id: 24,
+    url: "https://www.pngmart.com/files/4/Blue-Monster-PNG-Free-Download.png"
+  },
+  {
+    id: 25,
+    url: "https://www.pngmart.com/files/7/Monster-Hunter-World-Transparent-PNG.png"
+  },
+
+  
 ];
 
 export default pokemonImages;
