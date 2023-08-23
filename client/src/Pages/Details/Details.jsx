@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPokemonDetails } from "../../redux/actions/actions.js";
+import { getPokemonDetails, clearStatePokemon } from "../../redux/actions/actions.js";
 import styles from "./Details.module.css";
 import { IMAGES } from "../../constants/types.js";
 import { FaHome } from "react-icons/fa";
@@ -37,6 +37,7 @@ const Details = () => {
   }
 
   const handleHomeClick = () => {
+    dispatch(clearStatePokemon());
     navigate("/home");
   };
 

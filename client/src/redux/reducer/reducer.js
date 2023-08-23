@@ -2,8 +2,9 @@ import {
   GET_ALL_POKEMONS,
   GET_POKEMON_DETAILS,
   GET_POKEMON_BY_NAME,
+  GET_POKEMON_BY_ID,
   POST_POKEMON,
-  RESTORE_POKEMONS,
+  CLEAR_STATE_POKEMON,
   GET_TYPES,
   FILTER_TYPES,
   FILTER_CREATES,
@@ -16,6 +17,7 @@ const initialState = {
   pokemon: {},
   allTypes: [],
   filteredPokemons: [],
+  error: ""
 };
 
 function rootReducer(state = initialState, action) {
@@ -54,6 +56,13 @@ function rootReducer(state = initialState, action) {
         // filteredPokemons: action.payload,
       };
 
+    case GET_POKEMON_BY_ID:
+      return {
+        ...state,
+        pokemon: action.payload,
+        // filteredPokemons: action.payload,
+      };
+
     case GET_TYPES:
       return {
         ...state,
@@ -61,16 +70,15 @@ function rootReducer(state = initialState, action) {
       };
 
     case FILTER_TYPES:
-      const allPokemons = state.pokemons;
-      const filterTypes = allPokemons.filter(
-        (poke) =>
-          poke.types[0].name === action.payload ||
-          poke.types[1]?.name === action.payload
-      );
+      return {};
+
+
+    case CLEAR_STATE_POKEMON:
       return {
-        ...state,
-        filteredPokemons: filterTypes,
+          ...state,
+          pokemon: action.payload,
       };
+
 
     case FILTER_CREATES:
       const filterCreated = state.pokemons.filter((p) => p.created);
@@ -79,12 +87,12 @@ function rootReducer(state = initialState, action) {
         filteredPokemons: filterCreated,
       };
 
-    case RESTORE_POKEMONS:
-      return {
-        ...state,
-        pokemons: state.pokemons,
-        filteredPokemons: state.pokemons,
-      };
+    // case RESTORE_POKEMONS:
+    //   return {
+    //     ...state,
+    //     pokemons: state.pokemons,
+    //     filteredPokemons: state.pokemons,
+    //   };
 
     case ORDER_NAME:
       const sortOrder = action.payload.sortOrder;

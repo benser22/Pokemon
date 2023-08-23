@@ -4,6 +4,7 @@ import styles from "./Navbar.module.css";
 // import { useDispatch } from 'react-redux';
 import logo from "../../assets/images/pokeBall.gif";
 import Modal from "react-modal";
+import SearchBar from "../SearchBar/SearchBar"
 
 const Navbar = () => {
   const location = useLocation();
@@ -39,11 +40,9 @@ const Navbar = () => {
           <img src={logo} alt="logo" className={styles.logo} />
         </Link>
       </div>
-      <Link to="/pokemons" style={{ textDecoration: "none", color: "black" }}>
         <div className={styles.links}>
-          <p>.............</p>
+          <SearchBar></SearchBar>
         </div>
-      </Link>
       <Link to="/create" style={{ textDecoration: "none", color: "black" }}>
         <div className={styles.links}>
           <p>Create</p>

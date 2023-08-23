@@ -3,13 +3,15 @@ import {
   GET_ALL_POKEMONS,
   GET_POKEMON_DETAILS,
   GET_POKEMON_BY_NAME,
+  GET_POKEMON_BY_ID,
   GET_TYPES,
   POST_POKEMON,
   FILTER_TYPES,
-  RESTORE_POKEMONS,
+  CLEAR_STATE_POKEMON,
   FILTER_CREATES,
   ORDER_NAME,
   DELETE_POKEMON,
+  RESTORE_POKEMONS,
 } from "./types.js";
 
 const URL = "http://localhost:3001/pokemons";
@@ -99,16 +101,68 @@ export const deletePokemon = (id) => {
   };
 };
 
+// export const getPokemonByName = (name) => {
+//   return async function (dispatch) {
+//     try {
+//       const { data } = await axios.get(`${URL}/name?name=${name}`);
+//       dispatch({
+//         type: GET_POKEMON_BY_NAME,
+//         payload: data,
+//       });
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+// };
+// En tus actions.js
 export const getPokemonByName = (name) => {
-  return async function (dispatch) {
+  return async (dispatch) => {
     try {
       const { data } = await axios.get(`${URL}/name?name=${name}`);
+      if (data) {
+        dispatch({ type: GET_POKEMON_BY_NAME, payload: data });
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+// export const getPokemonById = (id) => {
+//   return async (dispatch) => {
+//     try {
+//       const { data } = await axios.get(`${URL}/${id}`);
+//       dispatch({
+//         type: GET_POKEMON_BY_ID,
+//         payload: data,
+//       });
+//     } catch (error) {
+//       console.error(error.message);
+//     }
+//   };
+// };
+export const getPokemonById = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`${URL}/${id}`);
+      if (data) {
+        dispatch({ type: GET_POKEMON_BY_ID, payload: data });
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+export const clearStatePokemon = () => {
+  return async (dispatch) => {
+    try {
       dispatch({
-        type: GET_POKEMON_BY_NAME,
-        payload: data,
+        type: CLEAR_STATE_POKEMON,
+        payload: {},
       });
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   };
 };
