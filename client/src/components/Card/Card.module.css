@@ -119,6 +119,10 @@
   filter:brightness(150%);
   filter: sepia(0.5);
 }
+
+.link{
+  text-decoration: none;
+}
 /* 
 Estilos dinamicos para los fondos de las cartas
 */

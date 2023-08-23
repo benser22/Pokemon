@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getPokemonDetails } from "../../redux/actions/actions.js";
 import styles from "./Details.module.css";
 import { IMAGES } from "../../constants/types.js";
@@ -13,7 +13,14 @@ const Details = () => {
   const navigate = useNavigate();
   const pokemon = useSelector((state) => state.pokemon);
   const imageUrl = IMAGES[id] || pokemon.img;
-  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const [isLoading, setIsLoading] = useState(true);
+  let formattedName;
+  if (pokemon.name) {
+    formattedName = capitalizeFirstLetter(pokemon.name);
+  }
+  function capitalizeFirstLetter(input) {
+    return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+  }
 
   useEffect(() => {
     dispatch(getPokemonDetails(id));
@@ -38,7 +45,7 @@ const Details = () => {
       {pokemon && (
         <div className={styles.card}>
           <img src={imageUrl} alt={`${pokemon.name} sprite`} />
-          <h2>{pokemon.name}</h2>
+          <h2>{formattedName}</h2>
           <p>HP: {pokemon.hp}</p>
           <p>Attack: {pokemon.attack}</p>
           <p>Defense: {pokemon.defense}</p>
