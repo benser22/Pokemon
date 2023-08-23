@@ -7,10 +7,10 @@ import {
 } from "../../redux/actions/actions";
 import styles from "./SearchBar.module.css";
 import Modal from "react-modal";
-import poke_angry from "../../assets/extras/poke_angry.gif"
+import poke_angry from "../../assets/extras/poke_angry.gif";
 
 /*Configurar el elemento raíz en react-modal asegura la accesibilidad (p/usuarios que la necesiten) y evita warning por consola*/
-const appElement = document.getElementById('root');
+const appElement = document.getElementById("root");
 Modal.setAppElement(appElement);
 
 export default function SearchBar() {
@@ -29,7 +29,7 @@ export default function SearchBar() {
     e.preventDefault();
     const cleanedInput = input.trim().toLowerCase();
     if (!cleanedInput) {
-        setImgPoke(false);
+      setImgPoke(false);
       setErrorMessage("Name or Id required");
       setShowModal(true);
       return;
@@ -43,12 +43,13 @@ export default function SearchBar() {
       }
       dispatch(clearStatePokemon());
     } catch (error) {
-        setImgPoke(true);
+      setImgPoke(true);
       setErrorMessage("Pokemon not found");
       setShowModal(true);
     }
     setInput("");
   }
+
   console.log(pokemon);
   return (
     <div className={styles.searchBox}>
@@ -78,7 +79,13 @@ export default function SearchBar() {
             Close
           </button>
           <p className={styles.modalMessage}>{errorMessage}</p>
-          {imgPoke && <img src={poke_angry} alt="poke_angry" className={styles.pokesad}></img>}
+          {imgPoke && (
+            <img
+              src={poke_angry}
+              alt="poke_angry"
+              className={styles.pokesad}
+            ></img>
+          )}
         </Modal>
       )}
     </div>

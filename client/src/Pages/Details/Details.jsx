@@ -15,6 +15,7 @@ const Details = () => {
   const imageUrl = IMAGES[id] || pokemon.img;
   const [isLoading, setIsLoading] = useState(true);
   let formattedName;
+  
   if (pokemon.name) {
     formattedName = capitalizeFirstLetter(pokemon.name);
   }

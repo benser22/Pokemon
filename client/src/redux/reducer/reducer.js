@@ -17,15 +17,16 @@ const initialState = {
   pokemon: {},
   allTypes: [],
   filteredPokemons: [],
-  error: ""
 };
 
 function rootReducer(state = initialState, action) {
+  let newArray = [];
   switch (action.type) {
     case GET_ALL_POKEMONS:
       return {
         ...state,
         pokemons: action.payload,
+        filteredPokemons: action.payload,
       };
 
     case GET_POKEMON_DETAILS:
@@ -38,29 +39,27 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         pokemons: [...state.pokemons, action.payload],
-        // filteredPokemons: [...state.filteredPokemons, action.payload],
+        filteredPokemons: [...state.pokemons, action.payload],
       };
 
     case DELETE_POKEMON:
-      let newArray = [];
-        newArray = state.pokemons.filter((poke) => poke.id !== action.payload);
-        state.pokemons = newArray;
+      newArray = state.pokemons.filter((poke) => poke.id !== action.payload);
       return {
         ...state,
+        pokemons: newArray,
+        filteredPokemons: newArray,
       };
 
     case GET_POKEMON_BY_NAME:
       return {
         ...state,
         pokemon: action.payload,
-        // filteredPokemons: action.payload,
       };
 
     case GET_POKEMON_BY_ID:
       return {
         ...state,
         pokemon: action.payload,
-        // filteredPokemons: action.payload,
       };
 
     case GET_TYPES:
@@ -72,13 +71,11 @@ function rootReducer(state = initialState, action) {
     case FILTER_TYPES:
       return {};
 
-
     case CLEAR_STATE_POKEMON:
       return {
-          ...state,
-          pokemon: action.payload,
+        ...state,
+        pokemon: action.payload,
       };
-
 
     case FILTER_CREATES:
       const filterCreated = state.pokemons.filter((p) => p.created);

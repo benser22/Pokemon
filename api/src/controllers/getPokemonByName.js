@@ -1,11 +1,11 @@
 const axios = require("axios");
 const URL = "https://pokeapi.co/api/v2/pokemon/";
 const formatData = require("../utils/formatData");
-const { Pokemon } = require("../db"); // Importa tu modelo Pokemon
+const { Pokemon, Type } = require("../db"); // Importa tu modelo Pokemon
 
 async function getPokByName(req, res) {
-  let name = req.query.name;
-  name = name.toLowerCase();
+  let name = req.query.name.toLowerCase();
+  // name = name.toLowerCase();
   try {
     let pokemonData;
     // Intenta obtener los datos del Pokémon desde la PokeAPI.
@@ -20,19 +20,27 @@ async function getPokByName(req, res) {
         // Busca el pokémon en la base de datos utilizando el modelo Pokemon.
         const dbResult = await Pokemon.findOne({
           where: { name: name },
+          include: Type,  // Asegúrate de que esta relación esté configurada en tu modelo Pokemon
         });
         if (!dbResult) {
           return res.status(404).json({ message: "Pokémon not found." });
         }
         
-        // Asigna los datos del pokémon encontrado.
-        pokemonData = dbResult.dataValues;
+        // Obtén los nombres de los tipos desde el resultado
+        const mytypes = dbResult.types.map((type) => type.dataValues.name)
+
+        // Asigna los datos del pokémon encontrado junto con los nombres de los tipos
+        const pokemonData = {
+          ...dbResult.dataValues,
+          types: mytypes,
+        };
+        
+        return res.status(200).json(pokemonData);
+
       } catch (dbError) {
         return res.status(500).json({ message: dbError.message });
       }
     }
-
-    return res.status(200).json(pokemonData);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
