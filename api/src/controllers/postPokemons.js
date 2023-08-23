@@ -7,10 +7,10 @@ const postPokemons = async (req, res) => {
 
     const { name, hp, attack, defense, speed, height, weight, types, created } =
       req.body;
-
-    // Creo el pokemon en la base de datos con los datos del body
+      const lowerCaseName = name.toLowerCase();
+      // Creo el pokemon en la base de datos con los datos del body
     const newPokemon = await Pokemon.create({
-      name,
+      name: lowerCaseName,
       img,
       hp,
       attack,

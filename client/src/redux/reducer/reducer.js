@@ -50,6 +50,7 @@ function rootReducer(state = initialState, action) {
     case GET_POKEMON_BY_NAME:
       return {
         ...state,
+        pokemon: action.payload,
         // filteredPokemons: action.payload,
       };
 

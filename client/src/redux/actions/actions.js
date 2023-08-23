@@ -102,7 +102,7 @@ export const deletePokemon = (id) => {
 export const getPokemonByName = (name) => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(`${URL}/${name}`);
+      const { data } = await axios.get(`${URL}/name?name=${name}`);
       dispatch({
         type: GET_POKEMON_BY_NAME,
         payload: data,

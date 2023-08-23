@@ -7,6 +7,7 @@ import LandingPage from "./Pages/LandingPage/LandingPage";
 import Home from "./Pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Error404 from "./components/Error404/Error404";
+import Details from "./Pages/Details/Details";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/create" element={<CreatePokemon />} />
+        <Route path="/detail/:id" element={<Details />} />
         <Route path="*" element={<Error404 navigate={Navigate} />} />
       </Routes>
     </div>

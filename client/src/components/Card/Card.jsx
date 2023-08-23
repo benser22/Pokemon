@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import styles from "./Card.module.css";
 import logoDelete from "../../assets/extras/delete.png";
 import { deletePokemon } from "../../redux/actions/actions";
+import { Link } from "react-router-dom";
 
 export default function Card({ pokemon, getType }) {
   const dispatch = useDispatch();
@@ -48,7 +49,9 @@ export default function Card({ pokemon, getType }) {
           title="Delete Card"
           onClick={handleDelete}
         />
+        <Link to={`/detail/${pokemon.id}`} className={styles.link}>
         <h2 className={styles.pokemonName}>{formattedName}</h2>
+        </Link>
         <img
           src={pokemon.isShiny && !pokemon.created ? pokemon.imgShiny : pokemon.img}
           alt={pokemon.name}

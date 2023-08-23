@@ -1,7 +1,7 @@
 function formatData(pokemonData) {
   const { id: ID, name, sprites, height, weight, stats, types } = pokemonData;
-  const img = sprites.other.dream_world.front_default;
-  // const img = sprites.other.home.front_default;
+  // const img = sprites.other.dream_world.front_default;
+  const img = sprites.other.home.front_default;
   const hp = stats.find((stat) => stat.stat.name === "hp").base_stat;
   const attack = stats.find((stat) => stat.stat.name === "attack").base_stat;
   const defense = stats.find((stat) => stat.stat.name === "defense").base_stat;
