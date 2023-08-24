@@ -56,7 +56,7 @@ export default function Card({ pokemon, getType }) {
           onClick={handleDelete}
         />
         <NavLink to={`/detail/${pokemon.id}`} className={styles.link}>
-          {!isNaN(pokemon.id) ? (<p className={styles.ids}>#{pokemon.id}</p>) : (<p className={styles.ids}>#created</p>)}
+          {!isNaN(pokemon.id) ? (<p className={styles.ids}>#{pokemon.id}</p>) : (<p className={styles.created}>#created</p>)}
             <h2 className={styles.pokemonName}>{formattedName}</h2>
         </NavLink>
         <img

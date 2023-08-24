@@ -8,8 +8,6 @@ import Home from "./Pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Error404 from "./components/Error404/Error404";
 import Details from "./Pages/Details/Details";
-
-
 function App() {
   // Obtener la ubicación actual usando useLocation
   const location = useLocation();

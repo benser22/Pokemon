@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './HTPGame.module.css';
-import background from '../../assets/extras/circle.jpg';
+import background from '../../assets/backgrounds/circle.jpg';
 import option from '../../assets/extras/options.jpg';
 import search from '../../assets/extras/random.gif';
 import win from '../../assets/extras/yeah.gif';
@@ -54,7 +54,7 @@ const HTPGame = () => {
   }, [arrayRandom]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{marginTop:'20vh', width:'50%', marginLeft:'20vh'}}>
       <div className={styles.main}>
         <div className={styles.htp}>
           <img

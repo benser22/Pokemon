@@ -20,6 +20,7 @@ function PokemonForm({
   const [displayValidation, setDisplayValidation] = useState({});
   const [disableImageInput, setDisableImageInput] = useState(false);
   const [randomImage, setRandomImage] = useState(false);
+  const numericHeight = parseFloat(height); // Convertir a número
 
   const handleRandomImageChange = () => {
     setRandomImage(!randomImage);
@@ -81,7 +82,7 @@ function PokemonForm({
           style={{ marginTop: "-8px" }}
           type="range"
           min="0"
-          max="714"
+          max="255"
           value={hp}
           onChange={(e) => handleInputChange("hp", e.target.value)}
         />
@@ -141,15 +142,16 @@ function PokemonForm({
       <div className={styles.formGroup}>
         <label className={styles.formLabel}>Height:</label>
         <input
-          className={styles.formInput}
-          style={{ marginTop: "-8px" }}
-          type="range"
-          min="0"
-          max="20"
-          value={height}
-          onChange={(e) => handleInputChange("height", e.target.value)}
-        />
-        <span className={styles.rangeValue}>{height} mts.</span>
+        className={styles.formInput}
+        style={{ marginTop: "-8px" }}
+        type="range"
+        min="0"
+        max="20"
+        step="0.1" // Permitir valores decimales con dos decimales
+        value={height}
+        onChange={(e) => handleInputChange("height", e.target.value)}
+      />
+      <span className={styles.rangeValue}>{numericHeight.toFixed(2)} mts.</span>
         {displayValidation.height && (
           <h2 className={styles.errorMessage}>{displayValidation.height}</h2>
         )}

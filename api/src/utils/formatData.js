@@ -8,7 +8,6 @@ function formatData(pokemonData) {
   const speed = stats.find((stat) => stat.stat.name === "speed").base_stat;
   const typeNames = types.map((typeData) => typeData.type.name);
   const imgShiny = sprites.other.home.front_shiny;
-
   return {
     id,
     name,
@@ -17,8 +16,8 @@ function formatData(pokemonData) {
     attack,
     defense,
     speed,
-    height,
-    weight,
+    height: height/10,
+    weight: weight/10,
     types: typeNames,
     imgShiny
   };

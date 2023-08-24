@@ -162,6 +162,10 @@
   font-size: 1em;
   margin: 0 auto;
   margin-bottom: 2vh;
+  width: 60vh;
+  display: flex;
+  flex-direction: column;
+  text-align:start;
 }
 
 .pokemonInfo p {
@@ -172,6 +176,7 @@
 .pokemonImg {
   max-width: 60vh;
   max-height: 60vh;
+  margin-top: -5vh;
 }
 
 .pokemonName{
@@ -183,6 +188,7 @@
 
 .headerModal {
   display: flex;
+  font-size: 0.8em;
   flex-direction: row-reverse;
   width: 100%;
   justify-content: space-between;
@@ -197,21 +203,31 @@
   color: #c3a209;
 }
 .buttonAdd {
-  justify-content: center;
+  width: 30%;
+  margin-top: -5vh;
+  margin-bottom: -3vh;
 }
 
+/* 
+footer
+*/
+
+.footer{
+  display: flex;
+  flex-direction: column;
+  margin-left: 65%;
+  max-width: 10%;
+}
 
 /* Types */
-
-.types {
-  margin-block-start: 30%;
-}
 
 .type {
   display: flex;
   align-items: center;
   padding: 2px 4px;
   font-size: 1rem;
+  color: rgb(255, 255, 255);
+  text-shadow: 1px 1px 20px rgb(255, 255, 255);
 }
 
 .typeImage {
@@ -230,7 +246,6 @@
 .titleTypes{
   font-size: 0.7em;
   font-weight: bold;
-  margin-top: 50%;
-  margin-bottom: 0;
-  text-align: center;
+  margin-bottom: 1vh;
+  margin-left: 50%;
 }

@@ -34,10 +34,10 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
       },
       height: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.NUMERIC(8, 2),
       },
       weight: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.NUMERIC(8, 2),
       },
       shiny: {
         type: DataTypes.BOOLEAN,

@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getPokemonByName,getPokemonById,clearStatePokemon, addPokemon} from "../../redux/actions/actions";
+import {
+  getPokemonByName,
+  getPokemonById,
+  clearStatePokemon,
+  addPokemon,
+} from "../../redux/actions/actions";
 import styles from "./SearchBar.module.css";
 import Modal from "react-modal";
 import poke_angry from "../../assets/extras/poke_angry.gif";
 import { FaTimes } from "react-icons/fa";
+import Bar from "../Bar/Bar";
+import default_search from "../../assets/default_search.png"
 /*Configurar el elemento raíz en react-modal asegura la accesibilidad (p/usuarios que la necesiten) y evita warning por consola*/
 const appElement = document.getElementById("root");
 Modal.setAppElement(appElement);
@@ -42,10 +49,10 @@ export default function SearchBar() {
     setShowModal(false);
   }
 
-  function handleAdd(){
-  dispatch(addPokemon(pokemon));
-  closeModal();
-  dispatch(clearStatePokemon())
+  function handleAdd() {
+    dispatch(addPokemon(pokemon));
+    closeModal();
+    dispatch(clearStatePokemon());
   }
 
   async function handleSubmit(e) {
@@ -132,20 +139,51 @@ export default function SearchBar() {
                   <span>#created</span>
                 )}
               </div>
-              {pokemon.name && (<p className={styles.pokemonName}>{pokemon.name.toUpperCase()}</p>)}
+              {pokemon.name && (
+                <p className={styles.pokemonName}>
+                  {pokemon.name.toUpperCase()}
+                </p>
+              )}
               <div className={styles.pokemonDetails}>
                 <img
-                  src={pokemon.img}
+                  src={pokemon.img ? pokemon.img : default_search}
                   className={styles.pokemonImg}
                   alt="Pokemon_IMG"
                 ></img>
                 <div className={styles.pokemonInfo}>
-                  <p>Health Points: {pokemon.hp}</p>
-                  <p>Attack: {pokemon.attack}</p>
-                  <p>Speed: {pokemon.speed}</p>
-                  <p>Defense: {pokemon.defense}</p>
-                  <p>Height: {pokemon.height}</p>
-                  <p>Weight: {pokemon.weight}</p>
+                  <Bar
+                    tag={"Health Points"}
+                    value={pokemon.hp}
+                    maxValue={255}
+                  />
+                  <Bar tag={"Attack"} value={pokemon.attack} maxValue={255} />
+                  <Bar tag={"Defense"} value={pokemon.defense} maxValue={255} />
+                  <Bar tag={"Speed"} value={pokemon.speed} maxValue={255} />
+                  <Bar
+                    tag={"Height (mts)"}
+                    value={pokemon.height}
+                    maxValue={20}
+                  />
+                  <Bar
+                    tag={"Weight (kgs)"}
+                    value={pokemon.weight}
+                    maxValue={1000}
+                  />
+                  <div className={styles.footer}>
+                    <p className={styles.titleTypes}>Types</p>
+                    {pokemon.types?.map((type, index) => (
+                      <span key={index} className={styles.type}>
+                        <img
+                          src={getType(type)}
+                          alt={type}
+                          className={styles.typeImage}
+                        />
+                        <span className={styles.typeSpan}>
+                          {type.toUpperCase()}
+                        </span>
+                      </span>
+                    ))}
+                  </div>
                   <button
                     className={styles.buttonAdd}
                     title="Add pokemon to your pokedex"
@@ -154,21 +192,6 @@ export default function SearchBar() {
                   >
                     Add Pokemon
                   </button>
-                </div>
-                <div className={styles.types}>
-                  <p className={styles.titleTypes}>Types</p>
-                  {pokemon.types?.map((type, index) => (
-                    <span key={index} className={styles.type}>
-                      <img
-                        src={getType(type)}
-                        alt={type}
-                        className={styles.typeImage}
-                      />
-                      <span className={styles.typeSpan}>
-                        {type.toUpperCase()}
-                      </span>
-                    </span>
-                  ))}
                 </div>
               </div>
             </>

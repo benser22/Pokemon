@@ -80,7 +80,7 @@ function CreatePokemon() {
         return;
       }
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
 
     dispatch(postPokemon(newPokemon));
