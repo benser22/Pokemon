@@ -106,7 +106,14 @@
   cursor: pointer;
 }
 
+.deleteIcon:hover{
+  transform: scale(1.05);
+  filter:brightness(1.2);
+
+}
+
 .deleteIcon:active {
+  box-shadow: unset;
   transform: scale(0.8);
   filter:saturate(0.9);
 }

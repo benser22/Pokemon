@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./Card.module.css";
-import logoDelete from "../../assets/extras/delete.png";
+import logoDelete from "../../assets/close.png";
 import { deletePokemon } from "../../redux/actions/actions";
 import { NavLink } from "react-router-dom";
 import imgDefault from "../../assets/default.png";
@@ -10,7 +10,7 @@ export default function Card({ pokemon, getType }) {
   const dispatch = useDispatch();
   const formattedName = capitalizeFirstLetter(pokemon.name);
   const [isShinyCreated, setIsShinyCreated] = useState(false);
-
+  const [isShiny, setIsShiny] = useState(pokemon.isShiny || false);
   function capitalizeFirstLetter(input) {
     if (pokemon.name) {
       return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
@@ -28,9 +28,16 @@ export default function Card({ pokemon, getType }) {
   };
 
   const handleCheckboxShiny = () => {
-    pokemon.isShiny = !pokemon.isShiny;
+    const newIsShiny = !pokemon.isShiny;
     setIsShinyCreated(!isShinyCreated);
+    setIsShiny(newIsShiny);
+    pokemon.isShiny = newIsShiny;    
   };
+
+  useEffect(() => {
+    setIsShiny(pokemon.isShiny || false);
+  }, [pokemon.isShiny]);
+  
 
   return (
     <div className={styles.cardContainer}>
@@ -43,10 +50,11 @@ export default function Card({ pokemon, getType }) {
           </label>
           <input
             type="checkbox"
-            checked={isShinyCreated}
+            checked={isShiny}
             onChange={handleCheckboxShiny}
             className={styles.checkShiny}
           />
+
         </div>
         <img
           src={logoDelete}

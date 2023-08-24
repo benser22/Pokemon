@@ -60,19 +60,27 @@
   background-image: linear-gradient(to bottom, #eee, #ccc);
   color: black;
   border: none;
-  border-radius: 50%;
+  border-radius: 40%;
   padding: 5px 10px;
   font-size: 14px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   cursor: pointer;
   margin: 0.4rem;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, background-image 0.3s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  outline: none;
 }
 
 .pageButton:hover {
-  background-image: linear-gradient(to bottom, #d6b21f, #ffcb05);
+  background-image: linear-gradient(to bottom, #ffd428, #ffcb05);
   filter: brightness(110%);
   transform: scale(1.2);
+}
+
+.pageButton:active{
+  transform: scale(0.95);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  outline: none;
 }
 
 .currentPageButton {

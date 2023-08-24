@@ -29,12 +29,11 @@ const StatBar = styled.div`
   border-radius: 5px 5px 5px 5px;
   height: 20px;
   width: 0;
-  background-color: #4caf50;
   transition: width 1s ease;
   transform-origin: left center;
   transform: translateZ(0);
-  box-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
-  border: groove gray 1px;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+  border: groove #4B6951 0.5px;
 `;
 
 const SpanValue = styled.span`
@@ -62,48 +61,37 @@ const Bar = ({ tag, value, maxValue }) => {
   }, []);
 
   const getBarColor = (percentage) => {
-    if (percentage >= 95) {
-      return "#0e2e33";   
-    } else if (percentage >= 90) {
-      return "#005e7d"; 
-    } else if (percentage >= 85) {
-      return "#007b96"; 
+    if (percentage >= 90) {
+      return "#ff0000"; 
     } else if (percentage >= 80) {
-      return "#0094b9"; 
-    } else if (percentage >= 75) {
-      return "#00aedb"; 
+      return "#ff5757";  
     } else if (percentage >= 70) {
-      return "#00bce4"; 
-    } else if (percentage >= 65) {
-      return "#00d6ff"; 
-    } else if (percentage >= 60) {
-      return "#0073e6"; 
-    } else if (percentage >= 55) {
-      return "#005ac3"; 
+      return "#ffca18";   
     } else if (percentage >= 50) {
-      return "#ff4e41"; 
-    } else if (percentage >= 45) {
-      return "#ff744d"; 
+      return "#fff200";
     } else if (percentage >= 40) {
-      return "#ff9659"; 
+      return "#fff980";  
     } else if (percentage >= 35) {
-      return "#ffb166"; 
+      return "#0ed145";  
     } else if (percentage >= 30) {
-      return "#ffd17f"; 
+      return "#88d99f";  
     } else if (percentage >= 25) {
-      return "#fdff95"; 
+      return "#c3c3c3";   
     } else if (percentage >= 20) {
-      return "#e5ff91"; 
+      return "#e692e8";   
     } else if (percentage >= 15) {
-      return "#caff96"; 
+      return "#2b00ff";  
     } else if (percentage >= 10) {
-      return "#b1ff9c"; 
+      return "#846bff";   
     } else if (percentage >= 5) {
-      return "#97ffa2";
+      return "#c4b8ff";  
     } else {
-      return "#7cffa7";
+      return "#8cfffb";  
     }
   };
+  
+  
+  
   
   
 
