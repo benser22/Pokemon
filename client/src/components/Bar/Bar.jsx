@@ -26,14 +26,14 @@ const StatLabel = styled.div`
 `;
 
 const StatBar = styled.div`
-  border-radius: 14px 14px 14px 14px;
+  border-radius: 5px 5px 5px 5px;
   height: 20px;
   width: 0;
   background-color: #4caf50;
   transition: width 1s ease;
   transform-origin: left center;
   transform: translateZ(0);
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
   border: groove gray 1px;
 `;
 

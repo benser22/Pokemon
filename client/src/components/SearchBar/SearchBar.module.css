@@ -20,20 +20,21 @@
 }
 
 .searchInput {
-  height: 1.65rem;
-  opacity: 0.6;
-  padding: 0.25rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  opacity: 0.8;
+  padding: 0.4rem;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  margin-right: 0.5vh;
 }
 
 .searchBarBtns {
-  width: 11.65rem;
+  color: white;
+  width: 10em;
   height: 2rem;
   box-shadow: inset 0px 0px 14px -3px #f2fadc;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 6px;
-  border: 1px solid #000000;
+  border: 1px solid #ffffff;
   display: inline-block;
   cursor: pointer;
   font-family: Arial;
@@ -41,16 +42,16 @@
   font-weight: bold;
   padding: 6px 24px;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #ced9bf;
+  text-shadow: 1.5px 1.5px 0px #000000;
 }
 
 .searchBarBtns:hover {
   background: linear-gradient(
     to bottom,
-    rgba(156, 169, 147, 0.2) 5%,
-    rgba(219, 230, 196, 0.2) 100%
+    rgba(0, 0, 0, 0.2) 5%,
+    rgba(113, 113, 113, 0.2) 100%
   );
-  background-color: rgba(155, 168, 146, 0.2);
+  background-color: rgba(70, 70, 70, 0.5);
 }
 
 .searchBarBtns:active {
