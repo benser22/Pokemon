@@ -5,6 +5,7 @@ import {
   GET_POKEMON_BY_NAME,
   GET_POKEMON_BY_ID,
   GET_TYPES,
+  ADD_POKEMON,
   POST_POKEMON,
   FILTER_TYPES,
   CLEAR_STATE_POKEMON,
@@ -194,3 +195,11 @@ export const orderName = (order, sortOrder) => {
     payload: { order, sortOrder },
   };
 };
+
+// Hago esta action adicional porque necesito una funcion que solo agregue un pokemon al estado de redux, en cambio postPokemon lo agrega a la BDD
+export const addPokemon = (pokemon) => {
+  return {
+    type: ADD_POKEMON,
+    payload:  pokemon,
+  };
+}

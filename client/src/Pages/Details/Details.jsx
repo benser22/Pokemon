@@ -6,13 +6,14 @@ import styles from "./Details.module.css";
 import { IMAGES } from "../../constants/types.js";
 import { FaHome } from "react-icons/fa";
 import Loader from "../../components/Loader/Loader2";
+import imgDefault from "../../assets/default.png"
 
 const Details = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const pokemon = useSelector((state) => state.pokemon);
-  const imageUrl = IMAGES[id] || pokemon.img;
+  const imageUrl = IMAGES[id] || (pokemon.img ? pokemon.img : imgDefault);
   const [isLoading, setIsLoading] = useState(true);
   let formattedName;
   

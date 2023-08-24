@@ -10,6 +10,7 @@ import {
   FILTER_CREATES,
   ORDER_NAME,
   DELETE_POKEMON,
+  ADD_POKEMON
 } from "../actions/types.js";
 
 const initialState = {
@@ -68,6 +69,11 @@ function rootReducer(state = initialState, action) {
         allTypes: action.payload,
       };
 
+    case ADD_POKEMON:
+      return{
+        ...state,
+        pokemons: [action.payload, ...state.pokemons]
+      };  
     case FILTER_TYPES:
       return {};
 

@@ -4,26 +4,32 @@ import styles from "./Card.module.css";
 import logoDelete from "../../assets/extras/delete.png";
 import { deletePokemon } from "../../redux/actions/actions";
 import { NavLink } from "react-router-dom";
+import imgDefault from "../../assets/default.png";
 
 export default function Card({ pokemon, getType }) {
   const dispatch = useDispatch();
   const formattedName = capitalizeFirstLetter(pokemon.name);
-  const [isShinyCreated, setIsShinyCreated] = useState(false)
+  const [isShinyCreated, setIsShinyCreated] = useState(false);
+
   function capitalizeFirstLetter(input) {
-    return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+    if (pokemon.name) {
+      return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+    }
   }
   const handleDelete = () => {
     dispatch(deletePokemon(pokemon.id));
   };
 
   const getBackgroundImage = () => {
-    const firstType = pokemon.types[0]; // Get the first type from the array
-    return styles[`${firstType}Background`]; // Use the CSS module to access the appropriate class
+    if (pokemon.types) {
+      const firstType = pokemon.types[0]; // Get the first type from the array
+      return styles[`${firstType}Background`]; // Use the CSS module to access the appropriate class
+    }
   };
 
   const handleCheckboxShiny = () => {
     pokemon.isShiny = !pokemon.isShiny;
-    setIsShinyCreated(!isShinyCreated)
+    setIsShinyCreated(!isShinyCreated);
   };
 
   return (
@@ -50,16 +56,25 @@ export default function Card({ pokemon, getType }) {
           onClick={handleDelete}
         />
         <NavLink to={`/detail/${pokemon.id}`} className={styles.link}>
-        <h2 className={styles.pokemonName}>{formattedName}</h2>
+          {!isNaN(pokemon.id) ? (<p className={styles.ids}>#{pokemon.id}</p>) : (<p className={styles.ids}>#created</p>)}
+            <h2 className={styles.pokemonName}>{formattedName}</h2>
         </NavLink>
         <img
-          src={pokemon.isShiny && !pokemon.created ? pokemon.imgShiny : pokemon.img}
+          src={
+            pokemon.isShiny && !pokemon.created && pokemon.imgShiny
+              ? pokemon.imgShiny
+              : pokemon.img
+              ? pokemon.img
+              : imgDefault
+          }
           alt={pokemon.name}
-          className={`${styles.pokemonImage} ${isShinyCreated && pokemon.created ? styles.createdImage : ""}`}
+          className={`${styles.pokemonImage} ${
+            isShinyCreated && pokemon.created ? styles.createdImage : ""
+          }`}
           id="ckeckShiny"
         />
         <div className={styles.types}>
-          {pokemon.types.map((type, index) => (
+          {pokemon.types?.map((type, index) => (
             <span key={index} className={styles.type}>
               <img
                 src={getType(type)}
