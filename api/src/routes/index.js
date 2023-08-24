@@ -9,11 +9,23 @@ const postPokemons = require("../controllers/postPokemons");
 const deletePokemon = require("../controllers/deletePokemonById");
 const postMail = require("../controllers/postMail");
 const searchDuplicated = require("../controllers/searchDuplicated");
+const getFavoritesByUser = require('../controllers/getFavoritesByUser');
+const getAllUsers = require('../controllers/getAllUsers');
+const login = require("../controllers/login");
+const postUser = require("../controllers/postUser");
+const postFavoritesByUser = require('../controllers/postFavoritesByUser'); // Importa el nuevo controlador
+
+
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 router.get("/types", getApiType);
+router.get('/users', getAllUsers);
+router.get('/user/:userId/favorites', getFavoritesByUser);
+router.post('/user/:userId/favorites', postFavoritesByUser.postFavoritesByUser);
+router.get("/login", login);
+router.post("/login", postUser);
 router.get("/name", getPokemonByName);
 router.get("/:id", getPokemonById);
 router.get("/", getAllPokemons);
@@ -21,4 +33,5 @@ router.post("/", postPokemons);
 router.delete("/:id", deletePokemon);
 router.post("/send-email", postMail);
 router.get("/search/duplicated/", searchDuplicated);
+
 module.exports = router;

@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
       weight: {
         type: DataTypes.NUMERIC(8, 2),
       },
-      shiny: {
+      isShiny: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },

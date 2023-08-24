@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
 // import { useDispatch } from 'react-redux';
 import logo from "../../assets/images/pokeBall.gif";
@@ -43,18 +43,29 @@ const Navbar = () => {
         <div className={styles.links}>
           <SearchBar></SearchBar>
         </div>
-      <Link to="/create" style={{ textDecoration: "none", color: "black" }}>
+        <div  style={{ display:'flex', justifyContent:'space-between' }}>
+          <NavLink className={styles.links} style={{ textDecoration: "none" }}>
+          <p>Order By</p>
+          </NavLink>
+          <NavLink className={styles.links} style={{ textDecoration: "none", marginInline:'8vh' }}>
+          <p>Filter By</p>
+          </NavLink>
+        </div>
+        <NavLink to={"/favorites"} className={styles.links} style={{ textDecoration: "none", marginLeft:'-8vh' }}>
+          <p>Favorites</p>
+        </NavLink>
+      <NavLink to="/create" style={{ textDecoration: "none", color: "black" }}>
         <div className={styles.links}>
           <p>Create</p>
         </div>
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         to={logout ? "/" : location}
         style={{ textDecoration: "none" }}
         onClick={handleLogout}
       >
         <p className={styles.logout}>Logout</p>
-      </Link>
+      </NavLink>
       <Modal
         isOpen={showModal}
         onRequestClose={() => setShowModal(false)}

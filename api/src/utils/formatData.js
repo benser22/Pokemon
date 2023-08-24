@@ -19,7 +19,8 @@ function formatData(pokemonData) {
     height: height/10,
     weight: weight/10,
     types: typeNames,
-    imgShiny
+    imgShiny,
+    isShiny: false
   };
 }
 
