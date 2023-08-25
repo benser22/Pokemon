@@ -1,0 +1,106 @@
+/* Home.module.css */
+.container {
+    background-image: url("/src/assets/backgrounds/pokemonfondo.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .pokemonList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .buttonR {
+    background-color: #375da4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 1em;
+  }
+  .buttonL {
+    background-color: #375da4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 1em;
+  }
+  
+  .buttonL:hover,
+  .buttonR:hover {
+    background-color: #213770;
+    filter: brightness(110%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  
+  .buttonL:active,
+  .buttonR:active {
+    font-weight: bold;
+    box-shadow: unset;
+  }
+  
+  .pageButton {
+    background-color: #ccc;
+    background-image: linear-gradient(to bottom, #eee, #ccc);
+    color: black;
+    border: none;
+    border-radius: 40%;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    cursor: pointer;
+    margin: 0.4rem;
+    transition: transform 0.3s, box-shadow 0.3s, background-image 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    outline: none;
+  }
+  
+  .pageButton:hover {
+    background-image: linear-gradient(to bottom, #ffd428, #ffcb05);
+    filter: brightness(110%);
+    transform: scale(1.2);
+  }
+  
+  .pageButton:active{
+    transform: scale(0.95);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    outline: none;
+  }
+  
+  .currentPageButton {
+    background-image: linear-gradient(to bottom, #d6b21f, #ffcb05);
+    transform: scale(1.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .buttonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: max-content;
+    min-height: 10%;
+  }
+  

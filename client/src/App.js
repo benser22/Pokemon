@@ -8,6 +8,7 @@ import Home from "./Pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Error404 from "./components/Error404/Error404";
 import Details from "./Pages/Details/Details";
+import Favorites from "./components/Favorites/Favorites";
 function App() {
   // Obtener la ubicación actual usando useLocation
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="/create" element={<CreatePokemon />} />
         <Route path="/detail/:id" element={<Details />} />
         <Route path="*" element={<Error404 />} />

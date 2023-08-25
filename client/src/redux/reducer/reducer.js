@@ -12,6 +12,7 @@ import {
   DELETE_POKEMON,
   ADD_POKEMON,
   SAVE_USER,
+  GET_FAVORITES_BY_USER
 } from "../actions/types.js";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   pokemon: {},
   allTypes: [],
   filteredPokemons: [],
+  favorites:[],
   user: {},
 };
 
@@ -31,7 +33,11 @@ function rootReducer(state = initialState, action) {
         pokemons: action.payload,
         filteredPokemons: action.payload,
       };
-
+    case GET_FAVORITES_BY_USER: 
+    return{
+      ...state,
+      favorites: action.payload
+    };
     case GET_POKEMON_DETAILS:
       return {
         ...state,

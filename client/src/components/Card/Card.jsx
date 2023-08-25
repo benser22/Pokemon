@@ -5,7 +5,6 @@ import logoDelete from "../../assets/close.png";
 import { deletePokemon } from "../../redux/actions/actions";
 import { NavLink } from "react-router-dom";
 import imgDefault from "../../assets/default.png";
-import star from "../../assets/types/bug.png";
 import { Star } from "react-feather";
 
 export default function Card({ pokemon, getType }) {

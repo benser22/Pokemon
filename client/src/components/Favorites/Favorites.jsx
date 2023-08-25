@@ -1,32 +1,27 @@
 // Home.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getAllPokemons, getTypes } from "../../redux/actions/actions";
-import styles from "./Home.module.css";
+import { getTypes, getFavoritesByUser } from "../../redux/actions/actions";
+import styles from "./Favorites.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
 
-const Home = () => {
+const Favorites = () => {
   // const pokemonsCreated = useSelector((state) => state.pokemons);
-  const pokemons = useSelector((state) => state.pokemons);
+  //   const pokemons = useSelector((state) => state.pokemons);
+  const pokemons = useSelector((state) => state.favorites);
   const allTypes = useSelector((state) => state.allTypes);
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
 
   useEffect(() => {
-    !userCurrent.email && navigate("/");
-  }, [userCurrent, navigate]);
-
-  useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
     if (!pokemons.length) {
-      dispatch(getAllPokemons());
+      dispatch(getFavoritesByUser(userCurrent.id));
     }
 
     if (!allTypes.length) {
@@ -38,7 +33,8 @@ const Home = () => {
     }, 300);
 
     return () => clearTimeout(loadingTimeout);
-  }, [dispatch, pokemons.length, allTypes.length]);
+    // eslint-disable-next-line
+  }, [pokemons.length, allTypes.length]);
 
   if (isLoading || !allTypes.length || !pokemons.length) {
     return <Loader />;
@@ -101,4 +97,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Favorites;

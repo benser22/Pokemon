@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   GET_ALL_POKEMONS,
+  GET_FAVORITES_BY_USER,
   GET_POKEMON_DETAILS,
   GET_POKEMON_BY_NAME,
   GET_POKEMON_BY_ID,
@@ -31,6 +32,22 @@ export const getAllPokemons = () => {
     }
   };
 };
+// http://localhost:3001/pokemons/user/83c08fc1-581e-47f2-9559-9edbf6230afb/favorites
+export const getFavoritesByUser = (idUser) => {
+  return async function (dispatch) {
+    try {
+      const {data} = await axios.get(URL + `/user/${idUser}/favorites`);
+      dispatch({
+        type: GET_FAVORITES_BY_USER,
+        payload: data
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  
+  }
+}
+
 
 export const getPokemonDetails = (id) => {
   return async function (dispatch) {

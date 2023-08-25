@@ -13,3 +13,4 @@ export const EVO_CHAIN = 'EVO_CHAIN';
 export const RESTORE_POKEMONS = 'RESTORE_POKEMONS';
 export const ADD_POKEMON = 'ADD_POKEMON';
 export const SAVE_USER = 'SAVE_USER';
+export const GET_FAVORITES_BY_USER = 'GET_FAVORITES_BY_USER';

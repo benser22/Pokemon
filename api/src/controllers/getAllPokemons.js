@@ -47,7 +47,6 @@ const getAllPokemons = async (req, res) => {
       };
     });
 
-    console.log(simplifiedPokemons);
     // combino todos los pokemones en un solo array
     const combinated = [...pokemonsWithDetails, ...simplifiedPokemons];
 
