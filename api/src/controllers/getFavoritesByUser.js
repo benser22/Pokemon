@@ -14,7 +14,7 @@ const getFavoritesByUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const favorites = user.Favorites; // Acceder a los favoritos del usuario
+    const favorites = await user.getFavorites();
     return res.status(200).json(favorites);
   } catch (error) {
     console.error(error);

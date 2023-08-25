@@ -1,6 +1,6 @@
 /* Card.module.css */
 
-.cardContainer{
+.cardContainer {
   display: inline-block;
   flex-wrap: wrap;
   margin-top: 6%;
@@ -8,7 +8,7 @@
 
 .card {
   display: inline-block;
-  padding: 10px;  
+  padding: 10px;
   border-radius: 0 20px 0 20px;
   overflow: hidden;
   background-size: 100% 100%;
@@ -20,7 +20,6 @@
   margin-left: 6vh;
   border: 1px groove #23626d;
   box-shadow: 6px 5px 5px #0c2327;
-
 }
 
 .card:hover {
@@ -28,34 +27,30 @@
   box-shadow: 0 0 20px #ffffff;
 }
 
-.pokemonImage {
-  margin: -4vh;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
-  max-width: 20vh;
-  max-height: 20vh;
+.body{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2vh;
+  margin: unset;
+  margin-top: -12vh;
+}
 
-  border-radius: 8px;
-  margin-bottom: 1vh;
+.pokemonImage {
+  margin: -3vh;
+  background-size: cover;
+  height: max-content;
+  width: max-content;
+  max-height: 20vh;
+  /* z-index: 99999999; */
+  /* border-radius: 8px; */
+  margin-bottom: 4vh;
 }
-.ids{
-  margin-top: -4vh;
-  margin-bottom: 2vh;
-  font-size: 0.5em;
-  color: rgb(0, 0, 0);
-  text-shadow:1px 1px 2px rgba(255, 255, 255, 0.9);
-}
-.created{
-  margin-top: -4vh;
-  margin-bottom: 2vh;
-  font-size: 0.5em;
-  color: rgb(255, 255, 255);
-  text-shadow:1px 1px 2px rgba(0, 0, 0, 0.9);
-}
+
 .pokemonName {
-  margin-top: -2.2vh;
-  margin-bottom: 3.6vh;
+  /* margin-top: -10.2vh; */
+  /* margin-bottom: 3.6vh; */
   cursor: pointer;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 1em;
@@ -71,12 +66,13 @@
   display: block;
   text-align: center;
   justify-content: center;
+  margin-top: -4vh;
 }
 
 .type {
   display: flex;
   align-items: center;
-  justify-content:flex-start;
+  justify-content: flex-start;
   padding: 2px 4px;
   margin: 4px;
   background-color: rgba(255, 255, 255, 0.6);
@@ -84,64 +80,96 @@
   font-size: 0.8rem;
 }
 
+.typeSpan {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: bold;
+}
 .typeImage {
   width: 20px;
   height: 20px;
   margin-right: 2vh;
   border-radius: 16px;
 }
-
-.typeSpan{
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-weight: bold;
+.header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-inline: -1vh;
 }
-
-
+.ids {
+  margin-top: -4px;
+  /* margin-bottom: 2vh; */
+  /* margin-right: 75%; */
+  /* margin-inline: 40%; */
+  font-size: 0.5em;
+  color: rgb(0, 0, 0);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+}
+.created {
+  /* margin-top: -4vh;
+  margin-bottom: 2vh; */
+  /* margin-right: 75%; */
+  /* margin-inline: 40%; */
+  font-size: 0.5em;
+  color: rgb(255, 255, 255);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+}
 .deleteIcon {
-  margin-left: 92%;
-  margin-top: -1%;
-  margin-bottom: 2%;
+  /* margin-top: -1%;
+  margin-bottom: 2%; */
   width: 21px;
   height: 20px;
   cursor: pointer;
 }
 
-.deleteIcon:hover{
+.deleteIcon:hover {
   transform: scale(1.05);
-  filter:brightness(1.2);
-
+  filter: brightness(1.2);
 }
 
 .deleteIcon:active {
   box-shadow: unset;
   transform: scale(0.8);
-  filter:saturate(0.9);
+  filter: saturate(0.9);
+}
+.groupShiny {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 1vh;
+
+  /* margin-bottom: -2vh; */
+  /* align-items: center; */
+}
+.star {
+  margin-bottom: 3vh;
+  /* position: absolute; */
 }
 
-.groupShiny{
-  display: flex;
-  margin-bottom: -2vh;
-  align-items: center;
-}
-.shiny{
+
+.shiny {
+  margin-top: 3vh;
+  margin-bottom: -1vh;
   color: rgb(29, 29, 29);
   font-size: 10px;
   font-weight: bolder;
   font-family: Verdana, sans-serif;
-  text-shadow: 0px 0px 8px rgb(255, 255, 255); 
+  text-shadow: 0px 0px 8px rgb(255, 255, 255);
+ writing-mode:vertical-rl;
+
 }
 
-.checkShiny{
-  z-index: 999;
+.checkShiny {
+  margin-right: 6px;
 }
 
-.createdImage{
-  filter:saturate(150%);
-  filter:brightness(150%);
+.createdImage {
+  filter: saturate(150%);
+  filter: brightness(150%);
   filter: sepia(0.5);
 }
 
-.link{
+.link {
   text-decoration: none;
 }
 /* 
@@ -227,4 +255,3 @@ Estilos dinamicos para los fondos de las cartas
 .waterBackground {
   background-image: url("../../assets/types/background/water1.jpg");
 }
-

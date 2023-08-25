@@ -104,11 +104,11 @@ Abajo todo el modal
 }
 
 .logout {
-  color: white;
-  font-family: "fuentePokemon", "Times New Roman", Times, serif;
-  letter-spacing: 2px;
+  color: rgb(139, 139, 255);
+  letter-spacing: 1px;
   font-weight: lighter;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: bold;
   text-align: center;
   text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }

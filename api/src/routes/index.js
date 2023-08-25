@@ -23,6 +23,7 @@ const router = Router();
 router.get("/types", getApiType);
 router.get('/users', getAllUsers);
 router.get('/user/:userId/favorites', getFavoritesByUser);
+router.post('/user/:userId/favorites', postFavoritesByUser);
 router.get("/login/:email&:password", login);
 router.post("/login", postUser);
 router.get("/name", getPokemonByName);

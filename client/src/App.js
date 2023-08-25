@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import CreatePokemon from "./Pages/CreatePokemon/CreatePokemon";
 import LandingPage from "./Pages/LandingPage/LandingPage";
@@ -24,7 +24,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/create" element={<CreatePokemon />} />
         <Route path="/detail/:id" element={<Details />} />
-        <Route path="*" element={<Error404 navigate={Navigate} />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </div>
   );

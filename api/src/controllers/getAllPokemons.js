@@ -28,23 +28,26 @@ const getAllPokemons = async (req, res) => {
           types: types,
           img: imageUrl,
           imgShiny,
+          isFavorite: false
         };
       })
     );
 
     // destructuring de los pokemones que tengo en la bdd
     const simplifiedPokemons = dbPokemons.map((pokemon) => {
-      const { id, name, img, imgShiny, types, created } = pokemon.dataValues;
+      const { id, name, img, imgShiny, types, created, isFavorite } = pokemon.dataValues;
       return {
         id,
         name,
         types: types.map((type) => type.name),
         img,
         imgShiny,
-        created
+        created,
+        isFavorite
       };
     });
 
+    console.log(simplifiedPokemons);
     // combino todos los pokemones en un solo array
     const combinated = [...pokemonsWithDetails, ...simplifiedPokemons];
 

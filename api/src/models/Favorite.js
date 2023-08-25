@@ -13,7 +13,6 @@ module.exports = (sequelize) => {
       },
       img: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       hp: {
         type: DataTypes.INTEGER,
@@ -43,8 +42,12 @@ module.exports = (sequelize) => {
       },
       created: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        defaultValue: false,
       },
+      isFavorite:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      }
     },
     {
       timestamps: false,
