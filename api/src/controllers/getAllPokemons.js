@@ -16,8 +16,11 @@ const getAllPokemons = async (req, res) => {
         const detailsResponse = await axios.get(pokemonFromAPI.url);
         const id = detailsResponse.data.id;
         const name = detailsResponse.data.name;
-        const imageUrl = detailsResponse.data.sprites.other["official-artwork"].front_default;
+        const imageUrl =
+          detailsResponse.data.sprites.other["official-artwork"].front_default;
         const imgShiny = detailsResponse.data.sprites.other.home.front_shiny;
+        const height = detailsResponse.data.height;
+        const weight = detailsResponse.data.weight;
         const types = detailsResponse.data.types.map(
           (typeData) => typeData.type.name
         );
@@ -28,14 +31,31 @@ const getAllPokemons = async (req, res) => {
           types: types,
           img: imageUrl,
           imgShiny,
-          isFavorite: false
+          isFavorite: false,
+          created: false,
+          height: height,
+          weight: weight,
         };
       })
     );
 
     // destructuring de los pokemones que tengo en la bdd
     const simplifiedPokemons = dbPokemons.map((pokemon) => {
-      const { id, name, img, imgShiny, types, created, isFavorite } = pokemon.dataValues;
+      const {
+        id,
+        name,
+        img,
+        imgShiny,
+        types,
+        created,
+        isFavorite,
+        hp,
+        height,
+        weight,
+        speed,
+        attack,
+        defense,
+      } = pokemon.dataValues;
       return {
         id,
         name,
@@ -43,13 +63,19 @@ const getAllPokemons = async (req, res) => {
         img,
         imgShiny,
         created,
-        isFavorite
+        isFavorite,
+        hp,
+        height,
+        weight,
+        speed,
+        attack,
+        defense,
       };
     });
 
+    console.log("api", pokemonsWithDetails[0], "bdd", simplifiedPokemons);
     // combino todos los pokemones en un solo array
     const combinated = [...pokemonsWithDetails, ...simplifiedPokemons];
-
     const responseData = {
       results: combinated,
     };

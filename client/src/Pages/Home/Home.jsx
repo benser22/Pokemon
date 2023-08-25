@@ -22,7 +22,7 @@ const Home = () => {
   useEffect(() => {
     !userCurrent.email && navigate("/");
   }, [userCurrent, navigate]);
-
+  
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
     if (!pokemons.length) {

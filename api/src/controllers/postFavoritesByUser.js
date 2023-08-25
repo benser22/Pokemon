@@ -4,6 +4,7 @@ const { User, Favorite } = require("../db");
 const postFavoritesByUser = async (req, res) => {
   const userId = req.params.userId;
   const {
+    id,
     name,
     img,
     hp,
@@ -32,6 +33,7 @@ const postFavoritesByUser = async (req, res) => {
     const [favorite, favoriteCreated] = await Favorite.findOrCreate({
       where: { name },
       defaults: {
+        id,
         name,
         userId: user.id,
         img: img,
@@ -49,9 +51,15 @@ const postFavoritesByUser = async (req, res) => {
       },
     });
 
+    
     if (!favoriteCreated) {
       // El favorito ya existe en la base de datos
-      const existingFavorite = await user.hasFavorite(favorite);
+      const existingFavorite = await Favorite.findOne({
+        where: {
+          name: name,
+        }
+      });
+      
       if (existingFavorite) {
         return res
           .status(409)
@@ -63,7 +71,7 @@ const postFavoritesByUser = async (req, res) => {
     }
     return res
       .status(201)
-      .json({ message: "Favorite added successfully", favorite });
+      .json(favorite);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Failed to add favorite", error });

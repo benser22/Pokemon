@@ -7,8 +7,6 @@ import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
 
 const Favorites = () => {
-  // const pokemonsCreated = useSelector((state) => state.pokemons);
-  //   const pokemons = useSelector((state) => state.pokemons);
   const pokemons = useSelector((state) => state.favorites);
   const allTypes = useSelector((state) => state.allTypes);
   const userCurrent = useSelector((state) => state.user);
@@ -34,9 +32,9 @@ const Favorites = () => {
 
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
-  }, [pokemons.length, allTypes.length]);
+  }, []);
 
-  if (isLoading || !allTypes.length || !pokemons.length) {
+  if (isLoading || (!allTypes.length && !pokemons.length)) {
     return <Loader />;
   }
 
@@ -72,7 +70,7 @@ const Favorites = () => {
           currentPage * pokemonsPerPage
         )
         .map((pokemon, index) => (
-          <Card pokemon={pokemon} getType={getType} key={index} />
+          <Card pokemon={pokemon} getType={getType} userId={userCurrent.id} key={index} />
         ))}
       <div className={styles.buttonContainer}>
         <button className={styles.pageButton} onClick={handlePrevPage}>

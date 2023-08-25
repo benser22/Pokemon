@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Card.module.css";
 import logoDelete from "../../assets/close.png";
-import { deletePokemon } from "../../redux/actions/actions";
+import { deletePokemon, postFavoritesByUser } from "../../redux/actions/actions";
 import { NavLink } from "react-router-dom";
 import imgDefault from "../../assets/default.png";
 import { Star } from "react-feather";
@@ -14,6 +14,14 @@ export default function Card({ pokemon, getType }) {
   const [isShiny, setIsShiny] = useState(pokemon.isShiny || false);
   const [fillColor, setFillColor] = useState("white"); // Color de relleno inicial esttella
   const [isFavorite, setIsFavorite] = useState(false);
+  const userCurrent = useSelector((state) => state.user);
+  const favorites = useSelector((state) => state.favorites);
+
+  useEffect(() => {
+    const isPokemonFavorite = favorites.some((favPokemon) => favPokemon.name === pokemon.name);
+    setIsFavorite(isPokemonFavorite);
+    // eslint-disable-next-line
+  }, [pokemon]);
 
   function capitalizeFirstLetter(input) {
     if (pokemon.name) {
@@ -43,6 +51,9 @@ export default function Card({ pokemon, getType }) {
   }, [pokemon.isShiny]);
 
   const handleFavorite = () => {
+    if (!isFavorite && userCurrent){
+      dispatch(postFavoritesByUser(userCurrent.id,pokemon))
+    }
     setIsFavorite(!isFavorite);
   };
 
