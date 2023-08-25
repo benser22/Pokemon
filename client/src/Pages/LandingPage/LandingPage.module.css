@@ -42,15 +42,8 @@
   color: white;
 }
 
-.navLink {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  cursor: pointer; /* Agrega cursor */
-}
-
-.navLink:hover {
-  color: #007bff;
+.navItem:hover {
+  color: #ccff00;
 }
 
 .content {

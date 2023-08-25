@@ -2,6 +2,7 @@ const { User } = require("../db");
 
 const postUser = async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
+
   if (!firstName || !lastName || !email || !password) {
     return res.status(400).send("Missing data");
   }
@@ -14,6 +15,7 @@ const postUser = async (req, res) => {
         password
       },
     });
+
     if (!created) {
       return res.status(200).send(`${user.email} already exists`);
     }

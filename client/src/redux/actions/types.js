@@ -12,3 +12,4 @@ export const ORDER_NAME = 'ORDER_NAME';
 export const EVO_CHAIN = 'EVO_CHAIN';
 export const RESTORE_POKEMONS = 'RESTORE_POKEMONS';
 export const ADD_POKEMON = 'ADD_POKEMON';
+export const SAVE_USER = 'SAVE_USER';

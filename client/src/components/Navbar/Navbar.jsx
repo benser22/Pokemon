@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import logo from "../../assets/images/pokeBall.gif";
 import Modal from "react-modal";
 import SearchBar from "../SearchBar/SearchBar"
+import { useSelector } from "react-redux";
+import { saveUser } from "../../redux/actions/actions";
 
 const Navbar = () => {
   const location = useLocation();
   const [logout, setLogout] = useState(false); // Estado para controlar si se ha realizado el cierre de sesión
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
+  const userCurrent = useSelector((state) => state.user)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
   // const dispatch = useDispatch();
 
   // const handleReset = () => {
   // dispatch(restorePokemons());
   // };
 
-
   const handleLogout = () => {
     setShowModal(true); // Muestro el modal de confirmación de cierre de sesión
   };
 
   const handleConfirmLogout = () => {
+    dispatch(saveUser({}))
     setLogout(true); // Actualizo el estado de 'logout' para indicar que se ha realizado el cierre de sesión
     setShowModal(false); // Oculto el modal de confirmación de cierre de sesión
   };
@@ -64,7 +70,7 @@ const Navbar = () => {
         style={{ textDecoration: "none" }}
         onClick={handleLogout}
       >
-        <p className={styles.logout}>Logout</p>
+        <p title="Logout" className={styles.logout}>{userCurrent.email}</p>
       </NavLink>
       <Modal
         isOpen={showModal}

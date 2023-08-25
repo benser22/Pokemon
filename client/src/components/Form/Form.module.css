@@ -1,0 +1,131 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0px 0px 8px rgba(255, 255, 255, 1);
+  max-width: 20%;
+  min-width: 30vh;
+  width: 100%;
+  height: min-content;
+  opacity: 0; /* Comienza con opacidad en 0 para la animación */
+  animation: fade-in 0.4s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8); /* Puedes ajustar esto según tus necesidades */
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* Puedes ajustar esto según tus necesidades */
+  }
+}
+
+.container h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgb(157, 157, 157);
+}
+
+.container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #bababa;
+  margin-right: auto;
+}
+
+.myInput {
+  max-width: unset;
+  padding: 8px;
+  border: 1px solid #bababa;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.myButton {
+  margin-top: 3vh;
+  color: rgb(255, 255, 255);
+  width: auto;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-image: linear-gradient(
+    90deg,
+    #173e51 0%,
+    #21546d 50%,
+    #286989 100%
+  );
+}
+
+.myButton:hover {
+  filter: saturate(230%);
+  box-shadow: 2px 1px 18px #ffffff;
+}
+
+.myButton:active {
+  box-shadow: unset;
+  filter: brightness(150%);
+}
+
+.error {
+  color: rgb(251, 16, 16);
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: -8px;
+  font-family: cursive;
+}
+
+.picture {
+  border-radius: 8px;
+  max-height: 10%;
+  max-width: 80%;
+  margin-top: 2vh;
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: white;
+  font-size: 30px;
+  padding: 10px 15px;
+}
+
+.close:hover {
+  color: #c0df3e;
+}
+
+.close:active {
+  transform: scale(0.8);
+  filter: brightness(0.8);
+}

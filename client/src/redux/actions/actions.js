@@ -13,6 +13,7 @@ import {
   ORDER_NAME,
   DELETE_POKEMON,
   RESTORE_POKEMONS,
+  SAVE_USER,
 } from "./types.js";
 
 const URL = "http://localhost:3001/pokemons";
@@ -200,6 +201,14 @@ export const orderName = (order, sortOrder) => {
 export const addPokemon = (pokemon) => {
   return {
     type: ADD_POKEMON,
-    payload:  pokemon,
+    payload: pokemon,
   };
-}
+};
+
+export const saveUser = (userCurrent) => {
+  const { user, access } = userCurrent;
+  return {
+    type: SAVE_USER,
+    payload: { ...user, access },
+  };
+};

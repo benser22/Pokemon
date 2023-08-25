@@ -1,6 +1,7 @@
 // Home.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAllPokemons, getTypes } from "../../redux/actions/actions";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
@@ -10,14 +11,19 @@ const Home = () => {
   // const pokemonsCreated = useSelector((state) => state.pokemons);
   const pokemons = useSelector((state) => state.pokemons);
   const allTypes = useSelector((state) => state.allTypes);
-
+  const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
 
+  useEffect(() => {
+    !userCurrent.email && navigate("/");
+  }, [userCurrent, navigate]);
+
+  
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
     if (!pokemons.length) {
@@ -74,19 +80,23 @@ const Home = () => {
           <Card pokemon={pokemon} getType={getType} key={index} />
         ))}
       <div className={styles.buttonContainer}>
-        <button className={styles.pageButton} onClick={handlePrevPage}>{"<"}</button>
+        <button className={styles.pageButton} onClick={handlePrevPage}>
+          {"<"}
+        </button>
         {Array.from({ length: totalPages }, (_, index) => (
           <button
-          key={index}
-          className={`${styles.pageButton} ${
-            currentPage === index + 1 ? styles.currentPageButton : ""
-          }`}
-          onClick={() => handleChangePage(index + 1)}
+            key={index}
+            className={`${styles.pageButton} ${
+              currentPage === index + 1 ? styles.currentPageButton : ""
+            }`}
+            onClick={() => handleChangePage(index + 1)}
           >
             {index + 1}
           </button>
         ))}
-        <button className={styles.pageButton} onClick={handleNextPage}>{">"}</button>
+        <button className={styles.pageButton} onClick={handleNextPage}>
+          {">"}
+        </button>
       </div>
     </div>
   );
