@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllPokemons, getTypes } from "../../redux/actions/actions";
+import { getAllPokemons, getTypes, getFavoritesByUser } from "../../redux/actions/actions";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
@@ -12,17 +12,17 @@ const Home = () => {
   const pokemons = useSelector((state) => state.pokemons);
   const allTypes = useSelector((state) => state.allTypes);
   const userCurrent = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const favorites = useSelector((state) => state.favorites);
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
-  
+  // Precarga de las imágenes
   useEffect(() => {
-    // Precargar las imágenes aquí
     const imagePromises = pokemons.map((pokemon) => {
       return new Promise((resolve) => {
         const img = new Image();
@@ -38,6 +38,12 @@ const Home = () => {
     });
   }, [pokemons]);
 
+  // Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
+  useEffect(() => {
+    if (favorites.length === 0)
+      {dispatch(getFavoritesByUser(userCurrent.id));}
+      // eslint-disable-next-line
+  }, [favorites]);
 
   useEffect(() => {
     !userCurrent.email && navigate("/");
@@ -45,11 +51,11 @@ const Home = () => {
   
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
-    if (!pokemons.length) {
+    if (pokemons.length === 0) {
       dispatch(getAllPokemons());
     }
 
-    if (!allTypes.length) {
+    if (allTypes.length === 0) {
       dispatch(getTypes());
     }
 
@@ -58,7 +64,8 @@ const Home = () => {
     }, 500);
 
     return () => clearTimeout(loadingTimeout);
-  }, [dispatch, pokemons.length, allTypes.length]);
+    // eslint-disable-next-line
+  }, [pokemons.length, allTypes.length]);
 
   if (isLoading || !allTypes.length || !pokemons.length) {
     return <Loader />;

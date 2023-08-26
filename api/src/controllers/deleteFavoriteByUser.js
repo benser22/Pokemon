@@ -7,7 +7,7 @@ const { User, Favorite } = require("../db");
 const deleteFavoriteByUser = async (req, res) => {
   const userId = req.params.userId;
   const pokemonName = req.params.pokemonName;
-
+  if (!userId || !pokemonName) return;
   try {
     const user = await User.findByPk(userId, {
       include: Favorite, // Cargar también los favoritos del usuario

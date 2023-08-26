@@ -31,7 +31,8 @@ const Navbar = () => {
     if (logout) {
       navigate("/"); // Redirijo al usuario a la página de inicio cuando se realiza el cierre de sesión
     }
-  }, [logout, navigate]);
+    // eslint-disable-next-line
+  }, [logout]);
 
   return (
     <nav className={styles.container}>

@@ -3,7 +3,8 @@ const { Favorite } = require("../db");
 
 const getFavoritesByUser = async (req, res) => {
   const userId = req.params.userId;
-
+  if (!userId) return;
+  
   try {
     const favorites = await Favorite.findAll({
       where: { userId }, // Buscar favoritos con el userId proporcionado

@@ -8,12 +8,12 @@ import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
 
 const Favorites = () => {
-  const pokemons = useSelector((state) => state.favorites);
+  const favorites = useSelector((state) => state.favorites);
   const allTypes = useSelector((state) => state.allTypes);
   const userCurrent = useSelector((state) => state.user);
   const [currentPage, setCurrentPage] = useState(1);
-  const pokemonsPerPage = 12;
-  const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
+  const favoritesPerPage = 12;
+  const totalPages = Math.ceil(favorites.length / favoritesPerPage);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,7 +23,9 @@ const Favorites = () => {
   }, [userCurrent, navigate]);
 
   useEffect(() => {
-    dispatch(getFavoritesByUser(userCurrent.id));
+    if (!favorites) {
+      dispatch(getFavoritesByUser(userCurrent.id));
+    }
     if (!allTypes.length) {
       dispatch(getTypes());
     }
@@ -36,7 +38,7 @@ const Favorites = () => {
     // eslint-disable-next-line
   }, []);
 
-  if (isLoading || (!allTypes.length && !pokemons.length)) {
+  if (isLoading || (!allTypes.length && !favorites.length)) {
     return <Loader />;
   }
 
@@ -66,10 +68,10 @@ const Favorites = () => {
 
   return (
     <div className={styles.container}>
-      {pokemons
+      {favorites
         .slice(
-          (currentPage - 1) * pokemonsPerPage,
-          currentPage * pokemonsPerPage
+          (currentPage - 1) * favoritesPerPage,
+          currentPage * favoritesPerPage
         )
         .map((pokemon, index) => (
           <Card

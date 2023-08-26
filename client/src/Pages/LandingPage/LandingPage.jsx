@@ -36,7 +36,8 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
-    setUser(userCurrent);
+    if (userCurrent !== undefined)
+    {setUser(userCurrent);}
   }, [userCurrent, user]);
 
   const closeModals = () => {
