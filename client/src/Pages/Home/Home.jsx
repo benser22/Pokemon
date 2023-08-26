@@ -19,6 +19,26 @@ const Home = () => {
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
 
+
+  
+  useEffect(() => {
+    // Precargar las imágenes aquí
+    const imagePromises = pokemons.map((pokemon) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = pokemon.img; 
+        img.onload = () => {
+          resolve();
+        };
+      });
+    });
+
+    Promise.all(imagePromises).then(() => {
+      setIsLoading(false);
+    });
+  }, [pokemons]);
+
+
   useEffect(() => {
     !userCurrent.email && navigate("/");
   }, [userCurrent, navigate]);
@@ -35,7 +55,7 @@ const Home = () => {
 
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 300);
+    }, 500);
 
     return () => clearTimeout(loadingTimeout);
   }, [dispatch, pokemons.length, allTypes.length]);

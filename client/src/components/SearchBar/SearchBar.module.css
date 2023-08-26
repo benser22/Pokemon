@@ -201,10 +201,20 @@
 
 .FaTimes {
   cursor: pointer;
+  color: white;
+  font-size: 30px;
+  padding: 10px 15px;
 }
+
 .FaTimes:hover {
-  color: yellow;
+  color: #c0df3e;
 }
+
+.FaTimes:active {
+  transform: scale(0.8);
+  filter: brightness(0.8);
+}
+
 .buttonAdd {
   width: 30%;
   margin-top: -5vh;

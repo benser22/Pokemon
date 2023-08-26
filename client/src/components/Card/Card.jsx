@@ -21,8 +21,6 @@ export default function Card({ pokemon, getType }) {
   const userCurrent = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
   const location = useLocation();
-
-  // Verificar si la ruta actual es "/favorites/"
   const isFavoritesPage = location.pathname === "/favorites";
 
   useEffect(() => {
@@ -77,7 +75,8 @@ export default function Card({ pokemon, getType }) {
     <div className={styles.cardContainer}>
       {/* Combine the card class with the background class> */}
       <div className={`${styles.card} ${getBackgroundImage()}`}>
-      <div className={!isFavoritesPage ? styles.header : styles.favHeader}>
+        {/* Comienza mi cabecera */}
+        <div className={!isFavoritesPage ? styles.header : styles.favHeader}>
           {!isFavoritesPage && (
             <img
               src={logoDelete}
@@ -102,25 +101,24 @@ export default function Card({ pokemon, getType }) {
             />
             <label htmlFor="ckeckShiny" className={styles.shiny}>
               Shiny
-            </label>
-            {/* <Star className={styles.star} alt="star_image"></Star> */}
-              <div
-                title={!isFavorite ? "Add to favorites" : "Remove to favorites"}
-                style={{ height: "0" }}
-              >
-                <Star
-                  size={26} // Cambia el tamaño del icono (en píxeles)
-                  strokeWidth={2} // Cambia el ancho del contorno del icono (en unidades)
-                  stroke="black" // Cambia el color del contorno del icono
-                  fill={fillColor}
-                  cursor="pointer" // Cambia el relleno del icono (en este caso, ninguno)
-                  onClick={handleFavorite}
-                  className={styles.star}
-                />
-              </div>
+            </label>{" "}
+            <div
+              title={!isFavorite ? "Add to favorites" : "Remove to favorites"}
+              style={{ height: "0" }}
+            >
+              <Star
+                size={26}
+                strokeWidth={2}
+                stroke="black"
+                fill={fillColor}
+                cursor="pointer"
+                onClick={handleFavorite}
+                className={styles.star}
+              />
+            </div>
           </div>
         </div>
-        {/* termina header */}
+        {/* termina mi cabecera y comienza el body de la carta */}
         <div className={styles.body}>
           <NavLink to={`/detail/${pokemon.id}`} className={styles.link}>
             <h2 className={styles.pokemonName}>{formattedName}</h2>
@@ -138,6 +136,11 @@ export default function Card({ pokemon, getType }) {
               isShinyCreated && pokemon.created ? styles.createdImage : ""
             }`}
             id="img"
+            style={{  
+              height: "max-content",
+              width: "max-content",
+              maxHeight: "20vh",
+            }}
           />
         </div>
         {/* Termina body */}

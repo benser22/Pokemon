@@ -59,7 +59,7 @@ const pokemonImages = [
     id: 15,
     url: "https://www.pngmart.com/files/1/Witch-Transparent-Background.png",
   },
-  { id: 16, url: "https://www.pngmart.com/files/4/Sand-Monster-PNG-Image.png" },
+  { id: 16, url: "https://static.vecteezy.com/system/resources/previews/017/349/571/original/cute-avocado-cartoon-free-png.png" },
   {
     id: 17,
     url: "https://www.pngmart.com/files/4/Blue-Monster-PNG-Clipart.png",

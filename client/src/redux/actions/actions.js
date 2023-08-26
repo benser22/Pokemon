@@ -17,6 +17,7 @@ import {
   DELETE_POKEMON,
   RESTORE_POKEMONS,
   SAVE_USER,
+  CLEAN_ALL
 } from "./types.js";
 
 const URL = "http://localhost:3001/pokemons";
@@ -257,3 +258,9 @@ export const saveUser = (userCurrent) => {
     payload: { ...user, access },
   };
 };
+
+export const cleanAll = () => {
+  return {
+    type: CLEAN_ALL,
+  }
+}

@@ -15,6 +15,7 @@ import {
   SAVE_USER,
   GET_FAVORITES_BY_USER,
   POST_FAVORITES_BY_USER,
+  CLEAN_ALL,
 } from "../actions/types.js";
 
 const initialState = {
@@ -51,6 +52,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         favorites: action.payload,
       };
+    
     case POST_FAVORITES_BY_USER:
       return {
         ...state,
@@ -124,13 +126,6 @@ function rootReducer(state = initialState, action) {
         filteredPokemons: filterCreated,
       };
 
-    // case RESTORE_POKEMONS:
-    //   return {
-    //     ...state,
-    //     pokemons: state.pokemons,
-    //     filteredPokemons: state.pokemons,
-    //   };
-
     case ORDER_NAME:
       const sortOrder = action.payload.sortOrder;
       const order = action.payload.order === "ascending" ? 1 : -1;
@@ -142,6 +137,16 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         filteredPokemons: sortedPokemons,
+      };
+
+    case CLEAN_ALL:
+      return {
+        pokemons: [],
+        pokemon: {},
+        allTypes: [],
+        filteredPokemons: [],
+        favorites: [],
+        user: {},
       };
 
     default:

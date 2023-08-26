@@ -6,7 +6,7 @@ import logo from "../../assets/images/pokeBall.gif";
 import Modal from "react-modal";
 import SearchBar from "../SearchBar/SearchBar"
 import { useSelector } from "react-redux";
-import { saveUser } from "../../redux/actions/actions";
+import { cleanAll } from "../../redux/actions/actions";
 
 const Navbar = () => {
   const location = useLocation();
@@ -17,18 +17,12 @@ const Navbar = () => {
   const navigate = useNavigate();
 
 
-  // const dispatch = useDispatch();
-
-  // const handleReset = () => {
-  // dispatch(restorePokemons());
-  // };
-
   const handleLogout = () => {
     setShowModal(true); // Muestro el modal de confirmación de cierre de sesión
   };
 
   const handleConfirmLogout = () => {
-    dispatch(saveUser({}))
+    dispatch(cleanAll())
     setLogout(true); // Actualizo el estado de 'logout' para indicar que se ha realizado el cierre de sesión
     setShowModal(false); // Oculto el modal de confirmación de cierre de sesión
   };
