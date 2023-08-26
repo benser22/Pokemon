@@ -1,20 +1,18 @@
 // controllers/favoritesController.js
-const { User, Favorite } = require("../db");
+const { Favorite } = require("../db");
 
-// Obtener todos los favoritos de un usuario
 const getFavoritesByUser = async (req, res) => {
   const userId = req.params.userId;
 
   try {
-    const user = await User.findByPk(userId, {
-      include: Favorite, // Cargar también los favoritos del usuario
+    const favorites = await Favorite.findAll({
+      where: { userId }, // Buscar favoritos con el userId proporcionado
     });
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    if (favorites.length === 0) {
+      return res.status(404).json({ message: "Favorites not found for this user" });
     }
-
-    const favorites = await user.getFavorites();
+    
     return res.status(200).json(favorites);
   } catch (error) {
     console.error(error);
@@ -23,3 +21,4 @@ const getFavoritesByUser = async (req, res) => {
 };
 
 module.exports = getFavoritesByUser;
+

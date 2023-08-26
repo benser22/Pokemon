@@ -16,8 +16,9 @@ const getAllPokemons = async (req, res) => {
         const detailsResponse = await axios.get(pokemonFromAPI.url);
         const id = detailsResponse.data.id;
         const name = detailsResponse.data.name;
-        const imageUrl =
-          detailsResponse.data.sprites.other["official-artwork"].front_default;
+        const imageUrl =   detailsResponse.data.sprites.other.home.front_default;
+
+          // detailsResponse.data.sprites.other["official-artwork"].front_default;
         const imgShiny = detailsResponse.data.sprites.other.home.front_shiny;
         const height = detailsResponse.data.height;
         const weight = detailsResponse.data.weight;

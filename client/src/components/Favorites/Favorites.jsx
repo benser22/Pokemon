@@ -1,6 +1,7 @@
 // Home.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getTypes, getFavoritesByUser } from "../../redux/actions/actions";
 import styles from "./Favorites.module.css";
 import Card from "../../components/Card/Card";
@@ -10,18 +11,19 @@ const Favorites = () => {
   const pokemons = useSelector((state) => state.favorites);
   const allTypes = useSelector((state) => state.allTypes);
   const userCurrent = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Solo dispatch si no tengo los datos en los archivos Redux
-    if (!pokemons.length) {
-      dispatch(getFavoritesByUser(userCurrent.id));
-    }
+    !userCurrent.email && navigate("/");
+  }, [userCurrent, navigate]);
 
+  useEffect(() => {
+    dispatch(getFavoritesByUser(userCurrent.id));
     if (!allTypes.length) {
       dispatch(getTypes());
     }
@@ -70,7 +72,12 @@ const Favorites = () => {
           currentPage * pokemonsPerPage
         )
         .map((pokemon, index) => (
-          <Card pokemon={pokemon} getType={getType} userId={userCurrent.id} key={index} />
+          <Card
+            pokemon={pokemon}
+            getType={getType}
+            userId={userCurrent.id}
+            key={index}
+          />
         ))}
       <div className={styles.buttonContainer}>
         <button className={styles.pageButton} onClick={handlePrevPage}>
