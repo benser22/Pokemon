@@ -3,6 +3,7 @@ import {
   GET_ALL_POKEMONS,
   GET_FAVORITES_BY_USER,
   POST_FAVORITES_BY_USER,
+  DELETE_FAVORITES_BY_USER,
   GET_POKEMON_DETAILS,
   GET_POKEMON_BY_NAME,
   GET_POKEMON_BY_ID,
@@ -47,11 +48,24 @@ export const getFavoritesByUser = (idUser) => {
     }
   }
 }
+export const deleteFavoritesByUser = (idUser, name) => {
+  return async function (dispatch) {
+    try {
+      const {data} = await axios.delete(URL + `/user/${idUser}/favorites/${name}`);
+      dispatch({
+        type: DELETE_FAVORITES_BY_USER,
+        payload: data
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
 
 export const postFavoritesByUser = (idUser, info) => {
   return async function (dispatch) {
     try {
-      const {data} = await axios.post(URL + `/user/${idUser}/favorites`, info);
+      const { data } = await axios.post(URL + `/user/${idUser}/favorites`, info);
       dispatch({
         type: POST_FAVORITES_BY_USER,
         payload: data

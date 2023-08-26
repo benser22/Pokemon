@@ -14,6 +14,7 @@ const getAllUsers = require('../controllers/getAllUsers');
 const login = require("../controllers/login");
 const postUser = require("../controllers/postUser");
 const postFavoritesByUser = require('../controllers/postFavoritesByUser'); // Importa el nuevo controlador
+const deleteFavoriteByUser = require("../controllers/deleteFavoriteByUser");
 
 
 const router = Router();
@@ -24,6 +25,7 @@ router.get("/types", getApiType);
 router.get('/users', getAllUsers);
 router.get('/user/:userId/favorites', getFavoritesByUser);
 router.post('/user/:userId/favorites', postFavoritesByUser);
+router.delete('/user/:userId/favorites/:pokemonName', deleteFavoriteByUser);
 router.get("/login/:email&:password", login);
 router.post("/login", postUser);
 router.get("/name", getPokemonByName);

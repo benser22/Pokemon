@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Card.module.css";
 import logoDelete from "../../assets/close.png";
-import { deletePokemon, postFavoritesByUser } from "../../redux/actions/actions";
-import { NavLink } from "react-router-dom";
+import {
+  deleteFavoritesByUser,
+  deletePokemon,
+  postFavoritesByUser,
+} from "../../redux/actions/actions";
+import { NavLink, useLocation } from "react-router-dom";
 import imgDefault from "../../assets/default.png";
 import { Star } from "react-feather";
 
@@ -16,9 +20,15 @@ export default function Card({ pokemon, getType }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const userCurrent = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
+  const location = useLocation();
+
+  // Verificar si la ruta actual es "/favorites/"
+  const isFavoritesPage = location.pathname === "/favorites";
 
   useEffect(() => {
-    const isPokemonFavorite = favorites.some((favPokemon) => favPokemon.name === pokemon.name);
+    const isPokemonFavorite = favorites.some(
+      (favPokemon) => favPokemon.name === pokemon.name
+    );
     setIsFavorite(isPokemonFavorite);
     // eslint-disable-next-line
   }, [pokemon]);
@@ -51,8 +61,10 @@ export default function Card({ pokemon, getType }) {
   }, [pokemon.isShiny]);
 
   const handleFavorite = () => {
-    if (!isFavorite && userCurrent){
-      dispatch(postFavoritesByUser(userCurrent.id,pokemon))
+    if (!isFavorite && userCurrent) {
+      dispatch(postFavoritesByUser(userCurrent.id, pokemon));
+    } else {
+      dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
     }
     setIsFavorite(!isFavorite);
   };
@@ -65,18 +77,20 @@ export default function Card({ pokemon, getType }) {
     <div className={styles.cardContainer}>
       {/* Combine the card class with the background class> */}
       <div className={`${styles.card} ${getBackgroundImage()}`}>
-        <div className={styles.header}>
-          <img
-            src={logoDelete}
-            alt="Delete"
-            className={styles.deleteIcon}
-            title="Delete Card"
-            onClick={handleDelete}
-          />
+      <div className={!isFavoritesPage ? styles.header : styles.favHeader}>
+          {!isFavoritesPage && (
+            <img
+              src={logoDelete}
+              alt="Delete"
+              className={styles.deleteIcon}
+              title="Delete Card"
+              onClick={handleDelete}
+            />
+          )}
           {!isNaN(pokemon.id) ? (
             <p className={styles.ids}>#{pokemon.id}</p>
           ) : (
-            <p className={styles.ids}>#created</p>
+            <p className={styles.created}>#created</p>
           )}
           <div className={styles.groupShiny}>
             <input
@@ -90,19 +104,20 @@ export default function Card({ pokemon, getType }) {
               Shiny
             </label>
             {/* <Star className={styles.star} alt="star_image"></Star> */}
-             <div title={!isFavorite ? "Add to favorites" : "Remove to favorites"} style={{height:"0"}}>
-            <Star
-              size={18} // Cambia el tamaño del icono (en píxeles)
-              // color="yellow"     // Cambia el color del icono (utiliza nombres de colores o códigos hexadecimales)
-              strokeWidth={2} // Cambia el ancho del contorno del icono (en unidades)
-              stroke="black" // Cambia el color del contorno del icono
-              fill={fillColor}
-              cursor="pointer" // Cambia el relleno del icono (en este caso, ninguno)
-              onClick={handleFavorite}
-              className={styles.star}
-              />
+              <div
+                title={!isFavorite ? "Add to favorites" : "Remove to favorites"}
+                style={{ height: "0" }}
+              >
+                <Star
+                  size={26} // Cambia el tamaño del icono (en píxeles)
+                  strokeWidth={2} // Cambia el ancho del contorno del icono (en unidades)
+                  stroke="black" // Cambia el color del contorno del icono
+                  fill={fillColor}
+                  cursor="pointer" // Cambia el relleno del icono (en este caso, ninguno)
+                  onClick={handleFavorite}
+                  className={styles.star}
+                />
               </div>
-            {/* src={star} */}
           </div>
         </div>
         {/* termina header */}

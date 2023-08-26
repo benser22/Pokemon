@@ -73,7 +73,6 @@ const getAllPokemons = async (req, res) => {
       };
     });
 
-    console.log("api", pokemonsWithDetails[0], "bdd", simplifiedPokemons);
     // combino todos los pokemones en un solo array
     const combinated = [...pokemonsWithDetails, ...simplifiedPokemons];
     const responseData = {

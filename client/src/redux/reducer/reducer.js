@@ -3,6 +3,7 @@ import {
   GET_POKEMON_DETAILS,
   GET_POKEMON_BY_NAME,
   GET_POKEMON_BY_ID,
+  DELETE_FAVORITES_BY_USER,
   POST_POKEMON,
   CLEAR_STATE_POKEMON,
   GET_TYPES,
@@ -13,7 +14,7 @@ import {
   ADD_POKEMON,
   SAVE_USER,
   GET_FAVORITES_BY_USER,
-  POST_FAVORITES_BY_USER
+  POST_FAVORITES_BY_USER,
 } from "../actions/types.js";
 
 const initialState = {
@@ -21,14 +22,13 @@ const initialState = {
   pokemon: {},
   allTypes: [],
   filteredPokemons: [],
-  favorites:[],
+  favorites: [],
   user: {},
 };
 
 function rootReducer(state = initialState, action) {
   let newArray = [];
   switch (action.type) {
-    
     case GET_ALL_POKEMONS:
       return {
         ...state,
@@ -36,17 +36,26 @@ function rootReducer(state = initialState, action) {
         filteredPokemons: action.payload,
       };
 
-    case GET_FAVORITES_BY_USER: 
-    return{
-      ...state,
-      favorites: action.payload
-    };
-    
-    case POST_FAVORITES_BY_USER: 
-    return{
-      ...state,
-      favorites: [...state.favorites, action.payload]
-    };
+    case DELETE_FAVORITES_BY_USER:
+      const { name } = action.payload;
+      const updatedFavorites = state.favorites.filter(
+        (pokemon) => pokemon.name !== name
+      );
+      return {
+        ...state,
+        favorites: updatedFavorites,
+      };
+
+    case GET_FAVORITES_BY_USER:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
+    case POST_FAVORITES_BY_USER:
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload],
+      };
 
     case GET_POKEMON_DETAILS:
       return {
