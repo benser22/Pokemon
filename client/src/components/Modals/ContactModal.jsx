@@ -69,6 +69,7 @@ const ContactForm = ({ onClose }) => {
         <h2>Contact</h2>
         <Form onSubmit={handleSubmit}>
           <Input
+            id="formSub"
             type="text"
             name="name"
             placeholder="Name"
@@ -76,6 +77,7 @@ const ContactForm = ({ onClose }) => {
             onChange={handleInputChange}
           />
           <Input
+            id="formEm"
             type="email"
             name="email"
             placeholder="Email"
@@ -83,15 +85,18 @@ const ContactForm = ({ onClose }) => {
             onChange={handleInputChange}
           />
           <TextArea
+            id="formText"
             name="message"
             placeholder="Message"
             value={formData.message}
             onChange={handleInputChange}
           />
-          <ButtonContainer>
-            <SubmitButton type="submit">Submit</SubmitButton>
-            <ResetButton type="button" onClick={handleReset}>
-              <FaBroom title="Clean form" />
+          <ButtonContainer id="buttoncontainer">
+            <SubmitButton id="buttonsubmit" type="submit">
+              Submit
+            </SubmitButton>
+            <ResetButton id="buttonreset" type="button" onClick={handleReset}>
+              <FaBroom id="button clean" title="Clean form" />
             </ResetButton>
           </ButtonContainer>
         </Form>

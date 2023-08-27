@@ -4,17 +4,19 @@ import styles from "./CreatePokemon.module.css";
 function TypesSection({ allTypes, selectedTypes, handleTypeChange }) {
   return (
     <div>
-      <label
+      <h2
+        id="pokelabeltypes"
         className={styles.formLabel}
         style={{ marginLeft: "50%", marginTop: "0%", fontSize: "1em" }}
       >
         Types
-      </label>
+      </h2>
       <div className={styles.checkboxContainer}>
         {allTypes.map((type) => (
           <div key={type.name} className={styles.checkboxGroup}>
-            <label className={styles.checkboxLabel}>
+            <label htmlFor={"my"+type.name} className={styles.checkboxLabel}>
               <input
+                id={"my"+type.name}
                 type="checkbox"
                 checked={selectedTypes.includes(type.name)}
                 onChange={() => handleTypeChange(type.name)}
@@ -23,7 +25,7 @@ function TypesSection({ allTypes, selectedTypes, handleTypeChange }) {
               <img
                 src={type.image_type}
                 alt={type.name}
-                style={{cursor:"pointer"}}
+                style={{ cursor: "pointer" }}
                 className={`${styles.typeImage} ${
                   selectedTypes.includes(type.name)
                     ? styles.typeImageSelected

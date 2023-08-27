@@ -29,14 +29,14 @@ function PokemonForm({
     }
   };
 
- const handleImageCheckboxChange = () => {
+  const handleImageCheckboxChange = () => {
     setDisableImageInput(!disableImageInput);
   };
 
-  useEffect(()=>{
-    disableImageInput ? setImg("default") : setImg(img)
+  useEffect(() => {
+    disableImageInput ? setImg("default") : setImg(img);
   }, [disableImageInput, img, setImg]);
-  
+
   useEffect(() => {
     setDisplayValidation(validation);
     const timeout = setTimeout(() => {
@@ -64,8 +64,9 @@ function PokemonForm({
   return (
     <form onSubmit={handleSubmit}>
       <div className={styles.formGroup}>
-        <label className={styles.formLabel}>Name:</label>
+        <label htmlFor="pokename" className={styles.formLabel}>Name:</label>
         <input
+          id="pokename"
           className={styles.formInput}
           type="text"
           value={name}
@@ -76,8 +77,11 @@ function PokemonForm({
         )}
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.formLabel}>HP (Health Points):</label>
+        <label htmlFor="pokehp" className={styles.formLabel}>
+          HP (Health Points):
+        </label>
         <input
+          id="pokehp"
           className={styles.formInput}
           style={{ marginTop: "-8px" }}
           type="range"
@@ -86,14 +90,19 @@ function PokemonForm({
           value={hp}
           onChange={(e) => handleInputChange("hp", e.target.value)}
         />
-        <span className={styles.rangeValue}>{hp}</span>
+        <span id="pokehpspan" className={styles.rangeValue}>
+          {hp}
+        </span>
         {displayValidation.hp && (
           <h2 className={styles.errorMessage}>{displayValidation.hp}</h2>
         )}
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.formLabel}>Attack:</label>
+        <label htmlFor="pokeat" className={styles.formLabel}>
+          Attack:
+        </label>
         <input
+          id="pokeat"
           className={styles.formInput}
           style={{ marginTop: "-8px" }}
           type="range"
@@ -102,14 +111,19 @@ function PokemonForm({
           value={attack}
           onChange={(e) => handleInputChange("attack", e.target.value)}
         />
-        <span className={styles.rangeValue}>{attack}</span>
+        <span id="pokeatspan" className={styles.rangeValue}>
+          {attack}
+        </span>
         {displayValidation.attack && (
           <h2 className={styles.errorMessage}>{displayValidation.attack}</h2>
         )}
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.formLabel}>Defense:</label>
+        <label htmlFor="pokedef" className={styles.formLabel}>
+          Defense:
+        </label>
         <input
+          id="pokedef"
           style={{ marginTop: "-8px" }}
           className={styles.formInput}
           type="range"
@@ -118,14 +132,19 @@ function PokemonForm({
           value={defense}
           onChange={(e) => handleInputChange("defense", e.target.value)}
         />
-        <span className={styles.rangeValue}>{defense}</span>
+        <span id="pokedefspan" className={styles.rangeValue}>
+          {defense}
+        </span>
         {displayValidation.defense && (
           <h2 className={styles.errorMessage}>{displayValidation.defense}</h2>
         )}
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.formLabel}>Speed:</label>
+        <label htmlFor="pokesp" className={styles.formLabel}>
+          Speed:
+        </label>
         <input
+          id="pokesp"
           className={styles.formInput}
           style={{ marginTop: "-8px" }}
           type="range"
@@ -134,31 +153,41 @@ function PokemonForm({
           value={speed}
           onChange={(e) => handleInputChange("speed", e.target.value)}
         />
-        <span className={styles.rangeValue}>{speed}</span>
+        <span id="pokespspan" className={styles.rangeValue}>
+          {speed}
+        </span>
         {displayValidation.speed && (
           <h2 className={styles.errorMessage}>{displayValidation.speed}</h2>
         )}
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.formLabel}>Height:</label>
+        <label htmlFor="pokehe" className={styles.formLabel}>
+          Height:
+        </label>
         <input
-        className={styles.formInput}
-        style={{ marginTop: "-8px" }}
-        type="range"
-        min="0"
-        max="20"
-        step="0.1" // Permitir valores decimales con dos decimales
-        value={height}
-        onChange={(e) => handleInputChange("height", e.target.value)}
-      />
-      <span className={styles.rangeValue}>{numericHeight.toFixed(2)} mts.</span>
+          id="pokehe"
+          className={styles.formInput}
+          style={{ marginTop: "-8px" }}
+          type="range"
+          min="0"
+          max="20"
+          step="0.1" // Permitir valores decimales con dos decimales
+          value={height}
+          onChange={(e) => handleInputChange("height", e.target.value)}
+        />
+        <span id="pokehespan" className={styles.rangeValue}>
+          {numericHeight.toFixed(2)} mts.
+        </span>
         {displayValidation.height && (
           <h2 className={styles.errorMessage}>{displayValidation.height}</h2>
         )}
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.formLabel}>Weight:</label>
+        <label htmlFor="pokewe" className={styles.formLabel}>
+          Weight:
+        </label>
         <input
+          id="pokewe"
           className={styles.formInput}
           style={{ marginTop: "-8px" }}
           type="range"
@@ -167,25 +196,32 @@ function PokemonForm({
           value={weight}
           onChange={(e) => handleInputChange("weight", e.target.value)}
         />
-        <span className={styles.rangeValue}>{weight} kgs.</span>
+        <span id="pokewespan" className={styles.rangeValue}>
+          {weight} kgs.
+        </span>
         {displayValidation.weight && (
           <h2 className={styles.errorMessage}>{displayValidation.weight}</h2>
         )}
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.formLabel}>Url Image:</label>
+        <label htmlFor="pokeurl" className={styles.formLabel}>
+          Url Image:
+        </label>
         <input
+          id="pokeurl"
           className={styles.formInput}
           type="text"
           value={disableImageInput || randomImage ? "" : img}
           onChange={(e) => handleImageInputChange(e.target.value)}
           readOnly={disableImageInput || randomImage}
           style={{
-            backgroundColor: disableImageInput || randomImage ? "darkGray" : "white",
+            backgroundColor:
+              disableImageInput || randomImage ? "darkGray" : "white",
           }}
         />
-        <label className={styles.checkboxLabel}>
-          <input
+        <label htmlFor="pokecheck1" className={styles.checkboxLabel}>
+          <input 
+            id="pokecheck1"
             type="checkbox"
             checked={disableImageInput}
             onClick={handleImageCheckboxChange}
@@ -193,8 +229,9 @@ function PokemonForm({
           />
           Default Image
         </label>
-        <label className={styles.checkboxLabel}>
+        <label htmlFor="pokecheck2" className={styles.checkboxLabel}>
           <input
+            id="pokecheck2"
             type="checkbox"
             checked={randomImage}
             onClick={handleRandomImageChange}
@@ -206,7 +243,7 @@ function PokemonForm({
           <h2 className={styles.errorMessage}>{displayValidation.img}</h2>
         )}
       </div>
-      <button className={styles.formButton} type="submit">
+      <button id="butonsubmit" className={styles.formButton} type="submit">
         Create Pokemon
       </button>
     </form>

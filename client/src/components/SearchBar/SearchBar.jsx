@@ -11,7 +11,7 @@ import Modal from "react-modal";
 import poke_angry from "../../assets/extras/poke_angry.gif";
 import { FaTimes } from "react-icons/fa";
 import Bar from "../Bar/Bar";
-import default_search from "../../assets/default_search.png"
+import default_search from "../../assets/default_search.png";
 /*Configurar el elemento raíz en react-modal asegura la accesibilidad (p/usuarios que la necesiten) y evita warning por consola*/
 const appElement = document.getElementById("root");
 Modal.setAppElement(appElement);
@@ -96,13 +96,18 @@ export default function SearchBar() {
       <div className={styles.searchAdd}>
         <form className={styles.searchAddForm} onSubmit={handleSubmit}>
           <input
+            id="formSearch"
             className={styles.searchInput}
             type="text"
             placeholder="Pokemon name or id..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
-          <button type="submit" className={styles.searchBarBtns}>
+          <button
+            id="buttonsubmitform"
+            type="submit"
+            className={styles.searchBarBtns}
+          >
             Search Card
           </button>
         </form>

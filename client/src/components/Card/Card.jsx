@@ -93,13 +93,13 @@ export default function Card({ pokemon, getType }) {
           )}
           <div className={styles.groupShiny}>
             <input
-              id="ckeckShiny"
+              id={`checkShiny${pokemon.name}`}
               type="checkbox"
               checked={isShiny}
               onChange={handleCheckboxShiny}
               className={styles.checkShiny}
             />
-            <label htmlFor="ckeckShiny" className={styles.shiny}>
+            <label htmlFor={`checkShiny${pokemon.name}`} className={styles.shiny}>
               Shiny
             </label>{" "}
             <div

@@ -98,7 +98,9 @@ const Form = ({ onClose, setUser, newSesion }) => {
         {newSesion && <img src={logo} alt="logo" className={styles.picture} />}
         {newSesion ? <h2>LOGIN</h2> : <h2>REGISTER</h2>}
         <form onSubmit={handleSubmit}>
-          <hr style={{color:'white', width:'100%', marginBottom:"6vh"}}></hr>
+          <hr
+            style={{ color: "white", width: "100%", marginBottom: "6vh" }}
+          ></hr>
           {!newSesion && (
             <>
               <label htmlFor="myFN">First Name:</label>
@@ -147,13 +149,27 @@ const Form = ({ onClose, setUser, newSesion }) => {
             onChange={handleChange}
             className={styles.myInput}
           />
-          {!errors.email && <p className={styles.error}>{errors.password}</p>}
+          {!errors.email && (
+            <p id="spanform" className={styles.error}>
+              {errors.password}
+            </p>
+          )}
           {newSesion ? (
-            <button type="submit" value="LOGIN" className={styles.myButton}>
+            <button
+              type="submit"
+              value="LOGIN"
+              id="submitL"
+              className={styles.myButton}
+            >
               SUBMIT
             </button>
           ) : (
-            <button type="submit" value="REGISTER" className={styles.myButton}>
+            <button
+              type="submit"
+              value="REGISTER"
+              id="submitR"
+              className={styles.myButton}
+            >
               SUBMIT
             </button>
           )}
