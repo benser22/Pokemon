@@ -6,10 +6,18 @@ module.exports = (sequelize) => {
   const Favorite = sequelize.define(
     "favorite",
     {
+      idTable: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      id: {
+        type: DataTypes.INTEGER,
+      },
       name: {
         type: DataTypes.STRING(30),
         allowNull: false,
-        unique: true,
       },
       img: {
         type: DataTypes.STRING,

@@ -1,8 +1,13 @@
 export default function validate(inputs) {
-  // Expresiones regulares para validar el email y la contraseña
+  // Expresiones regulares para validar el email, contraseña, firstName y lastName
   const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   const regexPassword = /^(?=.*\d)[A-Za-z\d]{6,10}$/;
-
+  const regexName = /^[\p{L}\s]{1,50}$/u;
+/* 
+    \p{L} representa cualquier letra en cualquier idioma.
+    \s representa espacios en blanco.
+    ',.- permite algunos caracteres especiales comunes como comillas, comas, guiones y puntos.
+*/
   let errors = {};
 
   // Validación del campo de email
@@ -31,6 +36,28 @@ export default function validate(inputs) {
       "Password must be between 6 and 10 characters and at least one number";
   } else {
     errors.password = "";
+  }
+
+  // Validación del campo de firstName
+  if (!inputs.firstName) {
+    errors.firstName = "The first name field cannot be empty";
+  } else {
+    if (!regexName.test(inputs.firstName)) {
+      errors.firstName = "You must enter a valid first name";
+    } else {
+      errors.firstName = "";
+    }
+  }
+
+  // Validación del campo de lastName
+  if (!inputs.lastName) {
+    errors.lastName = "The last name field cannot be empty";
+  } else {
+    if (!regexName.test(inputs.lastName)) {
+      errors.lastName = "You must enter a valid last name";
+    } else {
+      errors.lastName = "";
+    }
   }
 
   return errors;

@@ -11,9 +11,7 @@ const getFavoritesByUser = async (req, res) => {
     });
 
     if (favorites.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "Favorites not found for this user" });
+      return
     }
 
     return res.status(200).json(favorites);

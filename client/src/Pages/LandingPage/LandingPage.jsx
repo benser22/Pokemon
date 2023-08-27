@@ -142,7 +142,7 @@ const LandingPage = () => {
       {isRegisterModalOpen && (
         <Form onClose={closeModals} setUser={setUser} newSesion={false} />
       )}
-      {isMessage && <MessageModal onClose={closeModals} />}
+      {isMessage && <MessageModal onClose={closeModals} message={"Please log in to access the application"} />}
       {isConfirmationModalOpen && 
       <ConfirmationModal onClose={closeModals} setLogout={setLogout} logout={logout} />}
     </div>

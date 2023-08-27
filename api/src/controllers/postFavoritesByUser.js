@@ -8,22 +8,19 @@ const postFavoritesByUser = async (req, res) => {
     id,
     name,
     img,
+    imgShiny,
     hp,
     attack,
     defense,
     speed,
     height,
     weight,
-    isShiny,
-    imgShiny,
-    isFavorite,
     types,
     created
   } = req.body;
   if (!name) {
     return res.status(400).json({ message: "Missing favorite info" });
   }
-
   try {
     const user = await User.findByPk(userId);
 
@@ -32,9 +29,8 @@ const postFavoritesByUser = async (req, res) => {
     }
 
     const [favorite, favoriteCreated] = await Favorite.findOrCreate({
-      where: { name },
+      where: { name, userId: user.id }, // Agrega userId para asegurarte de buscar solo para el usuario actual
       defaults: {
-        id,
         name,
         userId: user.id,
         img: img,
@@ -44,20 +40,19 @@ const postFavoritesByUser = async (req, res) => {
         speed: speed,
         height: height,
         weight: weight,
-        isShiny: isShiny,
-        imgShiny: imgShiny,
-        isFavorite: isFavorite,
         created: created,
         types: types,
+        id: id,
+        imgShiny
       },
     });
-
     
     if (!favoriteCreated) {
       // El favorito ya existe en la base de datos
       const existingFavorite = await Favorite.findOne({
         where: {
           name: name,
+          userId: user.id
         }
       });
       

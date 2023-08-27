@@ -16,12 +16,18 @@ const getAllPokemons = async (req, res) => {
         const detailsResponse = await axios.get(pokemonFromAPI.url);
         const id = detailsResponse.data.id;
         const name = detailsResponse.data.name;
-        const imageUrl =   detailsResponse.data.sprites.other.home.front_default;
-
-          // detailsResponse.data.sprites.other["official-artwork"].front_default;
+        const imageUrl = detailsResponse.data.sprites.other.home.front_default;
         const imgShiny = detailsResponse.data.sprites.other.home.front_shiny;
         const height = detailsResponse.data.height;
         const weight = detailsResponse.data.weight;
+        const extractedStats = detailsResponse.data.stats.map((stat) => ({
+          [stat.stat.name]: stat.base_stat,
+        }));
+        const {hp} = extractedStats[0];
+        const  {attack} = extractedStats[1];
+        const {defense} = extractedStats[2];
+        const {speed} =  extractedStats[5];
+
         const types = detailsResponse.data.types.map(
           (typeData) => typeData.type.name
         );
@@ -34,12 +40,16 @@ const getAllPokemons = async (req, res) => {
           imgShiny,
           isFavorite: false,
           created: false,
-          height: height,
-          weight: weight,
+          height: height/10,
+          weight: weight/10,
+          hp, 
+          attack,
+          defense,
+          speed
         };
       })
     );
-
+    
     // destructuring de los pokemones que tengo en la bdd
     const simplifiedPokemons = dbPokemons.map((pokemon) => {
       const {
@@ -66,8 +76,8 @@ const getAllPokemons = async (req, res) => {
         created,
         isFavorite,
         hp,
-        height,
-        weight,
+        height: parseFloat(height),
+        weight: parseFloat(weight),
         speed,
         attack,
         defense,
