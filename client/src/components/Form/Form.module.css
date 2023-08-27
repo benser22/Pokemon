@@ -21,31 +21,32 @@
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 8px;
   padding: 30px;
-  box-shadow: 0px 0px 8px rgba(255, 255, 255, 1);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
   max-width: 20%;
   min-width: 30vh;
   width: 100%;
   height: min-content;
-  opacity: 0; /* Comienza con opacidad en 0 para la animación */
+  opacity: 0; 
   animation: fade-in 0.4s ease-in-out forwards;
 }
 
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8); /* Puedes ajustar esto según tus necesidades */
+    transform: translate(-50%, -50%) scale(0.8); 
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1); /* Puedes ajustar esto según tus necesidades */
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
 .container h2 {
-  font-size: 20px;
+  font-size: 1.5em;
   margin-bottom: 20px;
-  color: #ffffff;
-  text-shadow: 1px 1px 2px rgb(157, 157, 157);
+  color: white;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  text-shadow: 1px 1px 5px rgb(195, 195, 195);
 }
 
 .container form {
@@ -71,6 +72,7 @@
 }
 
 .myButton {
+  cursor: pointer;
   margin-top: 3vh;
   color: rgb(255, 255, 255);
   width: auto;
@@ -87,8 +89,8 @@
 }
 
 .myButton:hover {
-  filter: saturate(230%);
-  box-shadow: 2px 1px 18px #ffffff;
+  filter: saturate(130%);
+  box-shadow: 0 0 4px #ffffff;
 }
 
 .myButton:active {

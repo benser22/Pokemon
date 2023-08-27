@@ -6,6 +6,8 @@ import desktopVideo from "../../assets/2022-03-12 22-14-18.mp4";
 import mobileVideo from "../../assets/2022-03-12 22-14-18 (celular).mp4";
 import ContactModal from "../../components/Modals/ContactModal";
 import DescriptionModal from "../../components/Modals/DescriptionModal";
+import MessageModal from "../../components/Modals/MessageModal";
+import ConfirmationModal from "../../components/Modals/ConfirmationModal";
 import banner from "../../assets/images/logo.webp";
 import Form from "../../components/Form/Form";
 import { saveUser } from "../../redux/actions/actions";
@@ -16,6 +18,9 @@ const LandingPage = () => {
   const [isDescriptionModalOpen, setDescriptionModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const [isMessage, setMessageOpen] = useState(false);
+  const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [logout, setLogout] = useState(false);
   const userCurrent = useSelector((state) => state.user);
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
@@ -29,6 +34,10 @@ const LandingPage = () => {
     setDescriptionModalOpen(true);
   };
 
+  const openConfirmationModal = () => {
+    setConfirmationModalOpen(true);
+  };
+
   const openLoginModal = () => {
     if (!userCurrent.email) {
       setLoginModalOpen(true);
@@ -36,8 +45,9 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
-    if (userCurrent !== undefined)
-    {setUser(userCurrent);}
+    if (userCurrent !== undefined) {
+      setUser(userCurrent);
+    }
   }, [userCurrent, user]);
 
   const closeModals = () => {
@@ -45,24 +55,31 @@ const LandingPage = () => {
     setDescriptionModalOpen(false);
     setLoginModalOpen(false);
     setRegisterModalOpen(false);
+    setMessageOpen(false);
+    setConfirmationModalOpen(false);
   };
 
   const handleAccess = () => {
     if (userCurrent.access) {
       navigate("/home");
     } else {
-      window.alert("You must log in");
+      setMessageOpen(true);
     }
   };
+
+  useEffect(()=>{
+    if (logout) {
+      dispatch(saveUser({}));
+    }
+    // eslint-disable-next-line
+  }, [logout])
 
   const handleLogout = () => {
     if (!userCurrent.email) {
       setRegisterModalOpen(true);
     } else {
-      const take = window.confirm("Are you sure to sign out?");
-      if (take) {
-        dispatch(saveUser({}));
-      }
+      setLogout(false); // me aseguro el estado de logout antes de que me confirme el modal
+      openConfirmationModal();
     }
   };
 
@@ -104,7 +121,7 @@ const LandingPage = () => {
           className={styles.navItem}
           onClick={handleLogout}
           title="Sign out"
-          style={{ cursor: "pointer", marginInline:"-5vh" }}
+          style={{ cursor: "pointer", marginInline: "-5vh" }}
         >
           {userCurrent.email ? <>Logout</> : <>Sign-Up</>}
         </div>
@@ -119,8 +136,15 @@ const LandingPage = () => {
       </div>
       {isContactModalOpen && <ContactModal onClose={closeModals} />}
       {isDescriptionModalOpen && <DescriptionModal onClose={closeModals} />}
-      {isLoginModalOpen && <Form onClose={closeModals} setUser={setUser} newSesion={true} />}
-      {isRegisterModalOpen && <Form onClose={closeModals} setUser={setUser} newSesion={false} />}
+      {isLoginModalOpen && (
+        <Form onClose={closeModals} setUser={setUser} newSesion={true} />
+      )}
+      {isRegisterModalOpen && (
+        <Form onClose={closeModals} setUser={setUser} newSesion={false} />
+      )}
+      {isMessage && <MessageModal onClose={closeModals} />}
+      {isConfirmationModalOpen && 
+      <ConfirmationModal onClose={closeModals} setLogout={setLogout} logout={logout} />}
     </div>
   );
 };

@@ -2,6 +2,7 @@
 const { User, Favorite } = require("../db");
 
 const postFavoritesByUser = async (req, res) => {
+  if (req.params.userId === "undefined") return;
   const userId = req.params.userId;
   const {
     id,

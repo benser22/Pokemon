@@ -67,10 +67,10 @@ Abajo todo el modal
 .modalContent {
   color: white;
   text-shadow: 1px 1px 2px black;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 18px;
-  padding: 2%;
-  font-family: "fuentePokemon", "Courier New", Courier, monospace;
+  padding: 3%;
+  font-size: 2em;
 }
 
 .modalContent button {
@@ -79,9 +79,9 @@ Abajo todo el modal
   border-radius: 10px;
   background-color: #1d98d5;
   border: groove 0.5px rgb(199, 199, 199);
-
   padding: 1.5vh;
   margin-left: 13%;
+  margin-top: 13%;
   box-shadow: 0 0 3px rgb(255, 255, 255);
 }
 

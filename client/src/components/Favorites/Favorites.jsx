@@ -32,7 +32,7 @@ const Favorites = () => {
 
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 300);
+    }, 800);
 
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line

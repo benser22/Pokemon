@@ -61,7 +61,7 @@ const Home = () => {
 
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line

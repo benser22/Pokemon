@@ -154,15 +154,10 @@ const Form = ({ onClose, setUser, newSesion }) => {
             </button>
           ) : (
             <button type="submit" value="REGISTER" className={styles.myButton}>
-              Register
+              SUBMIT
             </button>
           )}
         </form>
-        {/* {!newSesion &&<button className={styles.myButton}>
-           onClick={handleRegister}>
-          Register
-        </button>
-        } */}
         <FaTimes className={styles.close} title="Close" onClick={onClose} />
       </div>
     </div>

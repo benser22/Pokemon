@@ -5,6 +5,7 @@ const { Pokemon, Type } = require("../db"); // Importa tu modelo Pokemon
 
 async function getPokByName(req, res) {
   let name = req.query.name.toLowerCase();
+  if (!name) return;
 
   try {
     let pokemonData;

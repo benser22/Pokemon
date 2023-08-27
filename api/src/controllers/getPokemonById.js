@@ -5,6 +5,7 @@ const { Pokemon, Type } = require("../db"); // Importa tu modelo Pokemon
 
 async function getPokById(req, res) {
   const { id } = req.params;
+  if (!id) return;
   try {
     let pokemonData;
 

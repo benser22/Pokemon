@@ -2,8 +2,8 @@
 const { Favorite } = require("../db");
 
 const getFavoritesByUser = async (req, res) => {
+  if (req.params.userId === "undefined") return;
   const userId = req.params.userId;
-  if (!userId) return;
   
   try {
     const favorites = await Favorite.findAll({
@@ -11,9 +11,11 @@ const getFavoritesByUser = async (req, res) => {
     });
 
     if (favorites.length === 0) {
-      return res.status(404).json({ message: "Favorites not found for this user" });
+      return res
+        .status(404)
+        .json({ message: "Favorites not found for this user" });
     }
-    
+
     return res.status(200).json(favorites);
   } catch (error) {
     console.error(error);
@@ -22,4 +24,3 @@ const getFavoritesByUser = async (req, res) => {
 };
 
 module.exports = getFavoritesByUser;
-

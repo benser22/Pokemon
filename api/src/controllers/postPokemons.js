@@ -1,13 +1,13 @@
 const { Pokemon, Type } = require("../db");
 
 const postPokemons = async (req, res) => {
-  try {
-    let { img } = req.body;
-    if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
 
-    const { name, hp, attack, defense, speed, height, weight, types, created } =
-      req.body;
-      const lowerCaseName = name.toLowerCase();
+  try {
+    
+    const { name, hp, attack, defense, speed, height, weight, types, created, img } =
+    req.body;
+    const lowerCaseName = name.toLowerCase();
+    if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
       // Creo el pokemon en la base de datos con los datos del body
     const newPokemon = await Pokemon.create({
       name: lowerCaseName,
