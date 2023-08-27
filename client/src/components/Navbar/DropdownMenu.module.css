@@ -1,0 +1,54 @@
+
+  .dropdown {
+    color: white;
+    font-family: "fuentePokemon", "Times New Roman", Times, serif;
+    letter-spacing: 2px;
+    font-weight:lighter;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    width: 30vh;
+    margin-right: 5vh;
+    margin-left: -6vh;
+  }
+
+  .dropdown:hover{
+    box-shadow: #213770;
+    filter: brightness(120%);
+    color: yellow;
+}
+  
+  .dropdown span {
+    font-weight: bold;
+  }
+  
+  .dropdownContent {
+    width: 30vh;
+    min-width: max-content;
+    font-size: 10px;
+    position: absolute;
+    display: none;
+    color: white;
+    font-family: "fuentePokemon", "Times New Roman", Times, serif;
+    border-radius: 0 0 8px 8px;
+    letter-spacing: 4px;
+    font-weight: lighter;
+    text-align: center;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .dropdownContent p {
+    margin-top: -1vh;
+    transition: color 0.2s; 
+  }
+  
+  .dropdownContent p:hover {
+    color: #c3a209; 
+  }
+  
+  .dropdown:hover .dropdownContent {
+    display: block;
+  }
+  

@@ -1,24 +1,3 @@
-import bug from '../assets/types/bug.png';
-import grass from '../assets/types/grass.png';
-import poison from '../assets/types/poison.png';
-import dark from '../assets/types/dark.png';
-import dragon from '../assets/types/dragon.png';
-import electric from '../assets/types/electric.png';
-import fairy from '../assets/types/fairy.png';
-import fighting from '../assets/types/fighting.png';
-import fire from '../assets/types/fire.png';
-import flying from '../assets/types/flying.png';
-import ghost from '../assets/types/ghost.png';
-import ground from '../assets/types/ground.png';
-import ice from '../assets/types/ice.png';
-import normal from '../assets/types/normal.png';
-import psychic from '../assets/types/psychic.png';
-import rock from '../assets/types/rock.png';
-import shadow from '../assets/types/shadow.png';
-import steel from '../assets/types/steel.png';
-import unknown from '../assets/types/unknown.png';
-import water from '../assets/types/water.png';
-
 import bulbasaur from '../assets/sprites/1.gif';
 import ivysaur from '../assets/sprites/2.gif';
 import venusaur from '../assets/sprites/3.gif';
@@ -120,139 +99,48 @@ import krabby from '../assets/sprites/98.gif';
 import kingler from '../assets/sprites/99.gif';
 import voltorb from '../assets/sprites/100.gif';
 
-export const TYPES = {
-  water: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(80, 120, 250, 0.8) 19%,
-    rgba(13, 223, 255, 0.7) 58%
-    )`,
-  flying: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(120, 160, 250, 0.8) 19%,
-    rgba(20, 180, 230, 0.7) 58%
-    )`,
-  steel: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(0, 250, 255, 0.8) 19%,
-    rgba(0, 200, 200, 0.7) 58%
-    )`,
-  dragon: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(0, 0, 255, 0.8) 19%,
-    rgba(20, 100, 200, 0.7) 58%
-    )`,
-  grass: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(50, 255, 10, 0.8) 19%,
-    rgba(100, 255, 100, 0.7) 54%
-  )`,
-  fire: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(255, 0, 4, 0.8) 19%,
-    rgba(255, 181, 8, 0.7) 54%
-  )`,
-  bug: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(220, 255, 10, 0.8) 19%,
-    rgba(120, 255, 100, 0.7) 54%
-  )`,
-  poison: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(255, 0, 234, 0.8) 19%,
-    rgba(165, 87, 194, 0.7) 54%
-  )`,
-  fairy: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(250, 100, 255, 0.8) 19%,
-    rgba(255, 163, 212, 0.7) 54%
-  )`,
-  ghost: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(170, 10, 200, 0.7) 19%,
-    rgba(255, 0, 190, 0.8) 54%
-  )`,
-  psychic: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(255, 10, 200, 0.8) 19%,
-    rgba(199, 81, 201, 0.7) 54%
-  )`,
-  electric: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(255, 255, 0, 0.8) 19%,
-    rgba(253, 255, 107, 0.7) 54%
-    )`,
-  fighting: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(255, 145, 0, 0.8) 19%,
-    rgba(255, 207, 94, 0.7) 54%
-    )`,
-  ground: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(255, 100, 0, 0.8) 19%,
-    rgba(255, 200, 0, 0.7) 54%
-    )`,
-  normal: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(161, 159, 159, 0.8) 19%,
-    rgba(112, 112, 110, 0.7) 54%
-    )`,
-  rock: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(190, 190, 190, 0.8) 19%,
-    rgba(120, 140, 140, 0.7) 54%
-    )`,
-  dark: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(80, 80, 80, 0.8) 19%,
-    rgba(120, 120, 120, 0.7) 54%
-    )`,
-  shadow: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(50, 50, 50, 0.8) 19%,
-    rgba(100, 100, 100, 0.7) 54%
-    )`,
-  unknown: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(0, 0, 0, 0.8) 19%,
-    rgba(60, 60, 60, 0.7) 54%
-    )`,
+export const ORDERS = [
+  "ID (Ascending)",
+  "ID (Descending)",
+  "Name (A-Z)",
+  "Name (Z-A)",
+  "HP [Max-Min]",
+  "HP [Min-Max]",
+  "Attack [Max-Min]",
+  "Attack [Min-Max]",
+  "Defense [Max-Min]",
+  "Defense [Min-Max]",
+  "Speed [Max-Min]",
+  "Speed [Min-Max]",
+  "Height [Max-Min]",
+  "Height [Min-Max]",
+  "Weight [Max-Min]",
+  "Weight [Min-Max]"
+];
 
-  ice: `radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(150, 255, 255, 0.8) 19%,
-    rgba(40, 240, 255, 0.7) 58%
-    )`,
-};
 
-export const IMGTYPES = {
-  bug: bug,
-  dark: dark,
-  dragon: dragon,
-  electric: electric,
-  fairy: fairy,
-  fighting: fighting,
-  fire: fire,
-  flying: flying,
-  ghost: ghost,
-  grass: grass,
-  ground: ground,
-  ice: ice,
-  normal: normal,
-  poison: poison,
-  psychic: psychic,
-  rock: rock,
-  shadow: shadow,
-  steel: steel,
-  unknown: unknown,
-  water: water,
-};
-
-export const STATS = {
-  hp: 'rgba( 255, 0, 0, 0.75 )',
-  attack: 'rgba(255,150,00,0.75)',
-  defense: 'rgba(0,255,0, 0.75)',
-  speed: 'rgba(3, 169, 244, 0.75)',
-};
+export const TYPES = [
+  "bug",
+  "dark",
+  "dragon",
+  "electric",
+  "fairy",
+  "fighting",
+  "fire",
+  "flying",
+  "ghost",
+  "grass",
+  "ground",
+  "ice",
+  "normal",
+  "poison",
+  "psychic",
+  "rock",
+  "shadow",
+  "steel",
+  "unknown",
+  "water",
+];
 
 export const IMAGES = {
   1: bulbasaur,

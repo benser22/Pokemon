@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllPokemons, getTypes, getFavoritesByUser } from "../../redux/actions/actions";
+import {
+  getAllPokemons,
+  getTypes,
+  getFavoritesByUser,
+} from "../../redux/actions/actions";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
@@ -16,17 +20,18 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
-  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const [isLoading, setIsLoading] = useState(true);
+  const [viewFiltered, setViewFiltered] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   // Precarga de las imágenes
   useEffect(() => {
     const imagePromises = pokemons.map((pokemon) => {
       return new Promise((resolve) => {
         const img = new Image();
-        img.src = pokemon.img; 
+        img.src = pokemon.img;
         img.onload = () => {
           resolve();
         };
@@ -40,15 +45,16 @@ const Home = () => {
 
   // Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
-    if (favorites.length === 0)
-      {dispatch(getFavoritesByUser(userCurrent.id));}
-      // eslint-disable-next-line
+    if (favorites.length === 0) {
+      dispatch(getFavoritesByUser(userCurrent.id));
+    }
+    // eslint-disable-next-line
   }, [favorites]);
 
   useEffect(() => {
     !userCurrent.email && navigate("/");
   }, [userCurrent, navigate]);
-  
+
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
     if (pokemons.length === 0) {
@@ -66,6 +72,12 @@ const Home = () => {
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
   }, [pokemons.length, allTypes.length]);
+
+
+  useEffect(()=>{
+    console.log("Aquí debo hacer un dispatch de filter por pokemones creados", viewFiltered);
+  }, [viewFiltered])
+
 
   if (isLoading || !allTypes.length || !pokemons.length) {
     return <Loader />;
@@ -95,6 +107,10 @@ const Home = () => {
     }
   };
 
+  const handleFilter = () => {
+    setViewFiltered(!viewFiltered);
+  }
+
   return (
     <div className={styles.container}>
       {pokemons
@@ -106,6 +122,19 @@ const Home = () => {
           <Card pokemon={pokemon} getType={getType} key={index} />
         ))}
       <div className={styles.buttonContainer}>
+        <div className={styles.viewCreated}>
+          <label htmlFor="labelfiltercreated" className={styles.labelView}>
+            Show only created
+          </label>
+          <input
+            id="labelfiltercreated"
+            className={styles.checkView}
+            type="checkbox"
+            title="Only created"
+            checked={viewFiltered}
+            onChange={handleFilter}
+          />
+        </div>
         <button className={styles.pageButton} onClick={handlePrevPage}>
           {"<"}
         </button>

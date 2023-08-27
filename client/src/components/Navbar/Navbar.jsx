@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import logo from "../../assets/images/pokeBall.gif";
 import Modal from "react-modal";
-import SearchBar from "../SearchBar/SearchBar"
+import SearchBar from "../SearchBar/SearchBar";
 import { useSelector } from "react-redux";
 import { cleanAll } from "../../redux/actions/actions";
+import DropdownMenu from "./DropdownMenu";
+import { TYPES, ORDERS } from "../../constants/types"; 
 
 const Navbar = () => {
   const location = useLocation();
   const [logout, setLogout] = useState(false); // Estado para controlar si se ha realizado el cierre de sesión
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
-  const userCurrent = useSelector((state) => state.user)
+  const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const orderByOptions = ORDERS;
+  const filterByOptions = TYPES;
 
   const handleLogout = () => {
     setShowModal(true); // Muestro el modal de confirmación de cierre de sesión
   };
 
   const handleConfirmLogout = () => {
-    dispatch(cleanAll())
+    dispatch(cleanAll());
     setLogout(true); // Actualizo el estado de 'logout' para indicar que se ha realizado el cierre de sesión
     setShowModal(false); // Oculto el modal de confirmación de cierre de sesión
   };
@@ -41,20 +45,20 @@ const Navbar = () => {
           <img src={logo} alt="logo" className={styles.logo} />
         </Link>
       </div>
-        <div className={styles.links}>
-          <SearchBar></SearchBar>
-        </div>
-        <div  style={{ display:'flex', justifyContent:'space-between' }}>
-          <NavLink className={styles.links} style={{ textDecoration: "none" }}>
-          <p>Order By</p>
-          </NavLink>
-          <NavLink className={styles.links} style={{ textDecoration: "none", marginInline:'8vh' }}>
-          <p>Filter By</p>
-          </NavLink>
-        </div>
-        <NavLink to={"/favorites"} className={styles.links} style={{ textDecoration: "none", marginLeft:'-8vh' }}>
-          <p>Favorites</p>
-        </NavLink>
+      <div className={styles.links}>
+        <SearchBar></SearchBar>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <DropdownMenu title="Order By" options={orderByOptions} />
+        <DropdownMenu title="Filter By" options={filterByOptions} />
+      </div>
+      <NavLink
+        to={"/favorites"}
+        className={styles.links}
+        style={{ textDecoration: "none", marginLeft: "-8vh" }}
+      >
+        <p>Favorites</p>
+      </NavLink>
       <NavLink to="/create" style={{ textDecoration: "none", color: "black" }}>
         <div className={styles.links}>
           <p>Create</p>
@@ -65,7 +69,9 @@ const Navbar = () => {
         style={{ textDecoration: "none" }}
         onClick={handleLogout}
       >
-        <p title="Logout" className={styles.logout}>{userCurrent.email}</p>
+        <p title="Logout" className={styles.logout}>
+          {userCurrent.email}
+        </p>
       </NavLink>
       <Modal
         isOpen={showModal}

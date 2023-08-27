@@ -191,7 +191,7 @@ export default function SearchBar() {
                   </div>
                   <button
                     className={styles.buttonAdd}
-                    title="Add pokemon to your pokedex"
+                    title="Add pokemon to your Pokedex"
                     disabled={!condition}
                     onClick={handleAdd}
                   >
