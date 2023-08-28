@@ -16,11 +16,47 @@ import {
   ORDER_NAME,
   DELETE_POKEMON,
   RESTORE_POKEMONS,
-  SAVE_USER,
-  CLEAN_ALL
+  LOGIN,
+  LOGOUT,
+  GET_ACCESS_USER,
 } from "./types.js";
 
 const URL = "http://localhost:3001/pokemons";
+axios.defaults.withCredentials = true;
+
+export const getAccesUser = () => {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(`${URL}/profile/get`);
+      dispatch({
+        type: GET_ACCESS_USER,
+        payload: data.rol,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const login = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: LOGIN,
+        payload: data,
+      });
+    } catch (error) {
+      console.log({ error: error.message });
+    }
+  };
+};
+
+// En el archivo "actions.js" (o donde definas tus acciones)
+export const logoutAction = () => {
+  return {
+    type: LOGOUT,
+  };
+};
 
 export const getAllPokemons = () => {
   return async function (dispatch) {
@@ -39,44 +75,48 @@ export const getAllPokemons = () => {
 export const getFavoritesByUser = (idUser) => {
   return async function (dispatch) {
     try {
-      const {data} = await axios.get(URL + `/user/${idUser}/favorites`);
+      const { data } = await axios.get(URL + `/user/${idUser}/favorites`);
       dispatch({
         type: GET_FAVORITES_BY_USER,
-        payload: data
+        payload: data,
       });
     } catch (error) {
       console.error(error);
     }
-  }
-}
+  };
+};
 export const deleteFavoritesByUser = (idUser, name) => {
   return async function (dispatch) {
     try {
-      const {data} = await axios.delete(URL + `/user/${idUser}/favorites/${name}`);
+      const { data } = await axios.delete(
+        URL + `/user/${idUser}/favorites/${name}`
+      );
       dispatch({
         type: DELETE_FAVORITES_BY_USER,
-        payload: data
+        payload: data,
       });
     } catch (error) {
       console.error(error);
     }
-  }
-}
+  };
+};
 
 export const postFavoritesByUser = (idUser, info) => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.post(URL + `/user/${idUser}/favorites`, info);
+      const { data } = await axios.post(
+        URL + `/user/${idUser}/favorites`,
+        info
+      );
       dispatch({
         type: POST_FAVORITES_BY_USER,
-        payload: data
+        payload: data,
       });
     } catch (error) {
       console.error(error);
     }
-  }
-}
-
+  };
+};
 
 export const getPokemonDetails = (id) => {
   return async function (dispatch) {
@@ -250,17 +290,3 @@ export const addPokemon = (pokemon) => {
     payload: pokemon,
   };
 };
-
-export const saveUser = (userCurrent) => {
-  const { user, access } = userCurrent;
-  return {
-    type: SAVE_USER,
-    payload: { ...user, access },
-  };
-};
-
-export const cleanAll = () => {
-  return {
-    type: CLEAN_ALL,
-  }
-}

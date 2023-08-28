@@ -15,7 +15,7 @@ const login = require("../controllers/login");
 const postUser = require("../controllers/postUser");
 const postFavoritesByUser = require('../controllers/postFavoritesByUser'); // Importa el nuevo controlador
 const deleteFavoriteByUser = require("../controllers/deleteFavoriteByUser");
-
+const profile = require("../controllers/profile");
 
 const router = Router();
 
@@ -27,7 +27,7 @@ router.get('/user/:userId/favorites', getFavoritesByUser);
 router.post('/user/:userId/favorites', postFavoritesByUser);
 router.delete('/user/:userId/favorites/:pokemonName', deleteFavoriteByUser);
 router.get("/login/:email&:password", login);
-router.post("/login", postUser);
+router.post("/register", postUser);
 router.get("/name", getPokemonByName);
 router.get("/:id", getPokemonById);
 router.get("/", getAllPokemons);
@@ -35,5 +35,6 @@ router.post("/", postPokemons);
 router.delete("/:id", deletePokemon);
 router.post("/send-email", postMail);
 router.get("/search/duplicated/", searchDuplicated);
+router.get("/profile/get", profile)
 
 module.exports = router;

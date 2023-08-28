@@ -13,11 +13,12 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       name: {
         type: DataTypes.STRING(30),
         allowNull: false,
+        primaryKey: false,
       },
       img: {
         type: DataTypes.STRING,

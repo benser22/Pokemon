@@ -6,7 +6,7 @@ import logo from "../../assets/images/pokeBall.gif";
 import Modal from "react-modal";
 import SearchBar from "../SearchBar/SearchBar";
 import { useSelector } from "react-redux";
-import { cleanAll } from "../../redux/actions/actions";
+import { logoutAction } from "../../redux/actions/actions";
 import DropdownMenu from "./DropdownMenu";
 import { TYPES, ORDERS } from "../../constants/types"; 
 
@@ -26,9 +26,9 @@ const Navbar = () => {
   };
 
   const handleConfirmLogout = () => {
-    dispatch(cleanAll());
     setLogout(true); // Actualizo el estado de 'logout' para indicar que se ha realizado el cierre de sesión
     setShowModal(false); // Oculto el modal de confirmación de cierre de sesión
+    dispatch(logoutAction());
   };
 
   useEffect(() => {
@@ -69,8 +69,8 @@ const Navbar = () => {
         style={{ textDecoration: "none" }}
         onClick={handleLogout}
       >
-        <p title="Logout" className={styles.logout}>
-          {userCurrent.email}
+        <p title="Logout" className={styles.logout} style={{marginRight:"5vh"}}>
+          {userCurrent?.firstName}
         </p>
       </NavLink>
       <Modal

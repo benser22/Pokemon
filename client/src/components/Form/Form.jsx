@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { saveUser } from "../../redux/actions/actions";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/actions/actions";
 import MessageModal from "../Modals/MessageModal";
 // Estilos
 import styles from "./Form.module.css";
@@ -13,7 +13,7 @@ import validate from "./validation";
 import logo from "../../assets/extras/login.webp";
 import { FaTimes } from "react-icons/fa";
 
-const Form = ({ onClose, setUser, newSesion }) => {
+const Form = ({ onClose, newSesion }) => {
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     email: "",
@@ -45,19 +45,50 @@ const Form = ({ onClose, setUser, newSesion }) => {
     );
   };
 
-  const login = async () => {
-    const { email, password } = userData;
-    const URL = `http://localhost:3001/pokemons/login/${email}&${password}`;
-    try {
-      const { data } = await axios.get(URL);
+  const handleRegister = async () => {
+    const { email, firstName } = userData;
+    const URL = "http://localhost:3001/pokemons";
 
-      if (data) {
-        dispatch(saveUser(data));
-        setUser(data);
+    try {
+      const response = await axios.post(`${URL}/register`, userData);
+
+      if (response.status === 201) {
+        setText(
+          `Congratulations ${firstName}: you successfully registered with the email ${email}`
+        );
+      } else {
+        throw new Error("Failed to create user");
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status } = error.response;
+
+        if (status === 400) {
+          setText("Error: you must complete all the fields to register");
+        } else if (status === 409) {
+          setText(
+            `Error: there is already a user with ${email}, try another email`
+          );
+        } else {
+          setText("An unknown error occurred.");
+        }
+      } else {
+        setText("An error occurred while processing your request.");
+      }
+    }
+  };
+
+  const loginForm = async () => {
+    const { email, password } = userData;
+    try {
+
+      const { data } = await axios.get(`http://localhost:3001/pokemons/login/${email}&${password}`);
+
+      if (data.user) {
+        dispatch(login(data.user));
         onClose();
       }
     } catch (error) {
-      console.log(error.message);
       if (error.request.status === 403) {
         setText("Password incorrect");
       } else if (error.request.status === 404) {
@@ -68,36 +99,10 @@ const Form = ({ onClose, setUser, newSesion }) => {
     }
   };
 
-  const handleRegister = async () => {
-    const { email, password, firstName, lastName } = userData;
-    const URL = "http://localhost:3001/pokemons/login/";
-    try {
-      const response = await axios.post(URL, userData);
-      if (response.status === 201) {
-        setUserData({
-          email,
-          password,
-          firstName,
-          lastName,
-        });
-        setText(
-          `Congratulation ${firstName}: you successfully registered with the email ${email}`
-        );
-      } else if (response.status === 200) {
-        setText(`Error: there is already a user with ${email}, try another email`);
-      } else {
-        throw new Error("Failed to create user");
-      }
-    } catch (error) {
-      if (error.request.status === 400)
-        setText("Error: you must complete all the fields to register");
-    }
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newSesion) {
-      login();
+      loginForm();
     } else {
       handleRegister();
     }
@@ -112,9 +117,9 @@ const Form = ({ onClose, setUser, newSesion }) => {
           <hr
             style={{ color: "white", width: "100%", marginBottom: "6vh" }}
           ></hr>
-          <div style={{display:"none"}}>
-          <label htmlFor="none"></label>
-          <input id="none"></input>
+          <div style={{ display: "none" }}>
+            <label htmlFor="none"></label>
+            <input id="none"></input>
           </div>
           {!newSesion && (
             <>

@@ -14,12 +14,12 @@ function App() {
   const location = useLocation();
 
   // Verificar si la ruta es "/"
-  const landingPage = location.pathname === "/";
-
+  const notNav = location.pathname === "/" || location.pathname === "/error404";
+  
   return (
     <div className="App">
       {/* Renderizar la Navbar solo si no es la página de inicio */}
-      {!landingPage && <Navbar />}
+      {!notNav && <Navbar />}
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />

@@ -1,21 +1,23 @@
 import {
   GET_ALL_POKEMONS,
+  GET_TYPES,
   GET_POKEMON_DETAILS,
   GET_POKEMON_BY_NAME,
   GET_POKEMON_BY_ID,
+  POST_FAVORITES_BY_USER,
+  GET_FAVORITES_BY_USER,
   DELETE_FAVORITES_BY_USER,
   POST_POKEMON,
+  DELETE_POKEMON,
   CLEAR_STATE_POKEMON,
-  GET_TYPES,
   FILTER_TYPES,
   FILTER_CREATES,
   ORDER_NAME,
-  DELETE_POKEMON,
   ADD_POKEMON,
   SAVE_USER,
-  GET_FAVORITES_BY_USER,
-  POST_FAVORITES_BY_USER,
-  CLEAN_ALL,
+  LOGIN,
+  LOGOUT,
+  GET_ACCESS_USER,
 } from "../actions/types.js";
 
 const initialState = {
@@ -24,12 +26,41 @@ const initialState = {
   allTypes: [],
   filteredPokemons: [],
   favorites: [],
-  user: {},
+  user: {
+    access: false,
+    rol: "",
+  },
 };
 
 function rootReducer(state = initialState, action) {
   let newArray = [];
   switch (action.type) {
+    // CASO DE ACCIONES PARA LA AUTENTIFICACION
+    //**************************** */
+    case LOGIN:
+      return {
+        ...state,
+        user: {
+          ...action.payload,
+          access: true,
+        },
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        user: {
+          access: false,
+        },
+      };
+    //**************************** */
+
+    case GET_ACCESS_USER:
+      return {
+        ...state,
+        user: {...state.user, rol: action.payload},
+      };
+
     case GET_ALL_POKEMONS:
       return {
         ...state,
@@ -52,7 +83,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         favorites: action.payload,
       };
-    
+
     case POST_FAVORITES_BY_USER:
       return {
         ...state,
@@ -137,16 +168,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         filteredPokemons: sortedPokemons,
-      };
-
-    case CLEAN_ALL:
-      return {
-        pokemons: [],
-        pokemon: {},
-        allTypes: [],
-        filteredPokemons: [],
-        favorites: [],
-        user: {},
       };
 
     default:

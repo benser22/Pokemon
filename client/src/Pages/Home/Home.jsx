@@ -15,19 +15,20 @@ const Home = () => {
   // const pokemonsCreated = useSelector((state) => state.pokemons);
   const pokemons = useSelector((state) => state.pokemons);
   const allTypes = useSelector((state) => state.allTypes);
-  const userCurrent = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(true);
   const [viewFiltered, setViewFiltered] = useState(false);
-
+  const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Precarga de las imágenes
   useEffect(() => {
+    let mounted = true;
+
     const imagePromises = pokemons.map((pokemon) => {
       return new Promise((resolve) => {
         const img = new Image();
@@ -39,8 +40,15 @@ const Home = () => {
     });
 
     Promise.all(imagePromises).then(() => {
-      setIsLoading(false);
+      if (mounted) {
+        setIsLoading(false);
+      }
     });
+
+    return () => {
+      mounted = false;
+    };
+    // eslint-disable-next-line
   }, [pokemons]);
 
   // Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
@@ -50,10 +58,6 @@ const Home = () => {
     }
     // eslint-disable-next-line
   }, [favorites]);
-
-  useEffect(() => {
-    !userCurrent.email && navigate("/");
-  }, [userCurrent, navigate]);
 
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
@@ -73,10 +77,20 @@ const Home = () => {
     // eslint-disable-next-line
   }, [pokemons.length, allTypes.length]);
 
+  useEffect(() => {
+    console.log(
+      "Aquí debo hacer un dispatch de filter por pokemones creados",
+      viewFiltered
+    );
+  }, [viewFiltered]);
 
-  useEffect(()=>{
-    console.log("Aquí debo hacer un dispatch de filter por pokemones creados", viewFiltered);
-  }, [viewFiltered])
+  useEffect(() => {
+    // Si el usuario no está autenticado, redirigir a la página de inicio
+    if (!userCurrent.access) {
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, [userCurrent.access, navigate]);
 
 
   if (isLoading || !allTypes.length || !pokemons.length) {
@@ -109,7 +123,7 @@ const Home = () => {
 
   const handleFilter = () => {
     setViewFiltered(!viewFiltered);
-  }
+  };
 
   return (
     <div className={styles.container}>

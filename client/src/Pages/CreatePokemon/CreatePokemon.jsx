@@ -88,7 +88,7 @@ function CreatePokemon() {
     setTimeout(() => {
       setMessage("");
       navigate("/home");
-    }, 1500);
+    }, 800);
   };
   
   // mantengo actualizado los valores del nuevo pokemon a medida que cambian en el input

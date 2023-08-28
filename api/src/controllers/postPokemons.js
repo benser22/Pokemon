@@ -6,6 +6,7 @@ const postPokemons = async (req, res) => {
     
     const { name, hp, attack, defense, speed, height, weight, types, created, img } =
     req.body;
+    if(!name) return;
     const lowerCaseName = name.toLowerCase();
     if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
       // Creo el pokemon en la base de datos con los datos del body

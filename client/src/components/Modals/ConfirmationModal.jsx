@@ -1,11 +1,15 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { logoutAction } from "../../redux/actions/actions";
+import { useDispatch } from "react-redux";
 
-const ConfirmationModal = ({ onClose, setLogout, logout }) => {
+const ConfirmationModal = ({ onClose, setLogout }) => {
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     setLogout(true);
     onClose();
+    dispatch(logoutAction());
   };
 
   return (

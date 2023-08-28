@@ -1,7 +1,6 @@
 // Home.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getTypes, getFavoritesByUser } from "../../redux/actions/actions";
 import styles from "./Favorites.module.css";
 import Card from "../../components/Card/Card";
@@ -16,23 +15,20 @@ const Favorites = () => {
   const totalPages = Math.ceil(favorites.length / favoritesPerPage);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    !userCurrent.email && navigate("/");
-  }, [userCurrent, navigate]);
 
-  useEffect(() => {
-    if (!favorites) {
+    if (userCurrent.id) {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
-    if (!allTypes.length) {
+
+    if (!allTypes) {
       dispatch(getTypes());
     }
 
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 800);
+    }, 600);
 
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
@@ -77,7 +73,7 @@ const Favorites = () => {
           <Card
             pokemon={pokemon}
             getType={getType}
-            userId={userCurrent.id}
+            userId={userCurrent?.id}
             key={index}
           />
         ))}
@@ -85,17 +81,18 @@ const Favorites = () => {
         <button className={styles.pageButton} onClick={handlePrevPage}>
           {"<"}
         </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            className={`${styles.pageButton} ${
-              currentPage === index + 1 ? styles.currentPageButton : ""
-            }`}
-            onClick={() => handleChangePage(index + 1)}
-          >
-            {index + 1}
-          </button>
-        ))}
+        {favorites &&
+          Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              className={`${styles.pageButton} ${
+                currentPage === index + 1 ? styles.currentPageButton : ""
+              }`}
+              onClick={() => handleChangePage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
         <button className={styles.pageButton} onClick={handleNextPage}>
           {">"}
         </button>

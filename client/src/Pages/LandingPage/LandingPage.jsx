@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./LandingPage.module.css";
@@ -10,7 +10,7 @@ import MessageModal from "../../components/Modals/MessageModal";
 import ConfirmationModal from "../../components/Modals/ConfirmationModal";
 import banner from "../../assets/images/logo.webp";
 import Form from "../../components/Form/Form";
-import { saveUser } from "../../redux/actions/actions";
+import { getAccesUser } from "../../redux/actions/actions";
 
 const LandingPage = () => {
   const isMobile = window.innerWidth <= 768;
@@ -22,9 +22,16 @@ const LandingPage = () => {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [logout, setLogout] = useState(false);
   const userCurrent = useSelector((state) => state.user);
-  const [user, setUser] = useState(null);
-  const dispatch = useDispatch();
+  // const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const rol = useSelector((state) => state.user.rol);
+
+  useEffect(() => {
+    dispatch(getAccesUser());
+    // eslint-disable-next-line
+  }, [user.access]);
 
   const openContactModal = () => {
     setContactModalOpen(true);
@@ -39,16 +46,10 @@ const LandingPage = () => {
   };
 
   const openLoginModal = () => {
-    if (!userCurrent.email) {
+    if (!user?.email) {
       setLoginModalOpen(true);
     }
   };
-
-  useEffect(() => {
-    if (userCurrent !== undefined) {
-      setUser(userCurrent);
-    }
-  }, [userCurrent, user]);
 
   const closeModals = () => {
     setContactModalOpen(false);
@@ -60,25 +61,17 @@ const LandingPage = () => {
   };
 
   const handleAccess = () => {
-    if (userCurrent.access) {
+    if (user?.email) {
       navigate("/home");
     } else {
       setMessageOpen(true);
     }
   };
 
-  useEffect(()=>{
-    if (logout) {
-      dispatch(saveUser({}));
-    }
-    // eslint-disable-next-line
-  }, [logout])
-
   const handleLogout = () => {
-    if (!userCurrent.email) {
+    if (!user?.email) {
       setRegisterModalOpen(true);
     } else {
-      setLogout(false); // me aseguro el estado de logout antes de que me confirme el modal
       openConfirmationModal();
     }
   };
@@ -110,12 +103,13 @@ const LandingPage = () => {
         >
           Contact
         </div>
+
         <div
           className={styles.navItem}
           onClick={openLoginModal}
           style={{ cursor: "pointer" }}
         >
-          {!userCurrent.email ? <> Login </> : <>{userCurrent.email}</>}
+          {!user?.email ? <> Login </> : <>{userCurrent.email} ({rol})</>} 
         </div>
         <div
           className={styles.navItem}
@@ -123,7 +117,8 @@ const LandingPage = () => {
           title="Sign out"
           style={{ cursor: "pointer", marginInline: "-5vh" }}
         >
-          {userCurrent.email ? <>Logout</> : <>Sign-Up</>}
+          {/* {userCurrent.email ? <>Logout</> : <>Sign-Up</>} */}
+          {user?.email ? <>Logout</> : <>Sign-Up</>}
         </div>
       </div>
       <div className={styles.content}>
@@ -136,15 +131,21 @@ const LandingPage = () => {
       </div>
       {isContactModalOpen && <ContactModal onClose={closeModals} />}
       {isDescriptionModalOpen && <DescriptionModal onClose={closeModals} />}
-      {isLoginModalOpen && (
-        <Form onClose={closeModals} setUser={setUser} newSesion={true} />
+      {isLoginModalOpen && <Form onClose={closeModals} newSesion={true} />}
+      {isRegisterModalOpen && <Form onClose={closeModals} newSesion={false} />}
+      {isMessage && (
+        <MessageModal
+          onClose={closeModals}
+          message={"Please log in to access the application"}
+        />
       )}
-      {isRegisterModalOpen && (
-        <Form onClose={closeModals} setUser={setUser} newSesion={false} />
+      {isConfirmationModalOpen && (
+        <ConfirmationModal
+          onClose={closeModals}
+          setLogout={setLogout}
+          logout={logout}
+        />
       )}
-      {isMessage && <MessageModal onClose={closeModals} message={"Please log in to access the application"} />}
-      {isConfirmationModalOpen && 
-      <ConfirmationModal onClose={closeModals} setLogout={setLogout} logout={logout} />}
     </div>
   );
 };
