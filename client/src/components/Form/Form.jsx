@@ -11,7 +11,7 @@ import validate from "./validation";
 
 // Imagen del logo
 import logo from "../../assets/extras/login.webp";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Form = ({ onClose, newSesion }) => {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const Form = ({ onClose, newSesion }) => {
   });
   const [text, setText] = useState("");
   const [isModalMessage, setIsModalMessage] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (text !== "") {
@@ -37,6 +38,11 @@ const Form = ({ onClose, newSesion }) => {
     firstName: "",
     lastName: "",
   });
+
+  const toggleShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
 
   const handleChange = (event) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
@@ -84,8 +90,9 @@ const Form = ({ onClose, newSesion }) => {
   const loginForm = async () => {
     const { email, password } = userData;
     try {
-
-      const { data } = await axios.get(`http://localhost:3001/pokemons/login/${email}&${password}`);
+      const { data } = await axios.get(
+        `http://localhost:3001/pokemons/login/${email}&${password}`
+      );
 
       if (data.user) {
         dispatch(login(data.user));
@@ -164,40 +171,49 @@ const Form = ({ onClose, newSesion }) => {
             onChange={handleChange}
             className={styles.myInput}
             autoComplete="Email"
-          />
-          {!errors.firstName && !errors.lastName && (
+            />
+          {errors.email && (
             <p className={styles.error}>{errors.email}</p>
-          )}{" "}
+            )}{" "}
           <label htmlFor="myPass">Password:</label>
-          <input
-            id="myPass"
-            autoComplete="current-password"
-            type="password"
-            name="password"
-            value={userData.password}
-            onChange={handleChange}
-            className={styles.myInput}
-          />
-          {!errors.email && (
+          <div className={styles.passwordContaier}>
+            <input
+              id="myPass"
+              autoComplete="current-password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={userData.password}
+              onChange={handleChange}
+              className={`${styles.passwordInput} ${styles.myInput}`}
+              />
+            <button
+              type="button"
+              onClick={toggleShowPassword}
+              className={styles.showPasswordButton}
+              >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+          {errors.password && (
             <p id="spanform" className={styles.error}>
               {errors.password}
             </p>
           )}
           {newSesion ? (
             <button
-              type="submit"
-              value="LOGIN"
-              id="submitL"
-              className={styles.myButton}
+            type="submit"
+            value="LOGIN"
+            id="submitL"
+            className={styles.myButton}
             >
               SUBMIT
             </button>
           ) : (
             <button
-              type="submit"
-              value="REGISTER"
-              id="submitR"
-              className={styles.myButton}
+            type="submit"
+            value="REGISTER"
+            id="submitR"
+            className={styles.myButton}
             >
               SUBMIT
             </button>

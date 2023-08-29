@@ -97,8 +97,8 @@ export default function SearchBar() {
         <form className={styles.searchAddForm} onSubmit={handleSubmit}>
           <input
             id="formSearch"
+            type="search"
             className={styles.searchInput}
-            type="text"
             placeholder="Pokemon name or id..."
             value={input}
             onChange={(e) => setInput(e.target.value)}

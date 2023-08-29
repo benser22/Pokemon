@@ -3,13 +3,15 @@ export default function validate(inputs) {
   const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   const regexPassword = /^(?=.*\d)[A-Za-z\d]{6,10}$/;
   const regexName = /^[\p{L}\s]{1,50}$/u;
-/* 
-    \p{L} representa cualquier letra en cualquier idioma.
-    \s representa espacios en blanco.
-    ',.- permite algunos caracteres especiales comunes como comillas, comas, guiones y puntos.
-*/
-  let errors = {};
 
+  
+  /* 
+  \p{L} representa cualquier letra en cualquier idioma.
+  \s representa espacios en blanco.
+  ',.- permite algunos caracteres especiales comunes como comillas, comas, guiones y puntos.
+  */
+ let errors = {};
+ 
   // Validación del campo de email
   if (!inputs.email) {
     errors.email = "The email field cannot be empty";

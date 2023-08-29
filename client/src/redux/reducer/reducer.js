@@ -180,6 +180,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         pokemons: [action.payload, ...state.pokemons],
+        backPokemons: [action.payload, ...state.backPokemons],
       };
 
     case SAVE_USER:
@@ -198,7 +199,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case FILTER_CREATES:
-      console.log("entre aqui en action filter");
       let pokemonsCreated, favoritesCreated = []
       if (action.payload) {
         pokemonsCreated = state.pokemons.filter((p) => p.created);
