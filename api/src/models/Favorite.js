@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
       name: {
         type: DataTypes.STRING(30),

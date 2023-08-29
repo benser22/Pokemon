@@ -38,7 +38,7 @@ const pressAnimation = keyframes`
 
 const ModalContent = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   border-radius: 8px;

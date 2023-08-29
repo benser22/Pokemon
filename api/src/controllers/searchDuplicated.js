@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { Pokemon } = require("../db");
 const URL = "https://pokeapi.co/api/v2/pokemon?limit=1500&offset=0";
 
 async function searchDuplicated(req, res) {
@@ -13,7 +14,13 @@ async function searchDuplicated(req, res) {
       (pokemon) => pokemon.name.toLowerCase() === name.toLowerCase()
     );
 
-    res.status(200).json({ duplicated: isDuplicated });
+    const lowerCaseName = name.toLowerCase();
+    //*? verifico que no haya un poke con el mismo nombre en la bdd */
+    const existingPokemon = await Pokemon.findOne({
+      where: { name: lowerCaseName },
+    });
+
+    res.status(200).json({ duplicated: isDuplicated || existingPokemon });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

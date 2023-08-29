@@ -8,7 +8,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { useSelector } from "react-redux";
 import { logoutAction } from "../../redux/actions/actions";
 import DropdownMenu from "./DropdownMenu";
-import { TYPES, ORDERS } from "../../constants/types"; 
+import { TYPES, ORDERS } from "../../constants/types";
 
 const Navbar = () => {
   const location = useLocation();
@@ -17,6 +17,8 @@ const Navbar = () => {
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [orderCurrent, setOrderCurrent] = useState("");
+  const [filterCurrent, setfilterCurrent] = useState("");
 
   const orderByOptions = ORDERS;
   const filterByOptions = TYPES;
@@ -49,8 +51,20 @@ const Navbar = () => {
         <SearchBar></SearchBar>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <DropdownMenu title="Order By" options={orderByOptions} />
-        <DropdownMenu title="Filter By" options={filterByOptions} />
+          <DropdownMenu
+            title="Order By"
+            options={orderByOptions}
+            setfilterCurrent={setfilterCurrent}
+            setOrderCurrent={setOrderCurrent}
+          />
+          <p className={styles.optionsLabel}>{orderCurrent}</p>
+          <DropdownMenu
+            title="Filter By"
+            options={filterByOptions}
+            setfilterCurrent={setfilterCurrent}
+            setOrderCurrent={setOrderCurrent}
+          />
+          <p className={styles.optionsLabel} style={{marginLeft:"20%"}}>{filterCurrent}</p>
       </div>
       <NavLink
         to={"/favorites"}
@@ -69,7 +83,11 @@ const Navbar = () => {
         style={{ textDecoration: "none" }}
         onClick={handleLogout}
       >
-        <p title="Logout" className={styles.logout} style={{marginRight:"5vh"}}>
+        <p
+          title="Logout"
+          className={styles.logout}
+          style={{ marginRight: "5vh" }}
+        >
           {userCurrent?.firstName}
         </p>
       </NavLink>

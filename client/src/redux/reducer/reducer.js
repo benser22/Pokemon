@@ -12,7 +12,7 @@ import {
   CLEAR_STATE_POKEMON,
   FILTER_TYPES,
   FILTER_CREATES,
-  ORDER_NAME,
+  ORDER,
   ADD_POKEMON,
   SAVE_USER,
   LOGIN,
@@ -24,13 +24,44 @@ const initialState = {
   pokemons: [],
   pokemon: {},
   allTypes: [],
-  filteredPokemons: [],
+  backPokemons: [],
   favorites: [],
   user: {
     access: false,
     rol: "",
   },
 };
+
+function sortFunction(valueA, valueB, direction) {
+  if (typeof valueA === "string" && typeof valueB === "string") {
+    return direction === "ascending" ||
+      direction === "(a-z)" ||
+      direction === "[min-max]"
+      ? valueA.localeCompare(valueB)
+      : valueB.localeCompare(valueA);
+  } else if (typeof valueA === "number" && typeof valueB === "number") {
+    return direction === "(ascending)" ||
+      direction === "(a-z)" ||
+      direction === "[min-max]"
+      ? valueA - valueB
+      : valueB - valueA;
+  } else {
+  }
+}
+
+function compareArrays(array1, array2) {
+  // Si los arrays tienen diferente longitud, no son iguales
+  if (array1.length !== array2.length) {
+    return false;
+  }
+  // Comparar elemento por elemento
+  for (let i = 0; i < array1.length; i++) {
+    if (array1[i] !== array2[i]) {
+      return false;
+    }
+  }
+  return true;
+}
 
 function rootReducer(state = initialState, action) {
   let newArray = [];
@@ -58,14 +89,14 @@ function rootReducer(state = initialState, action) {
     case GET_ACCESS_USER:
       return {
         ...state,
-        user: {...state.user, rol: action.payload},
+        user: { ...state.user, rol: action.payload },
       };
 
     case GET_ALL_POKEMONS:
       return {
         ...state,
         pokemons: action.payload,
-        filteredPokemons: action.payload,
+        backPokemons: action.payload,
       };
 
     case DELETE_FAVORITES_BY_USER:
@@ -79,10 +110,16 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_FAVORITES_BY_USER:
-      return {
-        ...state,
-        favorites: action.payload,
-      };
+      if (
+        state.favorites.length === 0 ||
+        compareArrays(state.favorites, action.payload)
+      ) {
+        console.log("getfavorites");
+        return {
+          ...state,
+          favorites: action.payload,
+        };
+      } else return { ...state };
 
     case POST_FAVORITES_BY_USER:
       return {
@@ -99,8 +136,8 @@ function rootReducer(state = initialState, action) {
     case POST_POKEMON:
       return {
         ...state,
-        pokemons: [...state.pokemons, action.payload],
-        filteredPokemons: [...state.pokemons, action.payload],
+        pokemons: [action.payload, ...state.pokemons],
+        backPokemons: [action.payload, ...state.pokemons],
       };
 
     case DELETE_POKEMON:
@@ -108,7 +145,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         pokemons: newArray,
-        filteredPokemons: newArray,
+        backPokemons: newArray,
       };
 
     case GET_POKEMON_BY_NAME:
@@ -151,23 +188,33 @@ function rootReducer(state = initialState, action) {
       };
 
     case FILTER_CREATES:
-      const filterCreated = state.pokemons.filter((p) => p.created);
+      let filterCreated = [];
+      if (action.payload) {
+        filterCreated = state.pokemons.filter((p) => p.created);
+      } else {
+        console.log("tomando el array de backpokemons");
+        filterCreated = [...state.backPokemons];
+      }
       return {
         ...state,
-        filteredPokemons: filterCreated,
+        pokemons: filterCreated,
       };
 
-    case ORDER_NAME:
-      const sortOrder = action.payload.sortOrder;
-      const order = action.payload.order === "ascending" ? 1 : -1;
-      const sortedPokemons = [...state.filteredPokemons].sort((a, b) => {
-        if (a[sortOrder] > b[sortOrder]) return order;
-        if (a[sortOrder] < b[sortOrder]) return -order;
-        return 0;
-      });
+    case ORDER:
+      const option = action.payload.option;
+      const direction = action.payload.direction;
+      const sortedPokemons = [...state.pokemons].sort((a, b) =>
+        sortFunction(a[option], b[option], direction)
+      );
+      const sortedFavorites = [...state.favorites].sort((a, b) =>
+        sortFunction(a[option], b[option], direction)
+      );
+
       return {
         ...state,
-        filteredPokemons: sortedPokemons,
+        pokemons: sortedPokemons,
+        backPokemons: sortedPokemons,
+        favorites: sortedFavorites,
       };
 
     default:

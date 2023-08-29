@@ -6,6 +6,7 @@ import {
   getAllPokemons,
   getTypes,
   getFavoritesByUser,
+  filterPokeCreated
 } from "../../redux/actions/actions";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
@@ -53,11 +54,11 @@ const Home = () => {
 
   // Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
-    if (favorites.length === 0) {
+    if (favorites.length === 0 && userCurrent) {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
     // eslint-disable-next-line
-  }, [favorites]);
+  }, []);
 
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
@@ -72,16 +73,14 @@ const Home = () => {
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
     }, 800);
-
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
-  }, [pokemons.length, allTypes.length]);
+  }, [pokemons]);
 
   useEffect(() => {
-    console.log(
-      "Aquí debo hacer un dispatch de filter por pokemones creados",
-      viewFiltered
-    );
+  dispatch(filterPokeCreated(viewFiltered));
+  setCurrentPage(1);
+  // eslint-disable-next-line
   }, [viewFiltered]);
 
   useEffect(() => {

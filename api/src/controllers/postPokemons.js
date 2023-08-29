@@ -1,16 +1,48 @@
 const { Pokemon, Type } = require("../db");
 
 const postPokemons = async (req, res) => {
-
   try {
-    
-    const { name, hp, attack, defense, speed, height, weight, types, created, img } =
-    req.body;
-    if(!name) return;
+    const {
+      name,
+      hp,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
+      types,
+      created,
+      img,
+    } = req.body;
+    if (!name) {
+      return res.status(400).json({ message: "Name is required." });
+    }
+
     const lowerCaseName = name.toLowerCase();
+
+    //? verifico que no haya un poke en la bdd con el mismo nombre*/
+    const existingPokemon = await Pokemon.findOne({
+      where: { name: lowerCaseName },
+    });
+
+    if (existingPokemon) {
+      return res
+        .status(409)
+        .json({ message: "A Pokémon with this name already exists." });
+    }
+
     if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
-      // Creo el pokemon en la base de datos con los datos del body
+    // Creo el pokemon en la base de datos con los datos del body
+    // Obtengo el último id de la tabla Pokemon
+    const lastPokemon = await Pokemon.findOne({
+      order: [["id", "DESC"]],
+    });
+
+    // Calculo el nuevo id sumándole 1 al último id, y si es el primer registro lo inicializo en 5000 para no tener problemas con los id que vienen de la Api
+    const newId = lastPokemon ? lastPokemon.id + 1 : 5000;
+
     const newPokemon = await Pokemon.create({
+      id: newId,
       name: lowerCaseName,
       img,
       hp,
@@ -37,9 +69,9 @@ const postPokemons = async (req, res) => {
         await newPokemon.addType(selectedType); // hago la relacion en la tabla intermedia de mi nuevo pokemón con cada uno de los tipos correspondientes
       }
     });
-    
+
     const dataValues = {
-      id: newPokemon.id,
+      id: newId,
       name,
       img,
       hp,

@@ -56,6 +56,9 @@ const Form = ({ onClose, newSesion }) => {
         setText(
           `Congratulations ${firstName}: you successfully registered with the email ${email}`
         );
+        setTimeout(() => {
+          loginForm();
+        }, 3000);
       } else {
         throw new Error("Failed to create user");
       }

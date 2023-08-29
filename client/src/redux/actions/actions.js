@@ -13,7 +13,7 @@ import {
   FILTER_TYPES,
   CLEAR_STATE_POKEMON,
   FILTER_CREATES,
-  ORDER_NAME,
+  ORDER,
   DELETE_POKEMON,
   RESTORE_POKEMONS,
   LOGIN,
@@ -174,11 +174,10 @@ export const postPokemon = (values) => {
 };
 
 export const deletePokemon = (id) => {
+
   return async (dispatch) => {
     try {
-      if (typeof id !== "number") {
-        await axios.delete(`${URL}/${id}`);
-      }
+      await axios.delete(`${URL}/${id}`);
       dispatch({
         type: DELETE_POKEMON,
         payload: id,
@@ -276,10 +275,12 @@ export const filterPokeCreated = (value) => {
   };
 };
 
-export const orderName = (order, sortOrder) => {
+export const order = (option, direction) => {
+  option = option.toLowerCase();
+  direction = direction.toLowerCase();
   return {
-    type: ORDER_NAME,
-    payload: { order, sortOrder },
+    type: ORDER,
+    payload: { option, direction },
   };
 };
 

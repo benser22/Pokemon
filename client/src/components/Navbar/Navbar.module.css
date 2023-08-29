@@ -116,3 +116,12 @@ Abajo todo el modal
 .logout:hover {
   color: yellow;
 }
+
+.optionsLabel{
+  position: absolute;
+  color: orange;
+  font-size: 10px;
+  top:52%;
+  left: 45%;
+  pointer-events: none;
+}

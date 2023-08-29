@@ -10,7 +10,7 @@ const deleteFavoriteByUser = async (req, res) => {
   if (!userId || !pokemonName) return;
   try {
     const user = await User.findByPk(userId, {
-      include: Favorite, // Cargar también los favoritos del usuario
+      include: Favorite, // Cargar los favoritos del usuario
     });
 
     if (!user) {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./CreatePokemon.module.css";
-import { postPokemon } from "../../redux/actions/actions";
+import { getAllPokemons, postPokemon } from "../../redux/actions/actions";
 import { useNavigate, NavLink } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import validateForm from "./validateForm";
@@ -88,7 +88,8 @@ function CreatePokemon() {
     setTimeout(() => {
       setMessage("");
       navigate("/home");
-    }, 800);
+    }, 500);
+    dispatch(getAllPokemons());
   };
   
   // mantengo actualizado los valores del nuevo pokemon a medida que cambian en el input
