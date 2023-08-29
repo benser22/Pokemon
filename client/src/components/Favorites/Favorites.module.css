@@ -104,3 +104,18 @@
     min-height: 10%;
   }
   
+  .viewCreated{
+    display: flex;
+    position: absolute;
+    left: 0;
+    margin-left: 5%;
+    margin-top: 2vh;
+  }
+  
+  .labelView{
+    color: white;
+    margin-right: 1vh;
+    margin-bottom: 4px;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+  
+  }

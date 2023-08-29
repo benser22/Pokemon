@@ -61,7 +61,7 @@ export const logoutAction = () => {
 export const getAllPokemons = () => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(`${URL}/`);
+      const { data } = await axios.get(URL);
       dispatch({
         type: GET_ALL_POKEMONS,
         payload: data.results,

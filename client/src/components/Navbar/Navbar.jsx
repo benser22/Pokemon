@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
-import styles from "./Navbar.module.css";
-import { useDispatch } from "react-redux";
-import logo from "../../assets/images/pokeBall.gif";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
+import styles from "./Navbar.module.css";
+import logo from "../../assets/images/pokeBall.gif";
 import SearchBar from "../SearchBar/SearchBar";
-import { useSelector } from "react-redux";
 import { logoutAction } from "../../redux/actions/actions";
 import DropdownMenu from "./DropdownMenu";
 import { TYPES, ORDERS } from "../../constants/types";

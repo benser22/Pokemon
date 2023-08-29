@@ -6,7 +6,7 @@ import {
   getAllPokemons,
   getTypes,
   getFavoritesByUser,
-  filterPokeCreated
+  filterPokeCreated,
 } from "../../redux/actions/actions";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
@@ -62,9 +62,7 @@ const Home = () => {
 
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
-    if (pokemons.length === 0) {
-      dispatch(getAllPokemons());
-    }
+    dispatch(getAllPokemons());
 
     if (allTypes.length === 0) {
       dispatch(getTypes());
@@ -75,12 +73,12 @@ const Home = () => {
     }, 800);
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
-  }, [pokemons]);
+  }, []);
 
   useEffect(() => {
-  dispatch(filterPokeCreated(viewFiltered));
-  setCurrentPage(1);
-  // eslint-disable-next-line
+    dispatch(filterPokeCreated(viewFiltered));
+    setCurrentPage(1);
+    // eslint-disable-next-line
   }, [viewFiltered]);
 
   useEffect(() => {
@@ -90,7 +88,6 @@ const Home = () => {
     }
     // eslint-disable-next-line
   }, [userCurrent.access, navigate]);
-
 
   if (isLoading || !allTypes.length || !pokemons.length) {
     return <Loader />;

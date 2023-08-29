@@ -22,14 +22,16 @@ import {
 
 const initialState = {
   pokemons: [],
-  pokemon: {},
-  allTypes: [],
   backPokemons: [],
   favorites: [],
+  backFavorites: [],
+  pokemon: {},
+  allTypes: [],
   user: {
     access: false,
     rol: "",
   },
+  contador: 0,
 };
 
 function sortFunction(valueA, valueB, direction) {
@@ -64,7 +66,6 @@ function compareArrays(array1, array2) {
 }
 
 function rootReducer(state = initialState, action) {
-  let newArray = [];
   switch (action.type) {
     // CASO DE ACCIONES PARA LA AUTENTIFICACION
     //**************************** */
@@ -93,11 +94,18 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_ALL_POKEMONS:
-      return {
-        ...state,
-        pokemons: action.payload,
-        backPokemons: action.payload,
-      };
+      // console.log("getallpokemons", state.contador);
+      // state.contador++;
+      if (
+        state.pokemons.length === 0 ||
+        state.pokemons.length < action.payload.length
+      ) {
+        return {
+          ...state,
+          pokemons: action.payload,
+          backPokemons: action.payload,
+        };
+      } else return { ...state };
 
     case DELETE_FAVORITES_BY_USER:
       const { name } = action.payload;
@@ -107,6 +115,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         favorites: updatedFavorites,
+        backFavorites: updatedFavorites,
       };
 
     case GET_FAVORITES_BY_USER:
@@ -114,10 +123,10 @@ function rootReducer(state = initialState, action) {
         state.favorites.length === 0 ||
         compareArrays(state.favorites, action.payload)
       ) {
-        console.log("getfavorites");
         return {
           ...state,
           favorites: action.payload,
+          backFavorites: action.payload,
         };
       } else return { ...state };
 
@@ -125,6 +134,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         favorites: [...state.favorites, action.payload],
+        backFavorites: [...state.backFavorites, action.payload]
       };
 
     case GET_POKEMON_DETAILS:
@@ -136,16 +146,16 @@ function rootReducer(state = initialState, action) {
     case POST_POKEMON:
       return {
         ...state,
-        pokemons: [action.payload, ...state.pokemons],
-        backPokemons: [action.payload, ...state.pokemons],
+        pokemons: [...state.pokemons, action.payload],
+        backPokemons: [...state.pokemons, action.payload],
       };
 
     case DELETE_POKEMON:
-      newArray = state.pokemons.filter((poke) => poke.id !== action.payload);
+      const newPokemons = state.pokemons.filter((poke) => poke.id !== action.payload);
       return {
         ...state,
-        pokemons: newArray,
-        backPokemons: newArray,
+        pokemons: newPokemons,
+        backPokemons: newPokemons,
       };
 
     case GET_POKEMON_BY_NAME:
@@ -188,16 +198,19 @@ function rootReducer(state = initialState, action) {
       };
 
     case FILTER_CREATES:
-      let filterCreated = [];
+      console.log("entre aqui en action filter");
+      let pokemonsCreated, favoritesCreated = []
       if (action.payload) {
-        filterCreated = state.pokemons.filter((p) => p.created);
+        pokemonsCreated = state.pokemons.filter((p) => p.created);
+        favoritesCreated = state.favorites.filter((p) => p.created);
       } else {
-        console.log("tomando el array de backpokemons");
-        filterCreated = [...state.backPokemons];
+        pokemonsCreated = [...state.backPokemons];
+        favoritesCreated = [...state.backFavorites];
       }
       return {
         ...state,
-        pokemons: filterCreated,
+        pokemons: pokemonsCreated,
+        favorites: favoritesCreated
       };
 
     case ORDER:
@@ -215,6 +228,7 @@ function rootReducer(state = initialState, action) {
         pokemons: sortedPokemons,
         backPokemons: sortedPokemons,
         favorites: sortedFavorites,
+        backFavorites: sortedFavorites
       };
 
     default:

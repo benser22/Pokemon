@@ -5,6 +5,7 @@ import { getTypes, getFavoritesByUser } from "../../redux/actions/actions";
 import styles from "./Favorites.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
+import { filterPokeCreated } from "../../redux/actions/actions";
 
 const Favorites = () => {
   const favorites = useSelector((state) => state.favorites);
@@ -13,31 +14,38 @@ const Favorites = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const favoritesPerPage = 12;
   const totalPages = Math.ceil(favorites.length / favoritesPerPage);
+  const [viewFiltered, setViewFiltered] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
-
     if (userCurrent.id) {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
-
+    
     if (!allTypes) {
       dispatch(getTypes());
     }
-
+    
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
     }, 600);
-
+    
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
   }, []);
 
+
+  useEffect(() => {
+      dispatch(filterPokeCreated(viewFiltered));
+      setCurrentPage(1);
+    // eslint-disable-next-line
+  }, [viewFiltered]);
+  
   if (isLoading || (!allTypes.length && !favorites.length)) {
     return <Loader />;
   }
-
+  
   const getType = (name) => {
     if (allTypes.length > 0) {
       const { image_type } = allTypes.find((t) => t.name === name);
@@ -45,7 +53,7 @@ const Favorites = () => {
     }
     return;
   };
-
+  
   const handleChangePage = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -61,6 +69,11 @@ const Favorites = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  const handleFilter = () => {
+    setViewFiltered(!viewFiltered);
+  };
+
 
   return (
     <div className={styles.container}>
@@ -78,6 +91,19 @@ const Favorites = () => {
           />
         ))}
       <div className={styles.buttonContainer}>
+        <div className={styles.viewCreated}>
+          <label htmlFor="labelfiltercreated" className={styles.labelView}>
+            Show only created
+          </label>
+          <input
+            id="labelfiltercreated"
+            className={styles.checkView}
+            type="checkbox"
+            title="Only created"
+            checked={viewFiltered}
+            onChange={handleFilter}
+          />
+        </div>
         <button className={styles.pageButton} onClick={handlePrevPage}>
           {"<"}
         </button>
