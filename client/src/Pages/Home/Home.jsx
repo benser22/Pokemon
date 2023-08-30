@@ -89,7 +89,7 @@ const Home = () => {
     // eslint-disable-next-line
   }, [userCurrent.access, navigate]);
 
-  if (isLoading || !allTypes.length || !pokemons.length) {
+  if (isLoading || !allTypes.length) {
     return <Loader />;
   }
 

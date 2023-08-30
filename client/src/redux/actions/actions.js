@@ -10,9 +10,9 @@ import {
   GET_TYPES,
   ADD_POKEMON,
   POST_POKEMON,
-  FILTER_TYPES,
   CLEAR_STATE_POKEMON,
   FILTER_CREATES,
+  FILTER,
   ORDER,
   DELETE_POKEMON,
   RESTORE_POKEMONS,
@@ -254,13 +254,6 @@ export const clearStatePokemon = () => {
   };
 };
 
-export const filterByTypes = (value) => {
-  return {
-    type: FILTER_TYPES,
-    payload: value,
-  };
-};
-
 export const restorePokemons = () => {
   return {
     type: RESTORE_POKEMONS,
@@ -275,9 +268,16 @@ export const filterPokeCreated = (value) => {
   };
 };
 
+export const filter = (option) => {
+  return {
+    type: FILTER,
+    payload: option,
+  };
+};
+
 export const order = (option, direction) => {
-  option = option.toLowerCase();
-  direction = direction.toLowerCase();
+  option = option?.toLowerCase();
+  if (direction === "(Ascending)" || direction === "(A-Z)" || direction ==="[Min-Max]") {direction = "asc"}
   return {
     type: ORDER,
     payload: { option, direction },

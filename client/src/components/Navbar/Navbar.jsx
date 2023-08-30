@@ -16,11 +16,11 @@ const Navbar = () => {
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [orderCurrent, setOrderCurrent] = useState("");
-  const [filterCurrent, setfilterCurrent] = useState("");
+  const [orderCurrent, setOrderCurrent] = useState("-");
+  const [filterCurrent, setfilterCurrent] = useState("-");
 
-  const orderByOptions = ORDERS;
-  const filterByOptions = TYPES;
+  const orderByOptions = ["-", ...ORDERS];
+  const filterByOptions = ["-", ...TYPES];
 
   const handleLogout = () => {
     setShowModal(true); // Muestro el modal de confirmación de cierre de sesión
@@ -55,6 +55,7 @@ const Navbar = () => {
             options={orderByOptions}
             setfilterCurrent={setfilterCurrent}
             setOrderCurrent={setOrderCurrent}
+            choice={"order"}
           />
           <p className={styles.optionsLabel}>{orderCurrent}</p>
           <DropdownMenu
@@ -62,6 +63,7 @@ const Navbar = () => {
             options={filterByOptions}
             setfilterCurrent={setfilterCurrent}
             setOrderCurrent={setOrderCurrent}
+            choice={"filter"}
           />
           <p className={styles.optionsLabel} style={{marginLeft:"20%"}}>{filterCurrent}</p>
       </div>
