@@ -279,7 +279,6 @@ function rootReducer(state = initialState, action) {
         }
       } else {
 
-        console.log("estoy entrando");
         // Si no se está ordenando, comprobar si hay un filtro
         if (filteredType !== "-") {
           orderedFilteredPokemons = orderedPokemons.filter((p) =>
