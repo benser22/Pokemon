@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/images/pokeBall.gif";
 import SearchBar from "../SearchBar/SearchBar";
-import { logoutAction, filter } from "../../redux/actions/actions";
+import { logoutAction } from "../../redux/actions/actions";
 import DropdownMenu from "./DropdownMenu";
 import { TYPES, ORDERS } from "../../constants/types";
 
