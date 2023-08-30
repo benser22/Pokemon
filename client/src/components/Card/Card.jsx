@@ -5,6 +5,7 @@ import logoDelete from "../../assets/close.png";
 import {
   deleteFavoritesByUser,
   deletePokemon,
+  getFavoritesByUser,
   postFavoritesByUser,
 } from "../../redux/actions/actions";
 import { NavLink, useLocation } from "react-router-dom";
@@ -71,9 +72,12 @@ export default function Card({
     if (!isFavorite && userCurrent) {
       dispatch(postFavoritesByUser(userCurrent.id, pokemon));
     } else {
-      // me aseguro que si al sacar de favorites un pokemon  yera el único mostrado en la pagina, no este la pagina vacia
-      if ((numbersPokemons - 1) % 12 === 0) setCurrentPage(currentPage - 1);
+      // me aseguro que si al sacar de favorites un pokemon  y era el único mostrado en la pagina, no este la pagina vacia
       dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
+      // if ((numbersPokemons - 1) % 12 === 0) 
+      // {setCurrentPage(currentPage - 1);
+      dispatch(getFavoritesByUser());
+      
     }
     setIsFavorite(!isFavorite);
   };

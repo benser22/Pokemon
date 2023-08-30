@@ -33,7 +33,7 @@ const initialState = {
   },
   orderOption: "-",
   orderDirection: "asc",
-  filteredType: "-"
+  filteredType: "-",
 };
 
 function rootReducer(state = initialState, action) {
@@ -80,12 +80,16 @@ function rootReducer(state = initialState, action) {
       const { name } = action.payload;
       const updatedFavorites = state.favorites.filter(
         (pokemon) => pokemon.name !== name
-      );
+        );
+      const updatedFavorites2 = state.initialFavorites.filter(
+        (pokemon) => pokemon.name !== name
+        );
+        console.log("aqui se van", updatedFavorites2);
+        console.log("state.fav", state.initialFavorites);
       return {
         ...state,
-        initialFavorites: updatedFavorites,
+        initialFavorites: updatedFavorites2,
         favorites: updatedFavorites,
-        backFavorites: updatedFavorites,
       };
 
     case GET_FAVORITES_BY_USER:
@@ -93,15 +97,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         initialFavorites: action.payload,
         favorites: action.payload,
-        backFavorites: action.payload,
       };
 
     case POST_FAVORITES_BY_USER:
       return {
         ...state,
-        initialFavorites: [...state.favorites, action.payload],
+        initialFavorites: [...state.initialFavorites, action.payload],
         favorites: [...state.favorites, action.payload],
-        backFavorites: [...state.backFavorites, action.payload],
       };
 
     case GET_POKEMON_DETAILS:
@@ -121,6 +123,7 @@ function rootReducer(state = initialState, action) {
       const newPokemons = state.pokemons.filter(
         (poke) => poke.id !== action.payload
       );
+
       return {
         ...state,
         initialPokemons: newPokemons,
@@ -180,115 +183,127 @@ function rootReducer(state = initialState, action) {
         favorites: favoritesCreated,
       };
 
+    case ORDER:
+      const option = action.payload.option;
+      const direction = action.payload.direction;
 
-      case ORDER:
-        const option = action.payload.option;
-        const direction = action.payload.direction;
-      
-        let sortedPokemons = [...state.initialPokemons];
-        let sortedFavorites = [...state.initialFavorites];
-      
-        if (option !== "-") {
-          sortedPokemons.sort((a, b) => {
-            if (direction === "asc") {
-              return a[option] > b[option] ? 1 : -1;
-            } else {
-              return a[option] < b[option] ? 1 : -1;
-            }
-          });
-      
-          sortedFavorites.sort((a, b) => {
-            if (direction === "asc") {
-              return a[option] > b[option] ? 1 : -1;
-            } else {
-              return a[option] < b[option] ? 1 : -1;
-            }
-          });
-        }
-      
-        let filteredSortedPokemons = [...sortedPokemons];
-        let filteredSortedFavorites = [...sortedFavorites];
-      
-        if (state.filteredType !== "-") {
-          filteredSortedPokemons = sortedPokemons.filter(p => p.types.includes(state.filteredType));
-          filteredSortedFavorites = sortedFavorites.filter(p => p.types?.includes(state.filteredType));
-        }
-      
-        return {
-          ...state,
-          pokemons: filteredSortedPokemons,
-          favorites: filteredSortedFavorites,
-          orderOption: option,
-          orderDirection: direction
-        };
-      
-      case FILTER:
-        const filteredType = action.payload;
-      
-        // Variables para almacenar los resultados de ordenamiento y filtrado
-        let orderedFilteredPokemons = [];
-        let orderedFilteredFavorites = [];
-        let orderedPokemons = [...state.initialPokemons];
-        let orderedFavorites = [...state.initialFavorites];
-      
-        // Comprobar si los datos están siendo ordenados
-        if (state.orderOption !== "-") {
-          const orderOption = state.orderOption;
-          const orderDirection = state.orderDirection;
-      
-          // Ordenar los datos según la opción y dirección de orden
-          orderedPokemons.sort((a, b) => {
-            if (orderDirection === "asc") {
-              return a[orderOption] > b[orderOption] ? 1 : -1;
-            } else {
-              return a[orderOption] < b[orderOption] ? 1 : -1;
-            }
-          });
-      
-          orderedFavorites.sort((a, b) => {
-            if (orderDirection === "asc") {
-              return a[orderOption] > b[orderOption] ? 1 : -1;
-            } else {
-              return a[orderOption] < b[orderOption] ? 1 : -1;
-            }
-          });
-      
-          // Comprobar si también se está aplicando un filtro
-          if (filteredType !== "-") {
-            orderedFilteredPokemons = orderedPokemons.filter((p) =>
-              p.types.includes(filteredType)
-            );
-            orderedFilteredFavorites = orderedFavorites.filter((p) =>
-              p.types?.includes(filteredType)
-            );
+      let sortedPokemons = [...state.initialPokemons];
+      let sortedFavorites = [...state.initialFavorites];
+
+      if (option !== "-") {
+        sortedPokemons.sort((a, b) => {
+          if (direction === "asc") {
+            return a[option] > b[option] ? 1 : -1;
           } else {
-            // Si no hay filtro, mantener el orden previo
-            orderedFilteredPokemons = [...orderedPokemons];
-            orderedFilteredFavorites = [...orderedFavorites];
+            return a[option] < b[option] ? 1 : -1;
           }
+        });
+
+        sortedFavorites.sort((a, b) => {
+          if (direction === "asc") {
+            return a[option] > b[option] ? 1 : -1;
+          } else {
+            return a[option] < b[option] ? 1 : -1;
+          }
+        });
+      }
+
+      let filteredSortedPokemons = [...sortedPokemons];
+      let filteredSortedFavorites = [...sortedFavorites];
+
+      if (state.filteredType !== "-") {
+        filteredSortedPokemons = sortedPokemons.filter((p) =>
+          p.types.includes(state.filteredType)
+        );
+        filteredSortedFavorites = sortedFavorites.filter((p) =>
+          p.types?.includes(state.filteredType)
+        );
+      }
+
+      return {
+        ...state,
+        pokemons: filteredSortedPokemons,
+        favorites: filteredSortedFavorites,
+        orderOption: option,
+        orderDirection: direction,
+      };
+
+    case FILTER:
+      const filteredType = action.payload;
+
+      // Variables para almacenar los resultados de ordenamiento y filtrado
+      let orderedFilteredPokemons = [];
+      let orderedFilteredFavorites = [];
+      let orderedPokemons = [...state.initialPokemons];
+      let orderedFavorites = [...state.initialFavorites];
+
+      // Comprobar si los datos están siendo ordenados
+      if (state.orderOption !== "-") {
+        const orderOption = state.orderOption;
+        const orderDirection = state.orderDirection;
+
+        // Ordenar los datos según la opción y dirección de orden
+        orderedPokemons.sort((a, b) => {
+          if (orderDirection === "asc") {
+            return a[orderOption] > b[orderOption] ? 1 : -1;
+          } else {
+            return a[orderOption] < b[orderOption] ? 1 : -1;
+          }
+        });
+
+        orderedFavorites.sort((a, b) => {
+          if (orderDirection === "asc") {
+            return a[orderOption] > b[orderOption] ? 1 : -1;
+          } else {
+            return a[orderOption] < b[orderOption] ? 1 : -1;
+          }
+        });
+
+        // Comprobar si también se está aplicando un filtro
+        if (filteredType !== "-" && orderedPokemons.length > 0) {
+          
+          orderedFilteredPokemons = orderedPokemons.filter((p) =>
+          p.types.includes(filteredType)
+          );
+        }
+        if (filteredType !== "-" && orderedFavorites.length > 0) {
+          orderedFilteredFavorites = orderedFavorites.filter((p) =>
+            p.types?.includes(filteredType)
+          );
         } else {
-          // Si no se está ordenando, comprobar si hay un filtro
-          if (filteredType !== "-") {
-            orderedFilteredPokemons = orderedPokemons.filter((p) =>
-              p.types.includes(filteredType)
-            );
-            orderedFilteredFavorites = orderedFavorites.filter((p) =>
-              p.types?.includes(filteredType)
-            );
-          } else {
-            // Si no se está ordenando ni filtrando, usar los datos iniciales
-            orderedFilteredPokemons = [...state.initialPokemons];
-            orderedFilteredFavorites = [...state.initialFavorites];
-          }
+
+
+          // Si no hay filtro, mantener el orden previo
+          orderedFilteredPokemons = [...orderedPokemons];
+          orderedFilteredFavorites = [...orderedFavorites];
         }
-      
-        // Devolver el estado actualizado con los resultados de ordenamiento y filtrado
-        return {
-          ...state,
-          pokemons: orderedFilteredPokemons,
-          favorites: orderedFilteredFavorites,
-          filteredType: filteredType,
-        };
+      } else {
+
+        console.log("estoy entrando");
+        // Si no se está ordenando, comprobar si hay un filtro
+        if (filteredType !== "-") {
+          orderedFilteredPokemons = orderedPokemons.filter((p) =>
+            p.types.includes(filteredType)
+          );
+          orderedFilteredFavorites = orderedFavorites.filter((p) =>
+            p.types?.includes(filteredType)
+          );
+        } else {
+          
+          console.log("aqui esta el problema", state.initialFavorites);
+          // Si no se está ordenando ni filtrando, usar los datos iniciales
+          orderedFilteredPokemons = [...state.initialPokemons];
+          orderedFilteredFavorites = [...state.initialFavorites];
+        }
+      }
+
+      // Devolver el estado actualizado con los resultados de ordenamiento y filtrado
+      return {
+        ...state,
+        pokemons: orderedFilteredPokemons,
+        favorites: orderedFilteredFavorites,
+        filteredType: filteredType,
+      };
 
     default:
       return state;

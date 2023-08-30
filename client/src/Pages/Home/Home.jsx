@@ -61,7 +61,7 @@ const Home = () => {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
     // eslint-disable-next-line
-  }, [favorites]);
+  }, []);
   
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux

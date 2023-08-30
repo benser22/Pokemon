@@ -23,7 +23,7 @@ const Favorites = () => {
   useEffect(() => {
 
     
-    if (filterOption === "-" && orderOption === "-") {
+    if ((favorites.length && filterOption === "-" && orderOption === "-")) {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
 
