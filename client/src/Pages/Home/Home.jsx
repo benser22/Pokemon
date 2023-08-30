@@ -16,7 +16,6 @@ const Home = () => {
   // const pokemonsCreated = useSelector((state) => state.pokemons);
   const pokemons = useSelector((state) => state.pokemons);
   const allTypes = useSelector((state) => state.allTypes);
-  const favorites = useSelector((state) => state.favorites);
   const orderOption = useSelector((state) => state.orderOption);
   const filterOption = useSelector((state) => state.filteredType);
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,7 +65,8 @@ const Home = () => {
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
   
-    if (!pokemons.length || (filterOption === "-" && orderOption === "-")) {
+    if ((filterOption === "-" && orderOption === "-")) {
+    // if (!pokemons.length || (filterOption === "-" && orderOption === "-")) {
       dispatch(getAllPokemons());
     }
     
@@ -76,7 +76,7 @@ const Home = () => {
     
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 800);
+    }, 1500);
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
   }, []);

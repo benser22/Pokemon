@@ -191,7 +191,7 @@ const Form = ({ onClose, newSesion }) => {
               onClick={toggleShowPassword}
               className={styles.showPasswordButton}
               >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
           {errors.password && (

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "fuentePokemon";
-  src: url("../../assets/font/pokemon.ttf") format("truetype"); /* Ajusta la ruta según la ubicación real de la fuente */
+  src: url("../../assets/font/PokemonSolid.ttf") format("truetype"); /* Ajusta la ruta según la ubicación real de la fuente */
 }
 
 .container {
