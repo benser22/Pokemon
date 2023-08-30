@@ -11,7 +11,13 @@ import { NavLink, useLocation } from "react-router-dom";
 import imgDefault from "../../assets/default.png";
 import { Star } from "react-feather";
 
-export default function Card({ pokemon, getType }) {
+export default function Card({
+  pokemon,
+  getType,
+  setCurrentPage,
+  numbersPokemons,
+  currentPage,
+}) {
   const dispatch = useDispatch();
   const formattedName = capitalizeFirstLetter(pokemon.name);
   const [isShinyCreated, setIsShinyCreated] = useState(false);
@@ -36,7 +42,10 @@ export default function Card({ pokemon, getType }) {
       return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
     }
   }
+
   const handleDelete = () => {
+    // me aseguro que si al eliminar un pokemon era el único que se estaba mostrando en la pagina, no muestre la pagina vacia
+    if ((numbersPokemons - 1) % 12 === 0) setCurrentPage(currentPage - 1);
     dispatch(deletePokemon(pokemon.id));
   };
 
@@ -62,6 +71,8 @@ export default function Card({ pokemon, getType }) {
     if (!isFavorite && userCurrent) {
       dispatch(postFavoritesByUser(userCurrent.id, pokemon));
     } else {
+      // me aseguro que si al sacar de favorites un pokemon  yera el único mostrado en la pagina, no este la pagina vacia
+      if ((numbersPokemons - 1) % 12 === 0) setCurrentPage(currentPage - 1);
       dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
     }
     setIsFavorite(!isFavorite);
@@ -99,7 +110,10 @@ export default function Card({ pokemon, getType }) {
               onChange={handleCheckboxShiny}
               className={styles.checkShiny}
             />
-            <label htmlFor={`checkShiny${pokemon.name}`} className={styles.shiny}>
+            <label
+              htmlFor={`checkShiny${pokemon.name}`}
+              className={styles.shiny}
+            >
               Shiny
             </label>{" "}
             <div
@@ -136,7 +150,7 @@ export default function Card({ pokemon, getType }) {
               isShinyCreated && pokemon.created ? styles.createdImage : ""
             }`}
             id="img"
-            style={{  
+            style={{
               height: "max-content",
               width: "max-content",
               maxHeight: "20vh",

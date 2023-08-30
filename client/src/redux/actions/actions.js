@@ -85,6 +85,7 @@ export const getFavoritesByUser = (idUser) => {
     }
   };
 };
+
 export const deleteFavoritesByUser = (idUser, name) => {
   return async function (dispatch) {
     try {
@@ -269,6 +270,7 @@ export const filterPokeCreated = (value) => {
 };
 
 export const filter = (option) => {
+  if (option === "default") option = "-";
   return {
     type: FILTER,
     payload: option,
@@ -277,6 +279,7 @@ export const filter = (option) => {
 
 export const order = (option, direction) => {
   option = option?.toLowerCase();
+  if (option === "default") option = "-";
   if (direction === "(Ascending)" || direction === "(A-Z)" || direction ==="[Min-Max]") {direction = "asc"}
   return {
     type: ORDER,

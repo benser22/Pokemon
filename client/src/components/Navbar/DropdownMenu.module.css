@@ -40,8 +40,9 @@
   }
   
   .dropdownContent p {
-    margin-top: -1vh;
     transition: color 0.2s; 
+    margin-top: -5px;
+    margin-bottom: 5px;
   }
   
   .dropdownContent p:hover {

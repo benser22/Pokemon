@@ -2,7 +2,7 @@ const { Pokemon, Type } = require("../db");
 
 const postPokemons = async (req, res) => {
   try {
-    const {
+    let {
       name,
       hp,
       attack,
@@ -18,10 +18,10 @@ const postPokemons = async (req, res) => {
       return res.status(400).json({ message: "Name is required." });
     }
 
-    const lowerCaseName = name.toLowerCase();
+    let lowerCaseName = name.toLowerCase();
 
     //? verifico que no haya un poke en la bdd con el mismo nombre*/
-    const existingPokemon = await Pokemon.findOne({
+    let existingPokemon = await Pokemon.findOne({
       where: { name: lowerCaseName },
     });
 
@@ -34,14 +34,14 @@ const postPokemons = async (req, res) => {
     if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
     // Creo el pokemon en la base de datos con los datos del body
     // Obtengo el último id de la tabla Pokemon
-    const lastPokemon = await Pokemon.findOne({
+    let lastPokemon = await Pokemon.findOne({
       order: [["id", "DESC"]],
     });
 
     // Calculo el nuevo id sumándole 1 al último id, y si es el primer registro lo inicializo en 5000 para no tener problemas con los id que vienen de la Api
-    const newId = lastPokemon ? lastPokemon.id + 1 : 5000;
+    let newId = lastPokemon ? lastPokemon.id + 1 : 5000;
 
-    const newPokemon = await Pokemon.create({
+    let newPokemon = await Pokemon.create({
       id: newId,
       name: lowerCaseName,
       img,
@@ -56,7 +56,7 @@ const postPokemons = async (req, res) => {
     });
 
     // me quedo con los registros enteros de los tipos que coincidan con los types que me llegaron por body
-    const selectedTypes = await Type.findAll({
+    let selectedTypes = await Type.findAll({
       where: {
         name: types,
       },

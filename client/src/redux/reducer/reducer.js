@@ -33,6 +33,7 @@ const initialState = {
   },
   orderOption: "-",
   orderDirection: "asc",
+  filteredType: "-"
 };
 
 function rootReducer(state = initialState, action) {
@@ -179,42 +180,48 @@ function rootReducer(state = initialState, action) {
         favorites: favoritesCreated,
       };
 
-    case ORDER:
-      const option = action.payload.option;
-      const direction = action.payload.direction;
 
-      let sortedPokemons = [...state.pokemons];
-      let sortedFavorites = [...state.favorites];
-
-      if (option !== "-") {
-        sortedPokemons.sort((a, b) => {
-          if (direction === "asc") {
-            return a[option] > b[option] ? 1 : -1;
-          } else {
-            return a[option] < b[option] ? 1 : -1;
-          }
-        });
-
-        sortedFavorites.sort((a, b) => {
-          if (direction === "asc") {
-            return a[option] > b[option] ? 1 : -1;
-          } else {
-            return a[option] < b[option] ? 1 : -1;
-          }
-        });
-      } else {
-        sortedPokemons = [...state.initialPokemons];
-        sortedFavorites = [...state.initialFavorites];
-      }
-
-      return {
-        ...state,
-        pokemons: sortedPokemons,
-        favorites: sortedFavorites,
-        orderOption: option, // Actualiza el estado de la opción de orden
-        orderDirection: direction, // Actualiza el estado de la dirección de orden
-      };
-
+      case ORDER:
+        const option = action.payload.option;
+        const direction = action.payload.direction;
+      
+        let sortedPokemons = [...state.initialPokemons];
+        let sortedFavorites = [...state.initialFavorites];
+      
+        if (option !== "-") {
+          sortedPokemons.sort((a, b) => {
+            if (direction === "asc") {
+              return a[option] > b[option] ? 1 : -1;
+            } else {
+              return a[option] < b[option] ? 1 : -1;
+            }
+          });
+      
+          sortedFavorites.sort((a, b) => {
+            if (direction === "asc") {
+              return a[option] > b[option] ? 1 : -1;
+            } else {
+              return a[option] < b[option] ? 1 : -1;
+            }
+          });
+        }
+      
+        let filteredSortedPokemons = [...sortedPokemons];
+        let filteredSortedFavorites = [...sortedFavorites];
+      
+        if (state.filteredType !== "-") {
+          filteredSortedPokemons = sortedPokemons.filter(p => p.types.includes(state.filteredType));
+          filteredSortedFavorites = sortedFavorites.filter(p => p.types?.includes(state.filteredType));
+        }
+      
+        return {
+          ...state,
+          pokemons: filteredSortedPokemons,
+          favorites: filteredSortedFavorites,
+          orderOption: option,
+          orderDirection: direction
+        };
+      
       case FILTER:
         const filteredType = action.payload;
       
@@ -280,6 +287,7 @@ function rootReducer(state = initialState, action) {
           ...state,
           pokemons: orderedFilteredPokemons,
           favorites: orderedFilteredFavorites,
+          filteredType: filteredType,
         };
 
     default:

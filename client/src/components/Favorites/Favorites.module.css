@@ -119,3 +119,12 @@
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
   
   }
+
+  
+.imgNothing {
+  background-image: url("/src/assets/images/nothingToSee.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+}

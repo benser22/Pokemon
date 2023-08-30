@@ -17,35 +17,34 @@ const Favorites = () => {
   const [viewFiltered, setViewFiltered] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     if (userCurrent.id) {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
-    
+
     if (!allTypes) {
       dispatch(getTypes());
     }
-    
+
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
     }, 600);
-    
+
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
   }, []);
 
-
   useEffect(() => {
-      dispatch(filterPokeCreated(viewFiltered));
-      setCurrentPage(1);
+    dispatch(filterPokeCreated(viewFiltered));
+    setCurrentPage(1);
     // eslint-disable-next-line
   }, [viewFiltered]);
-  
+
   if (isLoading || (!allTypes.length && !favorites.length)) {
     return <Loader />;
   }
-  
+
   const getType = (name) => {
     if (allTypes.length > 0) {
       const { image_type } = allTypes.find((t) => t.name === name);
@@ -53,7 +52,7 @@ const Favorites = () => {
     }
     return;
   };
-  
+
   const handleChangePage = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -74,22 +73,28 @@ const Favorites = () => {
     setViewFiltered(!viewFiltered);
   };
 
-
   return (
     <div className={styles.container}>
-      {favorites
-        .slice(
-          (currentPage - 1) * favoritesPerPage,
-          currentPage * favoritesPerPage
-        )
-        .map((pokemon, index) => (
-          <Card
-            pokemon={pokemon}
-            getType={getType}
-            userId={userCurrent?.id}
-            key={index}
-          />
-        ))}
+      {favorites.length && !isLoading ? (
+        favorites
+          .slice(
+            (currentPage - 1) * favoritesPerPage,
+            currentPage * favoritesPerPage
+          )
+          .map((pokemon, index) => (
+            <Card
+              currentPage={currentPage}
+              numbersPokemons={favorites.length}
+              setCurrentPage={setCurrentPage}
+              pokemon={pokemon}
+              getType={getType}
+              userId={userCurrent?.id}
+              key={index}
+            />
+          ))
+      ) : (
+        <div className={styles.imgNothing} />
+      )}
       <div className={styles.buttonContainer}>
         <div className={styles.viewCreated}>
           <label htmlFor="labelfiltercreated" className={styles.labelView}>

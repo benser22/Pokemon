@@ -25,7 +25,6 @@ const Home = () => {
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   // Precarga de las imágenes
   useEffect(() => {
     let mounted = true;
@@ -123,14 +122,25 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      {pokemons
-        .slice(
-          (currentPage - 1) * pokemonsPerPage,
-          currentPage * pokemonsPerPage
-        )
-        .map((pokemon, index) => (
-          <Card pokemon={pokemon} getType={getType} key={index} />
-        ))}
+      {pokemons.length && !isLoading ? (
+        pokemons
+          .slice(
+            (currentPage - 1) * pokemonsPerPage,
+            currentPage * pokemonsPerPage
+          )
+          .map((pokemon, index) => (
+            <Card
+              pokemon={pokemon}
+              getType={getType}
+              key={index}
+              setCurrentPage={setCurrentPage}
+              numbersPokemons={pokemons.length}
+              currentPage={currentPage}
+            />
+          ))
+      ) : (
+        <div className={styles.imgNothing} />
+      )}
       <div className={styles.buttonContainer}>
         <div className={styles.viewCreated}>
           <label htmlFor="labelfiltercreated" className={styles.labelView}>
