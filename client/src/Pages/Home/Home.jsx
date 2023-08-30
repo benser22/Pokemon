@@ -57,16 +57,16 @@ const Home = () => {
   
   // Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
-    if (favorites.length === 0 && userCurrent) {
+    if (filterOption === "-" && orderOption === "-") {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
     // eslint-disable-next-line
-  }, []);
+  }, [favorites]);
   
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
   
-    if (!pokemons.length && filterOption!== "-" && orderOption !== "-") {
+    if (!pokemons.length || (filterOption === "-" && orderOption === "-")) {
       dispatch(getAllPokemons());
     }
     

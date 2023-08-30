@@ -21,7 +21,9 @@ const Favorites = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userCurrent.id && !favorites.length && filterOption!== "-" && orderOption !== "-") {
+
+    
+    if (filterOption === "-" && orderOption === "-") {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
 
