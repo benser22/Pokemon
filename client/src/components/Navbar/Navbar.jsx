@@ -70,7 +70,7 @@ const Navbar = () => {
       <NavLink
         to={"/favorites"}
         className={styles.links}
-        style={{ textDecoration: "none", marginLeft: "-8vh" }}
+        style={{ textDecoration: "none", marginLeft: "-20vh" }}
       >
         <p>Favorites</p>
       </NavLink>

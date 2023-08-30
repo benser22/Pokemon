@@ -17,6 +17,8 @@ const Home = () => {
   const pokemons = useSelector((state) => state.pokemons);
   const allTypes = useSelector((state) => state.allTypes);
   const favorites = useSelector((state) => state.favorites);
+  const orderOption = useSelector((state) => state.orderOption);
+  const filterOption = useSelector((state) => state.filteredType);
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
@@ -25,10 +27,12 @@ const Home = () => {
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
   // Precarga de las imágenes
   useEffect(() => {
     let mounted = true;
-
+    
     const imagePromises = pokemons.map((pokemon) => {
       return new Promise((resolve) => {
         const img = new Image();
@@ -38,19 +42,19 @@ const Home = () => {
         };
       });
     });
-
+    
     Promise.all(imagePromises).then(() => {
       if (mounted) {
         setIsLoading(false);
       }
     });
-
+    
     return () => {
       mounted = false;
     };
     // eslint-disable-next-line
   }, [pokemons]);
-
+  
   // Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
     if (favorites.length === 0 && userCurrent) {
@@ -58,15 +62,18 @@ const Home = () => {
     }
     // eslint-disable-next-line
   }, []);
-
+  
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
-    dispatch(getAllPokemons());
-
+  
+    if (!pokemons.length && filterOption!== "-" && orderOption !== "-") {
+      dispatch(getAllPokemons());
+    }
+    
     if (allTypes.length === 0) {
       dispatch(getTypes());
     }
-
+    
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
     }, 800);
@@ -84,7 +91,7 @@ const Home = () => {
     // Si el usuario no está autenticado, redirigir a la página de inicio
     if (!userCurrent.access) {
       navigate("/");
-    }
+    } 
     // eslint-disable-next-line
   }, [userCurrent.access, navigate]);
 
@@ -138,7 +145,7 @@ const Home = () => {
               currentPage={currentPage}
             />
           ))
-      ) : (
+      ) : (!isLoading &&
         <div className={styles.imgNothing} />
       )}
       <div className={styles.buttonContainer}>

@@ -11,6 +11,8 @@ const Favorites = () => {
   const favorites = useSelector((state) => state.favorites);
   const allTypes = useSelector((state) => state.allTypes);
   const userCurrent = useSelector((state) => state.user);
+  const orderOption = useSelector((state) => state.orderOption);
+  const filterOption = useSelector((state) => state.filteredType);
   const [currentPage, setCurrentPage] = useState(1);
   const favoritesPerPage = 12;
   const totalPages = Math.ceil(favorites.length / favoritesPerPage);
@@ -19,7 +21,7 @@ const Favorites = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userCurrent.id) {
+    if (userCurrent.id && !favorites.length && filterOption!== "-" && orderOption !== "-") {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
 
