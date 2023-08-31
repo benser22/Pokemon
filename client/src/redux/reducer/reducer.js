@@ -37,6 +37,10 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
+  // Variables para almacenar los resultados de ordenamiento y filtrado
+  let orderedFilteredPokemons = [];
+  let orderedFilteredFavorites = [];
+
   switch (action.type) {
     case LOGIN:
       return {
@@ -91,13 +95,16 @@ function rootReducer(state = initialState, action) {
 
     case DELETE_FAVORITES_BY_USER:
       const { name } = action.payload;
-      const updatedFavorites = state.initialFavorites.filter(
+      const updatedFavorites = [...state.initialFavorites].filter(
         (pokemon) => pokemon.name !== name
       );
       return {
         ...state,
         initialFavorites: updatedFavorites,
-        favorites: state.favorites.filter((pokemon) => pokemon.name !== name),
+        // a favorites lo trato diferente porque puede que el usuario esté viendo pokemones con filtrado
+        favorites: [...state.favorites].filter(
+          (pokemon) => pokemon.name !== name
+        ),
       };
 
     //! Opción de agregar un pokemon que resultó de la busqueda en la SearchBar a la Pokedex
@@ -161,14 +168,17 @@ function rootReducer(state = initialState, action) {
 
     //! filtrado por creados o no
     case FILTER_CREATES:
+      // me aseguro de no perder el orden y el filtrado actual
       let pokemonsCreated = [...state.initialPokemons];
       let favoritesCreated = [...state.initialFavorites];
 
       if (action.payload) {
-        pokemonsCreated = state.pokemons.filter((poke) => poke.created);
-        favoritesCreated = state.favorites.filter((poke) => poke.created);
+        pokemonsCreated = pokemonsCreated.filter((poke) => poke.created);
+        favoritesCreated = favoritesCreated.filter((poke) => poke.created);
+        // se estan mostrando los creados
         state.created = true;
       } else {
+        // se estan mostrando todos
         state.created = false;
       }
       return {
@@ -183,20 +193,18 @@ function rootReducer(state = initialState, action) {
     //! filtrado por types
     case FILTER:
       const filteredType = action.payload;
-      // Variables para almacenar los resultados de ordenamiento y filtrado
-      let orderedFilteredPokemons = [];
-      let orderedFilteredFavorites = [];
+
       // obtengo el estado inicial antes de filtrar, pero dependiendo si es está viendo los creados o no
-      let orderedPokemons = [...state.initialPokemons]
-      let orderedFavorites = [...state.initialFavorites]
-      
-      if (state.created){
-      orderedPokemons = orderedPokemons.filter(
-        (poke) => poke.created === state.created
-      );
-      orderedFavorites = orderedFavorites.filter(
-        (poke) => poke.created === state.created
-      );
+      let orderedPokemons = [...state.initialPokemons];
+      let orderedFavorites = [...state.initialFavorites];
+
+      if (state.created) {
+        orderedPokemons = orderedPokemons.filter(
+          (poke) => poke.created === state.created
+        );
+        orderedFavorites = orderedFavorites.filter(
+          (poke) => poke.created === state.created
+        );
       }
 
       // Comprobar si los datos están siendo ordenados, si no deberé ordenarlos porque arranco desde el estado inicial
@@ -312,10 +320,9 @@ function rootReducer(state = initialState, action) {
           }
         });
       } else {
-
         // si el orden es default, quiero los pokemones sin perder el filtro previo y discriminados por created
         sortedPokemons = [...state.initialPokemons].filter((elemento) =>
-          state.pokemons.includes(elemento) 
+          state.pokemons.includes(elemento)
         );
         sortedFavorites = [...state.initialFavorites].filter((elemento) =>
           state.favorites.includes(elemento)

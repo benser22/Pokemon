@@ -64,7 +64,7 @@ const Form = ({ onClose, newSesion }) => {
         );
         setTimeout(() => {
           loginForm();
-        }, 3000);
+        }, 2000);
       } else {
         throw new Error("Failed to create user");
       }

@@ -28,7 +28,7 @@ const LandingPage = () => {
   const rol = useSelector((state) => state.user.rol);
 
   useEffect(() => {
-    if (!user || !rol) dispatch(getAccesUser());
+    if (!rol) dispatch(getAccesUser());
     // eslint-disable-next-line
   }, [user.access]);
 

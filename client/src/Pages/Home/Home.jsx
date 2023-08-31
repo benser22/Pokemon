@@ -27,72 +27,53 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //? Efecto para precargar las imagenes, mejorando el UX
+  useEffect(() => {
+    // Precarga de las imágenes
+    pokemons.map((pokemon) => {
+      return new Promise((resolve) => {
+        const img = new Image(); // Crea un objeto de imagen
+        img.src = pokemon.img; // Establece la fuente de la imagen
 
-  // Precarga de las imágenes
-  // useEffect(() => {
-  //   let mounted = true;
-    
-  //   const imagePromises = pokemons.map((pokemon) => {
-  //     return new Promise((resolve) => {
-  //       const img = new Image();
-  //       img.src = pokemon.img;
-  //       img.onload = () => {
-  //         resolve();
-  //       };
-  //     });
-  //   });
-    
-  //   Promise.all(imagePromises).then(() => {
-  //     if (mounted) {
-  //       setIsLoading(false);
-  //     }
-  //   });
-    
-  //   return () => {
-  //     mounted = false;
-  //   };
-  //   // eslint-disable-next-line
-  // }, [pokemons]);
-  
-  // Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
+        // Configura el evento onload que se ejecutará cuando la imagen se cargue
+        img.onload = () => {
+          resolve(); // Resuelve la promesa cuando la imagen se carga. Cuando se llama a resolve(), la promesa se considera resuelta exitosamente.
+        };
+      });
+    });
+  }, [pokemons]); // Se ejecuta cada vez que cambia la lista de pokémones
+
+  //? Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
     if (userCurrent.id && filterOption === "-" && orderOption === "-") {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
     // eslint-disable-next-line
   }, []);
-  
+
+    //? Efecto para cargar todos los pokemones y los types asociados
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
-  
     if (!pokemons.length && filterOption === "-" && orderOption === "-") {
-    // if (!pokemons.length || (filterOption === "-" && orderOption === "-")) {
+      // if (!pokemons.length || (filterOption === "-" && orderOption === "-")) {
       dispatch(getAllPokemons());
     }
-    
+
     if (allTypes.length === 0) {
       dispatch(getTypes());
     }
-    
-    // const loadingTimeout = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
-    // }, 1500);
-    // return () => clearTimeout(loadingTimeout);
-    // // eslint-disable-next-line
+    }, 500);
     // eslint-disable-next-line
-  }, [isLoading]);
+  }, [pokemons.length]);
 
-  // useEffect(() => {
-  //   dispatch(filterPokeCreated(viewFiltered));
-  //   setCurrentPage(1);
-  //   // eslint-disable-next-line
-  // }, []);
-
+  
   useEffect(() => {
     // Si el usuario no está autenticado, redirigir a la página de inicio
     if (!userCurrent.access) {
       navigate("/");
-    } 
+    }
     // eslint-disable-next-line
   }, [userCurrent.access, navigate]);
 
@@ -125,31 +106,29 @@ const Home = () => {
   };
 
   const handleFilter = () => {
-    dispatch(filterPokeCreated(!created))
+    dispatch(filterPokeCreated(!created));
     setCurrentPage(1);
   };
 
   return (
     <div className={styles.container}>
-      {pokemons.length && !isLoading ? (
-        pokemons
-          .slice(
-            (currentPage - 1) * pokemonsPerPage,
-            currentPage * pokemonsPerPage
-          )
-          .map((pokemon, index) => (
-            <Card
-              pokemon={pokemon}
-              getType={getType}
-              key={index}
-              setCurrentPage={setCurrentPage}
-              numbersPokemons={pokemons.length}
-              currentPage={currentPage}
-            />
-          ))
-      ) : (!isLoading &&
-        <div className={styles.imgNothing} />
-      )}
+      {pokemons.length && !isLoading &&
+         pokemons
+            .slice(
+              (currentPage - 1) * pokemonsPerPage,
+              currentPage * pokemonsPerPage
+            )
+            .map((pokemon, index) => (
+              <Card
+                pokemon={pokemon}
+                getType={getType}
+                key={index}
+                setCurrentPage={setCurrentPage}
+                numbersPokemons={pokemons.length}
+                currentPage={currentPage}
+              />
+            ))
+            }
       <div className={styles.buttonContainer}>
         <div className={styles.viewCreated}>
           <label htmlFor="labelfiltercreated" className={styles.labelView}>

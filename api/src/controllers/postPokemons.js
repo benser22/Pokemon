@@ -32,7 +32,7 @@ const postPokemons = async (req, res) => {
     }
 
     if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
-    // Creo el pokemon en la base de datos con los datos del body
+    
     // Obtengo el último id de la tabla Pokemon
     let lastPokemon = await Pokemon.findOne({
       order: [["id", "DESC"]],

@@ -68,16 +68,14 @@ export default function Card({
     setIsShiny(pokemon.isShiny || false);
   }, [pokemon.isShiny]);
 
-  const handleFavorite = () => {
+  const handleFavorite = async () => {
     if (!isFavorite && userCurrent) {
-      dispatch(postFavoritesByUser(userCurrent.id, pokemon));
+      await dispatch(postFavoritesByUser(userCurrent.id, pokemon));
     } else {
       // me aseguro que si al sacar de favorites un pokemon  y era el único mostrado en la pagina, no este la pagina vacia
-      dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
-      // if ((numbersPokemons - 1) % 12 === 0) 
-      // {setCurrentPage(currentPage - 1);
-      dispatch(getFavoritesByUser());
-      
+      await dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
+      await dispatch(getFavoritesByUser(userCurrent.id));
+      if ((numbersPokemons - 1) % 12 === 0 && currentPage > 1) setCurrentPage(currentPage - 1);      
     }
     setIsFavorite(!isFavorite);
   };

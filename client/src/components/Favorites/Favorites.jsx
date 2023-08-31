@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./Favorites.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
-import { filterPokeCreated } from "../../redux/actions/actions";
+import { filterPokeCreated, getFavoritesByUser } from "../../redux/actions/actions";
 
 const Favorites = () => {
   const favorites = useSelector((state) => state.favorites);
@@ -15,7 +15,7 @@ const Favorites = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const favoritesPerPage = 12;
   const totalPages = Math.ceil(favorites.length / favoritesPerPage);
-  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {

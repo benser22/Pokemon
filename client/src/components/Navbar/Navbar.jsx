@@ -19,8 +19,8 @@ const Navbar = () => {
   const [orderCurrent, setOrderCurrent] = useState("-");
   const [filterCurrent, setfilterCurrent] = useState("-");
 
-  const orderByOptions = ["default", ...ORDERS];
-  const filterByOptions = ["default", ...TYPES];
+  const orderByOptions = ["RESET", ...ORDERS];
+  const filterByOptions = ["RESET", ...TYPES];
 
   const handleLogout = () => {
     setShowModal(true); // Muestro el modal de confirmación de cierre de sesión

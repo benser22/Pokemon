@@ -88,6 +88,7 @@ export const getFavoritesByUser = (idUser) => {
 export const deleteFavoritesByUser = (idUser, name) => {
   return async function (dispatch) {
     try {
+      // primero lo elimina de la tabla Favorites, que a su vez me devuelve los datos del poke eliminado, que usaré también para eliminarlo del estado global, es decir de la pokedex
       const { data } = await axios.delete(
         URL + `/user/${idUser}/favorites/${name}`
       );
@@ -113,7 +114,7 @@ export const postFavoritesByUser = (idUser, info) => {
         payload: data,
       });
     } catch (error) {
-      console.error(error);
+      throw Error (error.message);
     }
   };
 };
@@ -233,7 +234,7 @@ export const filterPokeCreated = (value) => {
 };
 
 export const filter = (option) => {
-  if (option === "default") option = "-";
+  if (option === "RESET") option = "-";
   return {
     type: FILTER,
     payload: option,
@@ -241,9 +242,7 @@ export const filter = (option) => {
 };
 
 export const order = (option, direction) => {
-  option = option?.toLowerCase();
-  if (option === "default") option = "-";
-  // if (direction === "(Ascending)" || direction === "(A-Z)" || direction ==="[Min-Max]") {direction = "asc"}
+  if (option === "RESET") option = "-";
   return {
     type: ORDER,
     payload: { option, direction },
