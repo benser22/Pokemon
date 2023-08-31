@@ -15,7 +15,6 @@ import {
   FILTER,
   ORDER,
   DELETE_POKEMON,
-  RESTORE_POKEMONS,
   LOGIN,
   LOGOUT,
   GET_ACCESS_USER,
@@ -160,7 +159,6 @@ export const postPokemon = (values) => {
     weight: values.weight,
     created: true,
   };
-
   return async function (dispatch) {
     try {
       const { data } = await axios.post(`${URL}/`, input);
@@ -175,7 +173,6 @@ export const postPokemon = (values) => {
 };
 
 export const deletePokemon = (id) => {
-
   return async (dispatch) => {
     try {
       await axios.delete(`${URL}/${id}`);
@@ -189,20 +186,6 @@ export const deletePokemon = (id) => {
   };
 };
 
-// export const getPokemonByName = (name) => {
-//   return async function (dispatch) {
-//     try {
-//       const { data } = await axios.get(`${URL}/name?name=${name}`);
-//       dispatch({
-//         type: GET_POKEMON_BY_NAME,
-//         payload: data,
-//       });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-// };
-// En tus actions.js
 export const getPokemonByName = (name) => {
   return async (dispatch) => {
     try {
@@ -216,19 +199,6 @@ export const getPokemonByName = (name) => {
   };
 };
 
-// export const getPokemonById = (id) => {
-//   return async (dispatch) => {
-//     try {
-//       const { data } = await axios.get(`${URL}/${id}`);
-//       dispatch({
-//         type: GET_POKEMON_BY_ID,
-//         payload: data,
-//       });
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-//   };
-// };
 export const getPokemonById = (id) => {
   return async (dispatch) => {
     try {
@@ -255,13 +225,6 @@ export const clearStatePokemon = () => {
   };
 };
 
-export const restorePokemons = () => {
-  return {
-    type: RESTORE_POKEMONS,
-    payload: null,
-  };
-};
-
 export const filterPokeCreated = (value) => {
   return {
     type: FILTER_CREATES,
@@ -280,7 +243,7 @@ export const filter = (option) => {
 export const order = (option, direction) => {
   option = option?.toLowerCase();
   if (option === "default") option = "-";
-  if (direction === "(Ascending)" || direction === "(A-Z)" || direction ==="[Min-Max]") {direction = "asc"}
+  // if (direction === "(Ascending)" || direction === "(A-Z)" || direction ==="[Min-Max]") {direction = "asc"}
   return {
     type: ORDER,
     payload: { option, direction },

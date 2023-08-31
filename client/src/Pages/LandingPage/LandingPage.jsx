@@ -22,14 +22,13 @@ const LandingPage = () => {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [logout, setLogout] = useState(false);
   const userCurrent = useSelector((state) => state.user);
-  // const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const rol = useSelector((state) => state.user.rol);
 
   useEffect(() => {
-    dispatch(getAccesUser());
+    if (!user || !rol) dispatch(getAccesUser());
     // eslint-disable-next-line
   }, [user.access]);
 
@@ -109,7 +108,13 @@ const LandingPage = () => {
           onClick={openLoginModal}
           style={{ cursor: "pointer" }}
         >
-          {!user?.email ? <> Login </> : <>{userCurrent.email} ({rol})</>} 
+          {!user?.email ? (
+            <> Login </>
+          ) : (
+            <>
+              {userCurrent.email} ({rol})
+            </>
+          )}
         </div>
         <div
           className={styles.navItem}

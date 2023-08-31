@@ -18,45 +18,45 @@ const Home = () => {
   const allTypes = useSelector((state) => state.allTypes);
   const orderOption = useSelector((state) => state.orderOption);
   const filterOption = useSelector((state) => state.filteredType);
+  const created = useSelector((state) => state.created);
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(true);
-  const [viewFiltered, setViewFiltered] = useState(false);
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
   // Precarga de las imágenes
-  useEffect(() => {
-    let mounted = true;
+  // useEffect(() => {
+  //   let mounted = true;
     
-    const imagePromises = pokemons.map((pokemon) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = pokemon.img;
-        img.onload = () => {
-          resolve();
-        };
-      });
-    });
+  //   const imagePromises = pokemons.map((pokemon) => {
+  //     return new Promise((resolve) => {
+  //       const img = new Image();
+  //       img.src = pokemon.img;
+  //       img.onload = () => {
+  //         resolve();
+  //       };
+  //     });
+  //   });
     
-    Promise.all(imagePromises).then(() => {
-      if (mounted) {
-        setIsLoading(false);
-      }
-    });
+  //   Promise.all(imagePromises).then(() => {
+  //     if (mounted) {
+  //       setIsLoading(false);
+  //     }
+  //   });
     
-    return () => {
-      mounted = false;
-    };
-    // eslint-disable-next-line
-  }, [pokemons]);
+  //   return () => {
+  //     mounted = false;
+  //   };
+  //   // eslint-disable-next-line
+  // }, [pokemons]);
   
   // Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
-    if (filterOption === "-" && orderOption === "-") {
+    if (userCurrent.id && filterOption === "-" && orderOption === "-") {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
     // eslint-disable-next-line
@@ -65,7 +65,7 @@ const Home = () => {
   useEffect(() => {
     // Solo dispatch si no tengo los datos en los archivos Redux
   
-    if ((filterOption === "-" && orderOption === "-")) {
+    if (!pokemons.length && filterOption === "-" && orderOption === "-") {
     // if (!pokemons.length || (filterOption === "-" && orderOption === "-")) {
       dispatch(getAllPokemons());
     }
@@ -74,18 +74,19 @@ const Home = () => {
       dispatch(getTypes());
     }
     
-    const loadingTimeout = setTimeout(() => {
+    // const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
-    return () => clearTimeout(loadingTimeout);
+    // }, 1500);
+    // return () => clearTimeout(loadingTimeout);
+    // // eslint-disable-next-line
     // eslint-disable-next-line
-  }, []);
+  }, [isLoading]);
 
-  useEffect(() => {
-    dispatch(filterPokeCreated(viewFiltered));
-    setCurrentPage(1);
-    // eslint-disable-next-line
-  }, [viewFiltered]);
+  // useEffect(() => {
+  //   dispatch(filterPokeCreated(viewFiltered));
+  //   setCurrentPage(1);
+  //   // eslint-disable-next-line
+  // }, []);
 
   useEffect(() => {
     // Si el usuario no está autenticado, redirigir a la página de inicio
@@ -124,7 +125,8 @@ const Home = () => {
   };
 
   const handleFilter = () => {
-    setViewFiltered(!viewFiltered);
+    dispatch(filterPokeCreated(!created))
+    setCurrentPage(1);
   };
 
   return (
@@ -158,7 +160,7 @@ const Home = () => {
             className={styles.checkView}
             type="checkbox"
             title="Only created"
-            checked={viewFiltered}
+            checked={created}
             onChange={handleFilter}
           />
         </div>

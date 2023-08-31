@@ -1,7 +1,7 @@
 // Home.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getTypes, getFavoritesByUser } from "../../redux/actions/actions";
+// import { getTypes, getFavoritesByUser } from "../../redux/actions/actions";
 import styles from "./Favorites.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
@@ -11,39 +11,18 @@ const Favorites = () => {
   const favorites = useSelector((state) => state.favorites);
   const allTypes = useSelector((state) => state.allTypes);
   const userCurrent = useSelector((state) => state.user);
-  const orderOption = useSelector((state) => state.orderOption);
-  const filterOption = useSelector((state) => state.filteredType);
+  const created = useSelector((state) => state.created);
   const [currentPage, setCurrentPage] = useState(1);
   const favoritesPerPage = 12;
   const totalPages = Math.ceil(favorites.length / favoritesPerPage);
-  const [viewFiltered, setViewFiltered] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-    
-    if ((favorites.length && filterOption === "-" && orderOption === "-")) {
-      dispatch(getFavoritesByUser(userCurrent.id));
-    }
-
-    if (!allTypes) {
-      dispatch(getTypes());
-    }
-
-    const loadingTimeout = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
-    }, 600);
-
-    return () => clearTimeout(loadingTimeout);
-    // eslint-disable-next-line
+    }, 300);
   }, []);
-
-  useEffect(() => {
-    dispatch(filterPokeCreated(viewFiltered));
-    setCurrentPage(1);
-    // eslint-disable-next-line
-  }, [viewFiltered]);
 
   if (isLoading || (!allTypes.length && !favorites.length)) {
     return <Loader />;
@@ -74,7 +53,8 @@ const Favorites = () => {
   };
 
   const handleFilter = () => {
-    setViewFiltered(!viewFiltered);
+    dispatch(filterPokeCreated(!created));
+    setCurrentPage(1);
   };
 
   return (
@@ -109,7 +89,7 @@ const Favorites = () => {
             className={styles.checkView}
             type="checkbox"
             title="Only created"
-            checked={viewFiltered}
+            checked={created}
             onChange={handleFilter}
           />
         </div>

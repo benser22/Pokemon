@@ -16,8 +16,8 @@ const Navbar = () => {
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [orderCurrent, setOrderCurrent] = useState("default");
-  const [filterCurrent, setfilterCurrent] = useState("default");
+  const [orderCurrent, setOrderCurrent] = useState("-");
+  const [filterCurrent, setfilterCurrent] = useState("-");
 
   const orderByOptions = ["default", ...ORDERS];
   const filterByOptions = ["default", ...TYPES];
