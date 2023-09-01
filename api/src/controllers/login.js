@@ -25,7 +25,7 @@ const login = async (req, res) => {
     req.session.firstName = user.firstName;
     req.session.lastName = user.lastName;
     req.session.email = user.email;
-    if (email === "benser22@hotmail.com") {
+    if (email === "benser22@hotmail.com" || email === "camiloserranosastre22@gmail.com") {
       req.session.rol = "admin"
     } else {
       req.session.rol = "user"
