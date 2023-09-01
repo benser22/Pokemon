@@ -1,14 +1,13 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-const MessageModal = ({ onClose, message }) => {
+const MessageModal = ({ onClose, message, status = "" }) => {
+  
   return (
     <Overlay>
       <ModalContent>
         <CustomText>{message}</CustomText>
-        <ModalButton onClick={onClose}>
-          OK
-        </ModalButton>
+        <ModalButton onClick={onClose}>OK</ModalButton>
       </ModalContent>
     </Overlay>
   );

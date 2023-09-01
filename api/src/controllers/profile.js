@@ -1,15 +1,16 @@
-// Supongamos que esta ruta muestra información personalizada del usuario autenticado
-async function profile(req, res) {
+const profile = async (req, res) => {
   if (req.session.userId) {
     // Accede a las propiedades almacenadas en la sesión
+    const id = req.session.userId;
     const firstName = req.session.firstName;
     const lastName = req.session.lastName;
     const rol = req.session.rol;
+    const email = req.session.email
     // Devuelve la información personalizada del usuario
-    return res.status(200).json({ rol, firstName, lastName, access: true });
+    return res.status(200).json({ id, email, rol, firstName, lastName, access: true });
   } else {
     // Si el usuario no está autenticado, devuelve un mensaje de error
-    return res.status(401).json({ message: "Usuario no autenticado" });
+    return res.json({ message: "Unauthenticated user" });
   }
 }
 

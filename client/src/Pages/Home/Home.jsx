@@ -1,19 +1,12 @@
 // Home.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  getAllPokemons,
-  getTypes,
-  getFavoritesByUser,
-  filterPokeCreated,
-} from "../../redux/actions/actions";
+import { getAllPokemons, getTypes, getFavoritesByUser, filterPokeCreated } from "../../redux/actions/actions";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
 
 const Home = () => {
-  // const pokemonsCreated = useSelector((state) => state.pokemons);
   const pokemons = useSelector((state) => state.pokemons);
   const allTypes = useSelector((state) => state.allTypes);
   const orderOption = useSelector((state) => state.orderOption);
@@ -25,7 +18,6 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   //? Efecto para precargar las imagenes, mejorando el UX
   useEffect(() => {
@@ -53,6 +45,7 @@ const Home = () => {
 
     //? Efecto para cargar todos los pokemones y los types asociados
   useEffect(() => {
+
     // Solo dispatch si no tengo los datos en los archivos Redux
     if (!pokemons.length && filterOption === "-" && orderOption === "-") {
       // if (!pokemons.length || (filterOption === "-" && orderOption === "-")) {
@@ -64,18 +57,9 @@ const Home = () => {
     }
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1200);
     // eslint-disable-next-line
-  }, [pokemons.length]);
-
-  
-  useEffect(() => {
-    // Si el usuario no está autenticado, redirigir a la página de inicio
-    if (!userCurrent.access) {
-      navigate("/");
-    }
-    // eslint-disable-next-line
-  }, [userCurrent.access, navigate]);
+  }, []);
 
   if (isLoading || !allTypes.length) {
     return <Loader />;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/actions/actions";
+import { login, getAccesUser } from "../../redux/actions/actions";
 import MessageModal from "../Modals/MessageModal";
 // Estilos
 import styles from "./Form.module.css";
@@ -28,8 +28,15 @@ const Form = ({ onClose, newSesion }) => {
   useEffect(() => {
     if (text !== "") {
       setIsModalMessage(true);
+
+      const timer = setTimeout(() => {
+        setText(""); // Reiniciar el texto después del tiempo establecido
+      }, 2000);
+
+      return () => {
+        clearTimeout(timer); // Cancelar el temporizador si el componente se desmonta
+      };
     }
-    // eslint-disable-next-line
   }, [text]);
 
   const [errors, setErrors] = useState({
@@ -42,7 +49,6 @@ const Form = ({ onClose, newSesion }) => {
   const toggleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-
 
   const handleChange = (event) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
@@ -62,9 +68,6 @@ const Form = ({ onClose, newSesion }) => {
         setText(
           `Congratulations ${firstName}: you successfully registered with the email ${email}`
         );
-        setTimeout(() => {
-          loginForm();
-        }, 2000);
       } else {
         throw new Error("Failed to create user");
       }
@@ -93,6 +96,7 @@ const Form = ({ onClose, newSesion }) => {
       const { data } = await axios.get(
         `http://localhost:3001/pokemons/login/${email}&${password}`
       );
+      await dispatch(getAccesUser());
 
       if (data.user) {
         dispatch(login(data.user));
@@ -171,10 +175,8 @@ const Form = ({ onClose, newSesion }) => {
             onChange={handleChange}
             className={styles.myInput}
             autoComplete="Email"
-            />
-          {errors.email && (
-            <p className={styles.error}>{errors.email}</p>
-            )}{" "}
+          />
+          {errors.email && <p className={styles.error}>{errors.email}</p>}{" "}
           <label htmlFor="myPass">Password:</label>
           <div className={styles.passwordContaier}>
             <input
@@ -185,12 +187,12 @@ const Form = ({ onClose, newSesion }) => {
               value={userData.password}
               onChange={handleChange}
               className={`${styles.passwordInput} ${styles.myInput}`}
-              />
+            />
             <button
               type="button"
               onClick={toggleShowPassword}
               className={styles.showPasswordButton}
-              >
+            >
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
@@ -201,19 +203,19 @@ const Form = ({ onClose, newSesion }) => {
           )}
           {newSesion ? (
             <button
-            type="submit"
-            value="LOGIN"
-            id="submitL"
-            className={styles.myButton}
+              type="submit"
+              value="LOGIN"
+              id="submitL"
+              className={styles.myButton}
             >
               SUBMIT
             </button>
           ) : (
             <button
-            type="submit"
-            value="REGISTER"
-            id="submitR"
-            className={styles.myButton}
+              type="submit"
+              value="REGISTER"
+              id="submitR"
+              className={styles.myButton}
             >
               SUBMIT
             </button>

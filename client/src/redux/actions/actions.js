@@ -29,10 +29,10 @@ export const getAccesUser = () => {
       const { data } = await axios.get(`${URL}/profile/get`);
       dispatch({
         type: GET_ACCESS_USER,
-        payload: data.rol,
+        payload: data,
       });
     } catch (error) {
-      console.error(error);
+      console.log(error.message);
     }
   };
 };
@@ -51,9 +51,18 @@ export const login = (data) => {
 };
 
 // En el archivo "actions.js" (o donde definas tus acciones)
+
 export const logoutAction = () => {
-  return {
-    type: LOGOUT,
+  return async function (dispatch) {
+    try {
+      await axios.get(`${URL}/profile/logout`);
+      dispatch({
+        type: LOGOUT,
+        payload: {},
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 

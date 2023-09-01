@@ -30,10 +30,7 @@ const initialState = {
   orderOption: "-",
   orderDirection: "",
   filteredType: "-",
-  user: {
-    access: false,
-    rol: "",
-  },
+  user: {},
 };
 
 function rootReducer(state = initialState, action) {
@@ -45,26 +42,24 @@ function rootReducer(state = initialState, action) {
     case LOGIN:
       return {
         ...state,
-        user: {
-          ...action.payload,
-          access: true,
-        },
+        user: {...action.payload, access: true},
       };
-
-    case LOGOUT:
-      return {
-        ...state,
-        user: {
-          access: false,
-        },
-      };
-
-    //! Opción para autentificado de usuario, obtenido por cookie
-    case GET_ACCESS_USER:
-      return {
-        ...state,
-        user: { ...state.user, rol: action.payload },
-      };
+      
+      case LOGOUT:
+        return {
+          ...state,
+          user: {
+            access: false,
+          },
+        };
+        
+        //! Opción para autentificado de usuario, obtenido por cookie
+        case GET_ACCESS_USER:
+          const {email, id, access, rol, firstName} = action.payload;
+          return {
+            ...state,
+            user: { ...state.user, id, email, access, rol, firstName },
+          };
 
     //! Opcion para traer todos los pokemons hacia la pokedex, tanto los de la Api como los de la bdd
     case GET_ALL_POKEMONS:
@@ -84,6 +79,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         initialFavorites: action.payload,
         favorites: action.payload,
+        created: false,
       };
 
     case POST_FAVORITES_BY_USER:
@@ -168,10 +164,8 @@ function rootReducer(state = initialState, action) {
 
     //! filtrado por creados o no
     case FILTER_CREATES:
-      // me aseguro de no perder el orden y el filtrado actual
       let pokemonsCreated = [...state.initialPokemons];
       let favoritesCreated = [...state.initialFavorites];
-
       if (action.payload) {
         pokemonsCreated = pokemonsCreated.filter((poke) => poke.created);
         favoritesCreated = favoritesCreated.filter((poke) => poke.created);
@@ -192,7 +186,7 @@ function rootReducer(state = initialState, action) {
 
     //! filtrado por types
     case FILTER:
-      const filteredType = action.payload;
+      const filteredType = action.payload.toLowerCase();
 
       // obtengo el estado inicial antes de filtrar, pero dependiendo si es está viendo los creados o no
       let orderedPokemons = [...state.initialPokemons];
@@ -204,14 +198,14 @@ function rootReducer(state = initialState, action) {
         );
         orderedFavorites = orderedFavorites.filter(
           (poke) => poke.created === state.created
-        );
-      }
-
-      // Comprobar si los datos están siendo ordenados, si no deberé ordenarlos porque arranco desde el estado inicial
-      if (state.orderOption !== "-") {
-        const orderOption = state.orderOption;
-        const direction = state.orderDirection;
-
+          );
+        }
+        
+        // Comprobar si los datos están siendo ordenados, si no deberé ordenarlos porque arranco desde el estado inicial
+        if (state.orderOption !== "-") {
+          
+        const orderOption = state.orderOption.toLocaleLowerCase();
+        const direction = state.orderDirection.toLowerCase();
         // Ordenar los datos según la opción y dirección de orden
         orderedPokemons.sort((a, b) => {
           if (
@@ -240,7 +234,7 @@ function rootReducer(state = initialState, action) {
         // Comprobar si también se está aplicando un filtro
         if (filteredType !== "-") {
           orderedFilteredPokemons = orderedPokemons.filter((p) =>
-            p.types?.includes(filteredType)
+          p.types?.includes(filteredType)
           );
         }
         if (filteredType !== "-" && orderedFavorites.length > 0) {
@@ -257,18 +251,18 @@ function rootReducer(state = initialState, action) {
         if (filteredType !== "-") {
           orderedFilteredPokemons = orderedPokemons.filter((p) =>
             p.types?.includes(filteredType)
-          );
-          orderedFilteredFavorites = orderedFavorites.filter((p) =>
-            p.types?.includes(filteredType)
-          );
-        } else {
-          // Si no se está ordenando ni filtrando, usar los datos iniciales, siempre discrimados por el estado de created
-          if (state.created) {
-            orderedFilteredPokemons = [...state.initialPokemons].filter(
-              (poke) => poke.created === state.created
             );
-            orderedFilteredFavorites = [...state.initialFavorites].filter(
-              (poke) => poke.created === state.created
+            orderedFilteredFavorites = orderedFavorites.filter((p) =>
+            p.types?.includes(filteredType)
+            );
+          } else {
+            // Si no se está ordenando ni filtrando, usar los datos iniciales, siempre discrimados por el estado de created
+            if (state.created) {
+              orderedFilteredPokemons = [...state.initialPokemons].filter(
+                (poke) => poke.created === state.created
+                );
+                orderedFilteredFavorites = [...state.initialFavorites].filter(
+                  (poke) => poke.created === state.created
             );
           } else {
             // si la accion fue reset, devolver el estado inicial
@@ -287,11 +281,10 @@ function rootReducer(state = initialState, action) {
 
     //! Ordenado por diferentes atributos de un pokemón, tando ascende como descendente
     case ORDER:
-      const option = action.payload.option;
+      const option = action.payload.option.toLowerCase();
       const direction = action.payload.direction;
       let sortedPokemons = [...state.pokemons];
       let sortedFavorites = [...state.favorites];
-
       if (option !== "-") {
         // si hay algun orden
         sortedPokemons.sort((a, b) => {

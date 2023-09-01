@@ -50,19 +50,6 @@ Type.belongsToMany(Pokemon, {through: "pokemon_type"});
 Favorite.belongsTo(User);   // Relación de Favorites a Users (muchos Favorites pertenecen a un User)
 User.hasMany(Favorite);     // Relación de Users a Favorites (un User tiene muchos Favorites)
 
-/*
-Favorites.belongsTo(Users);   // Relación de Favorites a Users (muchos Favorites pertenecen a un User)
-Users.hasMany(Favorites);     // Relación de Users a Favorites (un User tiene muchos Favorites)
-
-Método para obtener los favoritos de un usuario
-Users.prototype.getFavorites = async function () {
-  const favorites = await Favorites.findAll({
-    where: { UserId: this.id } // Filtrar por el ID del usuario actual
-  });
-  return favorites;
-};
-*/
-
 module.exports = {
    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
    conn: sequelize, // para importart la conexión { conn } = require('./db.js');

@@ -13,7 +13,7 @@ const Navbar = () => {
   const location = useLocation();
   const [logout, setLogout] = useState(false); // Estado para controlar si se ha realizado el cierre de sesión
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
-  const userCurrent = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [orderCurrent, setOrderCurrent] = useState("-");
@@ -21,6 +21,16 @@ const Navbar = () => {
 
   const orderByOptions = ["RESET", ...ORDERS];
   const filterByOptions = ["RESET", ...TYPES];
+
+
+    
+  useEffect(() => {
+    // Si el usuario no está autenticado, redirigir a la página de inicio
+    if (!user.access) {
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, [user, navigate]);
 
   const handleLogout = () => {
     setShowModal(true); // Muestro el modal de confirmación de cierre de sesión
@@ -35,6 +45,7 @@ const Navbar = () => {
   useEffect(() => {
     if (logout) {
       navigate("/"); // Redirijo al usuario a la página de inicio cuando se realiza el cierre de sesión
+      dispatch(logoutAction);
     }
     // eslint-disable-next-line
   }, [logout]);
@@ -89,7 +100,7 @@ const Navbar = () => {
           className={styles.logout}
           style={{ marginRight: "5vh" }}
         >
-          {userCurrent?.firstName}
+          {user?.firstName}
         </p>
       </NavLink>
       <Modal

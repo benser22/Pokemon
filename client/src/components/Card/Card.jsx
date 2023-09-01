@@ -5,7 +5,6 @@ import logoDelete from "../../assets/close.png";
 import {
   deleteFavoritesByUser,
   deletePokemon,
-  getFavoritesByUser,
   postFavoritesByUser,
 } from "../../redux/actions/actions";
 import { NavLink, useLocation } from "react-router-dom";
@@ -45,8 +44,7 @@ export default function Card({
   }
 
   const handleDelete = () => {
-    // me aseguro que si al eliminar un pokemon era el único que se estaba mostrando en la pagina, no muestre la pagina vacia
-    if ((numbersPokemons - 1) % 12 === 0) setCurrentPage(currentPage - 1);
+    if ((numbersPokemons - 1) % 12 === 0 && currentPage > 1) setCurrentPage(1);      
     dispatch(deletePokemon(pokemon.id));
   };
 
@@ -68,14 +66,15 @@ export default function Card({
     setIsShiny(pokemon.isShiny || false);
   }, [pokemon.isShiny]);
 
-  const handleFavorite = async () => {
+  const handleFavorite = () => {
     if (!isFavorite && userCurrent) {
-      await dispatch(postFavoritesByUser(userCurrent.id, pokemon));
+      console.log(pokemon);
+      dispatch(postFavoritesByUser(userCurrent.id, pokemon));
     } else {
       // me aseguro que si al sacar de favorites un pokemon  y era el único mostrado en la pagina, no este la pagina vacia
-      await dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
-      await dispatch(getFavoritesByUser(userCurrent.id));
-      if ((numbersPokemons - 1) % 12 === 0 && currentPage > 1) setCurrentPage(currentPage - 1);      
+       dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
+      //  dispatch(getFavoritesByUser(userCurrent.id));
+      if ((numbersPokemons - 1) % 12 === 0 && currentPage > 1) setCurrentPage(1);      
     }
     setIsFavorite(!isFavorite);
   };

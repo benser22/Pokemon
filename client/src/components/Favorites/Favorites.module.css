@@ -122,9 +122,19 @@
 
   
 .imgNothing {
-  background-image: url("/src/assets/images/nothingToSee.png");
+  background-image: url("/src/assets/nothing.gif");
   background-size: cover;
-  background-position: center;
+  background-position-y: 80%;
   background-attachment: fixed;
   height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.textNothing{
+  font-size: 3em;
+  color: white;
+  text-shadow: 0 3px #000000;
+  margin-top: 12%;
+  margin-right: 12%;
+
 }

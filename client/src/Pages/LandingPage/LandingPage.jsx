@@ -26,11 +26,14 @@ const LandingPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const rol = useSelector((state) => state.user.rol);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!rol) dispatch(getAccesUser());
-    // eslint-disable-next-line
-  }, [user.access]);
+    dispatch(getAccesUser())
+      .then(() => {
+        setIsLoading(false);
+      })
+  }, [rol, dispatch]);
 
   const openContactModal = () => {
     setContactModalOpen(true);
@@ -112,7 +115,8 @@ const LandingPage = () => {
             <> Login </>
           ) : (
             <>
-              {userCurrent.email} ({rol})
+              {userCurrent.email} ({isLoading ? "Loading..." : rol}
+              )
             </>
           )}
         </div>

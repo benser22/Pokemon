@@ -138,10 +138,10 @@ export default function SearchBar() {
                     onClick={closeModal}
                   ></FaTimes>
                 )}
-                {!isNaN(pokemon.id) ? (
-                  <span>#{pokemon.id}</span>
+                {pokemon.id >= 5000 ? (
+                  <span>#{pokemon.id} (created)</span>
                 ) : (
-                  <span>#created</span>
+                  <span>#{pokemon.id}</span>
                 )}
               </div>
               {pokemon.name && (

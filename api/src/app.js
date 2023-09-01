@@ -18,7 +18,7 @@ server.use(
     saveUninitialized: true,
     cookie: {
       // Configura una duración máxima para la cookie de sesión en milisegundos (por ejemplo, 1 hora)
-      maxAge: 60 * 60 * 1000, // 1 hora
+      maxAge: 60 * 60 * 150, // 15 minutos
     },
   })
 );

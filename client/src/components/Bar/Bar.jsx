@@ -37,7 +37,7 @@ const StatBar = styled.div`
 `;
 
 const SpanValue = styled.span`
-  font-size: 12px;
+  font-size: 14px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: bold;
   margin-left: 1vh;

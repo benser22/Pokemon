@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./Favorites.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
-import { filterPokeCreated, getFavoritesByUser } from "../../redux/actions/actions";
+import { filterPokeCreated } from "../../redux/actions/actions";
 
 const Favorites = () => {
   const favorites = useSelector((state) => state.favorites);
@@ -77,7 +77,9 @@ const Favorites = () => {
             />
           ))
       ) : (
-        <div className={styles.imgNothing} />
+        <div className={styles.imgNothing}>
+          <h2 className={styles.textNothing}>Nothing to see here!</h2>
+        </div>
       )}
       <div className={styles.buttonContainer}>
         <div className={styles.viewCreated}>

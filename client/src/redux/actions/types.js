@@ -15,5 +15,5 @@ export const FILTER = "FILTER";
 export const ORDER = "ORDER";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
-export const GET_ACCESS_USER = "  GET_ACCESS_USER";
+export const GET_ACCESS_USER = "GET_ACCESS_USER";
 

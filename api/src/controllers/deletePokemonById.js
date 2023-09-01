@@ -6,7 +6,7 @@ const deletePokemon = async (req, res) => {
     // Buscar el Pokémon en la base de datos
     const pokemonToDelete = await Pokemon.findByPk(id);
     if (!pokemonToDelete) {
-      return res.status(404).json({ message: "Pokemon not found" });
+      return res.json({ message: "Pokemon not found" });
     }
 
     // Eliminar el Pokémon de la base de datos

@@ -1,7 +1,6 @@
 import "./App.css";
-import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-
+import React, {useEffect} from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import CreatePokemon from "./Pages/CreatePokemon/CreatePokemon";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import Home from "./Pages/Home/Home";
@@ -9,13 +8,24 @@ import Navbar from "./components/Navbar/Navbar";
 import Error404 from "./components/Error404/Error404";
 import Details from "./Pages/Details/Details";
 import Favorites from "./components/Favorites/Favorites";
+import { useSelector } from "react-redux";
+
 function App() {
   // Obtener la ubicación actual usando useLocation
   const location = useLocation();
-
+  const navigate = useNavigate();
   // Verificar si la ruta es "/"
   const notNav = location.pathname === "/" || location.pathname === "/error404";
-  
+  const user = useSelector((state) => state.user) 
+    
+  useEffect(() => {
+    // Si el usuario no está autenticado, redirigir a la página de inicio
+    if (!user.access) {
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, [user, navigate]);
+
   return (
     <div className="App">
       {/* Renderizar la Navbar solo si no es la página de inicio */}
