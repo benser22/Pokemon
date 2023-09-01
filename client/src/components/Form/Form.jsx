@@ -58,16 +58,15 @@ const Form = ({ onClose, newSesion }) => {
   };
 
   const handleRegister = async () => {
-    const { email, firstName } = userData;
+    const { email } = userData;
     const URL = "http://localhost:3001/pokemons";
 
     try {
       const response = await axios.post(`${URL}/register`, userData);
 
       if (response.status === 201) {
-        setText(
-          `Congratulations ${firstName}: you successfully registered with the email ${email}`
-        );
+        loginForm(response);
+        onClose();
       } else {
         throw new Error("Failed to create user");
       }
@@ -221,7 +220,7 @@ const Form = ({ onClose, newSesion }) => {
             </button>
           )}
         </form>
-        <FaTimes className={styles.close} title="Close" onClick={onClose} />
+        <FaTimes className={styles.onClose} title="Close" onClick={onClose} />
       </div>
       {isModalMessage && (
         <MessageModal onClose={onClose} message={text}></MessageModal>

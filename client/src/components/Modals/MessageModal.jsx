@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-const MessageModal = ({ onClose, message, status = "" }) => {
+const MessageModal = ({ onClose, message}) => {
   
   return (
     <Overlay>

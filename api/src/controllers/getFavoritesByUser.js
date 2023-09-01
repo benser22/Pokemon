@@ -1,6 +1,5 @@
 // controllers/favoritesController.js
 const { Favorite } = require("../db");
-
 const getFavoritesByUser = async (req, res) => {
   if (req.params.userId === "undefined") return;
   const userId = req.params.userId;
@@ -9,6 +8,7 @@ const getFavoritesByUser = async (req, res) => {
     const favorites = await Favorite.findAll({
       where: { userId }, // Buscar favoritos con el userId proporcionado
     });
+    console.log(favorites);
     return res.status(200).json(favorites);
   } catch (error) {
     console.error(error);
