@@ -1,5 +1,5 @@
-const { Pokemon, User, conn } = require('../../src/db.js');
-const { expect } = require('chai');
+const { Pokemon, User, conn } = require("../../src/db.js");
+const { expect } = require("chai");
 const session = require("supertest-session");
 const app = require("../../src/app.js");
 
@@ -20,13 +20,14 @@ const newPokemon = {
   imgShiny: false,
 };
 
-describe('Routes', () => {
-  before(() => conn.authenticate()
-    .catch((err) => {
-      console.error('Unable to connect to the database:', err);
-    }));
+describe("Routes", () => {
+  before(() =>
+    conn.authenticate().catch((err) => {
+      console.error("Unable to connect to the database:", err);
+    })
+  );
 
-  describe('GET /pokemons', () => {
+  describe("GET /pokemons", () => {
     beforeEach(() =>
       Pokemon.sync({ force: true }).then(() =>
         Pokemon.create({
@@ -37,9 +38,9 @@ describe('Routes', () => {
       )
     );
 
-    it('should get 200', (done) => {
+    it("should get 200", (done) => {
       agent
-        .get('/pokemons')
+        .get("/pokemons")
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -47,70 +48,73 @@ describe('Routes', () => {
         });
     });
 
-    // Add more GET /pokemons tests as needed...
-
-    describe('GET /pokemons/:pokemonID', () => {
-      it('should get 200 and the searched Pokémon by ID', (done) => {
+    describe("DELETE /pokemons/:pokemonID", () => {
+      it("should delete a Pokémon by ID and return 200", (done) => {
         agent
-          .get('/pokemons/25')
+          .delete("/pokemons/25")
           .expect(200)
           .end((err, res) => {
             if (err) return done(err);
-            expect(res.body).to.be.an('object');
-            expect(res.body.name).to.equal('pikachu');
+            expect(res.body.message).to.equal("Pokemon deleted successfully");
             done();
           });
       });
+    });
 
-      // Add more GET /pokemons/:pokemonID tests as needed...
+    describe("GET /pokemons/:pokemonID", () => {
+      it("should get 200 and the searched Pokémon by ID", (done) => {
+        agent
+          .get("/pokemons/25")
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err);
+            expect(res.body).to.be.an("object");
+            expect(res.body.name).to.equal("pikachu");
+            done();
+          });
+      });
     });
   });
 
-  describe('GET /pokemons/types', () => {
-    it('should get 200 and an array of types', (done) => {
+  describe("GET /pokemons/types", () => {
+    it("should get 200 and an array of types", (done) => {
       agent
-        .get('/pokemons/types')
+        .get("/pokemons/types")
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          expect(res.body).to.be.an('array');
+          expect(res.body).to.be.an("array");
           expect(res.body.length).to.be.greaterThan(0);
           done();
         });
     });
-
-    // Add more GET /pokemons/types tests as needed...
   });
 
-  describe('GET /pokemons/users', () => {
-    it('should get 200 and an array of users', (done) => {
+  describe("GET /pokemons/users", () => {
+    it("should get 200 and an array of users", (done) => {
       agent
-        .get('/pokemons/users')
+        .get("/pokemons/users")
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          expect(res.body).to.be.an('array');
+          expect(res.body).to.be.an("array");
           expect(res.body.length).to.be.greaterThan(0);
           done();
         });
     });
-
-    // Add more GET /pokemons/users tests as needed...
   });
 
-  describe('GET /user/:userId/favorites', () => {
-    it('should get 200 and a valid JSON with content', (done) => {
+  describe("GET /user/:userId/favorites", () => {
+    it("should get 200 and a valid JSON with content", (done) => {
       agent
         .get(`pokemons/user/${userId}/favorites`)
         .expect(200)
-        .expect('Content-Type', /json/);
+        .expect("Content-Type", /json/);
       done();
     });
-
-    // Add more GET /user/:userId/favorites tests as needed...
   });
 
-  describe('POST /user/:userId/favorites', () => {
+  describe("POST /user/:userId/favorites", () => {
     it("should add a Pokémon to the user's favorites list", (done) => {
       agent
         .post(`/pokemons/user/${userId}/favorites`)
@@ -118,21 +122,31 @@ describe('Routes', () => {
         .expect(201)
         .end((err, res) => {
           if (err) return done(err);
-          expect(res.body).to.be.an('object');
+          expect(res.body).to.be.an("object");
           expect(res.body.id).to.equal(newPokemon.id);
           done();
         });
     });
-
-    // Add more POST /user/:userId/favorites tests as needed...
   });
 
-  // Other route tests...
+  describe("DELETE /user/:userId/favorites/:pokemonName", () => {
+    it("should delete a Pokémon to the user's favorites list", (done) => {
+      agent
+        .delete(`/pokemons/user/${userId}/favorites/${newPokemon.name}`)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.body).to.be.an("object");
+          expect(res.body.id).to.equal(newPokemon.id);
+          done();
+        });
+    });
+  });
 });
 
-describe('User Registration', () => {
-  describe('POST /register', () => {
-    it('should create a new user and then delete it', (done) => {
+describe("User Registration", () => {
+  describe("POST /register", () => {
+    it("should create a new user and then delete it", (done) => {
       const newUser = {
         firstName: "William",
         lastName: "Wallace",
@@ -161,21 +175,27 @@ describe('User Registration', () => {
 
     it("should return a 500 status code if user already exists", (done) => {
       const existingUser = {
-        email: "lusasrecamilito@hotmail.com",
-        firstName: "Benjamin",
-        lastName: "Serrano",
+        firstName: "William",
+        lastName: "Wallace",
+        email: "newuser@example.com",
         password: "password123",
       };
 
-      agent
-        .post("pokemons/register")
-        .send(existingUser)
-        .expect(500);
+      agent.post("pokemons/register").send(existingUser).expect(500);
       done();
     });
 
-    // Add more registration tests as needed...
+    afterEach((done) => {
+      User.destroy({ where: { email: "user@example.com"} })
+        .then(() => done())
+        .catch((err) => done(err));
+    });
+    afterEach((done) => {
+      User.destroy({ where: { email: "otherUser@example.com"} })
+        .then(() => done())
+        .catch((err) => done(err));
+    });
+
   });
 });
 
-// Other describe blocks for different parts of your application...

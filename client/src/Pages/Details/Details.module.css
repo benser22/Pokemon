@@ -1,11 +1,10 @@
 /* Details.module.css */
 .background{
     background-image: url("/src/assets/backgrounds/backDetail.jpg");
-    /* background-image: url("/src/assets/backgrounds/pokemonfondo.png"); */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    height: 100vh;
+    height: max-content;
 }
 
 .detailsContainer {

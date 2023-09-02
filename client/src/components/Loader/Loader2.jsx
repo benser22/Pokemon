@@ -2,7 +2,7 @@ import React from "react";
 import "./Loader2.css";
 
 const Loader2 = () => (
-  <div>
+  <div data-testid="loader-component">
     <h3 className="myh2"  style={{ margin: "0 auto", marginTop: "10%", fontFamily: "cursive" }}>Loading...</h3>
     <div
       aria-label="Orange and tan hamster running in a metal wheel"

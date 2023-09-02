@@ -23,22 +23,12 @@ describe("Models", () => {
         Pokemon.create({ name: "Pikachu" });
       });
 
-      // Add more tests for other fields as needed...
+      afterEach((done) => {
+        Pokemon.destroy({ where: { name: "Pikachu" } })
+          .then(() => done())
+          .catch((err) => done(err));
+      });
     });
-
-    // describe('Associations', () => {
-    //   it('should have a many-to-many relationship with Type', async () => {
-    //     const electricType = await Type.create({ name: 'Electric' });
-    //     const pikachu = await Pokemon.create({ name: 'Pikachu' });
-
-    //     await pikachu.addType(electricType);
-
-    //     const associatedTypes = await pikachu.getTypes();
-    //     expect(associatedTypes).to.include(electricType);
-    //   });
-
-    //   // Add more association tests as needed...
-    // });
   });
 
   describe("Type model", () => {
@@ -50,14 +40,17 @@ describe("Models", () => {
           .then(() => done(new Error("It requires a valid name")))
           .catch(() => done());
       });
-      it("should work when its a valid name", () => {
-        Type.create({ name: "Water" });
+
+      it("should work when it's a valid name", () => {
+        Type.create({ name: "Cristal", id: 22 });
       });
 
-      // Add more tests for other fields as needed...
+      afterEach((done) => {
+        Type.destroy({ where: { name: "Cristal" } })
+          .then(() => done())
+          .catch((err) => done(err));
+      });
     });
-
-    // Add association tests if there are any...
   });
 
   describe("User model", () => {
@@ -78,7 +71,7 @@ describe("Models", () => {
         });
       });
 
-        User.destroy({ where: { email: "user@example.com" } })
+      User.destroy({ where: { email: "user@example.com" } })
         .then(() => {
           done();
         })
@@ -86,8 +79,6 @@ describe("Models", () => {
           done(error);
         });
     });
-
-    // Add association tests if there are any...
   });
 
   describe("Favorite model", () => {
@@ -97,8 +88,6 @@ describe("Models", () => {
       it("should work with valid values", () => {
         Favorite.create({ name: "Pikachu", userId: "1" });
       });
-
-      // Add more tests for other fields as needed...
     });
 
     describe("Associations", () => {
@@ -107,8 +96,8 @@ describe("Models", () => {
           email: "otherUser@example.com",
           password: "password123",
           id: userId,
-          firstName: "Jhon",
-          lastName: "Rogers"
+          firstName: "Freddie",
+          lastName: "Mercury",
         });
         const favorite = await Favorite.create({
           name: "Pikachu",
@@ -116,6 +105,17 @@ describe("Models", () => {
         });
 
         expect(favorite.userId).to.equal(user.id);
+
+        afterEach((done) => {
+          Pokemon.destroy({ where: { name: "Pikachu" } })
+            .then(() => done())
+            .catch((err) => done(err));
+        });
+        afterEach((done) => {
+          Favorite.destroy({ where: { name: "Pikachu" } })
+            .then(() => done())
+            .catch((err) => done(err));
+        });
       });
     });
   });

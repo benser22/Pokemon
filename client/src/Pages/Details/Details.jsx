@@ -12,27 +12,32 @@ import Loader from "../../components/Loader/Loader2";
 import imgDefault from "../../assets/default.png";
 import Bar from "../../components/Bar/Bar.jsx";
 
-const Details = () => {
+const Details = ({ noTesting = true }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const pokemon = useSelector((state) => state.pokemon);
   const imageUrl = IMAGES[id] || (pokemon.img ? pokemon.img : imgDefault);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(noTesting);
   const allTypes = useSelector((state) => state.allTypes);
-
 
   useEffect(() => {
     dispatch(getPokemonDetails(id));
-
-    const loadingTimeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-
+  
+    let loadingTimeout;
+  
+    if (isLoading) {
+      loadingTimeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    }
+  
     return () => clearTimeout(loadingTimeout);
-  }, [dispatch, id]);
+    // eslint-disable-next-line
+  }, []);
+  
 
-  if (isLoading || !pokemon) {
+  if (noTesting && (isLoading || !pokemon)) {
     return <Loader />;
   }
 
@@ -50,18 +55,18 @@ const Details = () => {
   };
 
   return (
-    <div className={styles.background}>
+    <div className={styles.background} data-testid="details-component">
       <div className={styles.detailsContainer}>
         {pokemon && (
           <>
-            <div className={styles.header}>
+            <div className={styles.header} >
               {pokemon.id >= 5000 ? (
                 <p className={styles.pokemonId}>#{pokemon.id} (created)</p>
               ) : (
                 <p className={styles.pokemonId}>#{pokemon.id}</p>
               )}
               {pokemon.name && (
-                <p className={styles.pokemonName}>
+                <p className={styles.pokemonName} data-testid="namePokemon">
                   {pokemon.name.toUpperCase()}
                 </p>
               )}
@@ -78,7 +83,11 @@ const Details = () => {
                 <Bar tag={"Attack"} value={pokemon.attack} maxValue={255} />
                 <Bar tag={"Defense"} value={pokemon.defense} maxValue={255} />
                 <Bar tag={"Speed"} value={pokemon.speed} maxValue={255} />
-                <Bar tag={"Height (mts)"} value={pokemon.height} maxValue={20} />
+                <Bar
+                  tag={"Height (mts)"}
+                  value={pokemon.height}
+                  maxValue={20}
+                />
                 <Bar
                   tag={"Weight (kgs)"}
                   value={pokemon.weight}

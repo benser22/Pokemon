@@ -32,7 +32,7 @@ export const getAccesUser = () => {
         payload: data,
       });
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 };
@@ -45,7 +45,7 @@ export const login = (data) => {
         payload: data,
       });
     } catch (error) {
-      console.log({ error: error.message });
+      console.error({ error: error.message });
     }
   };
 };

@@ -158,3 +158,18 @@
   font-size: 12px;
   z-index: 999999;
 }
+.onClose{
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  margin-left: 100%;
+  margin-top: -1vh;
+}
+.onClose:hover {
+  color: lightgray;
+}
+.onClose:active {
+  transform: translateY(1px); 
+  color: white;
+}

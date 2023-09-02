@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CreatePokemon.module.css";
 import { useEffect, useState } from "react";
-import pokemonImages from "../../constants/pokeImages"; // Importa el arreglo con las URLs de las imágenes
+import pokemonImages from "../../constants/pokeImages"; // Importa el arreglo con las URLs de las imágenes randoms
 
 function PokemonForm({
   handleSubmit,
@@ -62,7 +62,7 @@ function PokemonForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} data-testid="pokemon-form">
       <div className={styles.formGroup}>
         <label htmlFor="pokename" className={styles.formLabel}>Name:</label>
         <input

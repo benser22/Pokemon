@@ -19,9 +19,18 @@ const Favorites = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
+    let loadingTimeout;
+
+    if (favorites.length > 0) {
       setIsLoading(false);
-    }, 300);
+    } else {
+      loadingTimeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+
+    return () => clearTimeout(loadingTimeout);
+    // eslint-disable-next-line
   }, []);
 
   if (isLoading || (!allTypes.length && !favorites.length)) {

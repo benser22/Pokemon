@@ -120,13 +120,14 @@ const Form = ({ onClose, newSesion }) => {
       handleRegister();
     }
   };
-
+  
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
+      <FaTimes className={styles.onClose} title="Close" onClick={onClose} />
         {newSesion && <img src={logo} alt="logo" className={styles.picture} />}
         {newSesion ? <h2>LOGIN</h2> : <h2>REGISTER</h2>}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-testid="form-component">
           <hr
             style={{ color: "white", width: "100%", marginBottom: "6vh" }}
           ></hr>
@@ -220,7 +221,6 @@ const Form = ({ onClose, newSesion }) => {
             </button>
           )}
         </form>
-        <FaTimes className={styles.onClose} title="Close" onClick={onClose} />
       </div>
       {isModalMessage && (
         <MessageModal onClose={onClose} message={text}></MessageModal>

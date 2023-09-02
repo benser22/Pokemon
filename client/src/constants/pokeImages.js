@@ -107,6 +107,18 @@ const pokemonImages = [
     id: 26,
     url: "https://i.pinimg.com/originals/89/c3/72/89c37200a71747d83d038a61d9fca473.png",
   },
+  { id: 27,
+    url: "https://dthezntil550i.cloudfront.net/u4/latest/u41709170947578520003450325/1280_960/69b1034f-8a88-4770-9edd-facf94c0417d.png"
+  },
+  { id: 28,
+    url: "https://static.wikia.nocookie.net/darkandwindiefakemon/images/7/77/Tagustu.png"
+  },
+  { id: 29,
+    url: "https://static.wikia.nocookie.net/darkandwindiefakemon/images/2/21/Elemant.png"
+  },
+  { id: 30,
+    url: "https://static.wikia.nocookie.net/darkandwindiefakemon/images/7/74/Embird.png"
+  },
 ];
 
 export default pokemonImages;

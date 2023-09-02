@@ -16,7 +16,7 @@ const Error404 = () => {
   };
 
   return (
-    <div className={styles.error}>
+    <div className={styles.error} data-testid="error404-component">
       <h1 className={styles.myh1}>404</h1>
       <h2 className={styles.myh2}>Error: page not found</h2>
       <p className={styles.myp}>Sorry, the page you are looking for does not exist.</p>

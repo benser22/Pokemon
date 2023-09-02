@@ -8,7 +8,6 @@ const getFavoritesByUser = async (req, res) => {
     const favorites = await Favorite.findAll({
       where: { userId }, // Buscar favoritos con el userId proporcionado
     });
-    console.log(favorites);
     return res.status(200).json(favorites);
   } catch (error) {
     console.error(error);

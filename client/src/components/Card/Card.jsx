@@ -68,7 +68,6 @@ export default function Card({
 
   const handleFavorite = () => {
     if (!isFavorite && userCurrent) {
-      console.log(pokemon);
       dispatch(postFavoritesByUser(userCurrent.id, pokemon));
     } else {
       // me aseguro que si al sacar de favorites un pokemon  y era el único mostrado en la pagina, no este la pagina vacia

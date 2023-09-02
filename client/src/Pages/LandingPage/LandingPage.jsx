@@ -27,12 +27,19 @@ const LandingPage = () => {
   const user = useSelector((state) => state.user);
   const rol = useSelector((state) => state.user.rol);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   useEffect(() => {
-    dispatch(getAccesUser())
-      .then(() => {
+    let isMounted = true;
+
+    dispatch(getAccesUser()).then(() => {
+      if (isMounted) {
         setIsLoading(false);
-      })
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, [rol, dispatch]);
 
   const openContactModal = () => {
@@ -115,8 +122,7 @@ const LandingPage = () => {
             <> Login </>
           ) : (
             <>
-              {userCurrent.email} ({isLoading ? "Loading..." : rol}
-              )
+              {userCurrent.email} ({isLoading ? "Loading..." : rol})
             </>
           )}
         </div>
@@ -140,7 +146,13 @@ const LandingPage = () => {
       </div>
       {isContactModalOpen && <ContactModal onClose={closeModals} />}
       {isDescriptionModalOpen && <DescriptionModal onClose={closeModals} />}
-      {isLoginModalOpen && <Form onClose={closeModals} newSesion={true} />}
+      {isLoginModalOpen && (
+        <Form
+          data-testid="form-component"
+          onClose={closeModals}
+          newSesion={true}
+        />
+      )}
       {isRegisterModalOpen && <Form onClose={closeModals} newSesion={false} />}
       {isMessage && (
         <MessageModal

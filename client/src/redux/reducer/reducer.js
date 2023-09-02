@@ -42,24 +42,24 @@ function rootReducer(state = initialState, action) {
     case LOGIN:
       return {
         ...state,
-        user: {...action.payload, access: true},
+        user: { ...action.payload, access: true },
       };
-      
-      case LOGOUT:
-        return {
-          ...state,
-          user: {
-            access: false,
-          },
-        };
-        
-        //! Opción para autentificado de usuario, obtenido por cookie
-        case GET_ACCESS_USER:
-          const {email, id, access, rol, firstName} = action.payload;
-          return {
-            ...state,
-            user: { ...state.user, id, email, access, rol, firstName },
-          };
+
+    case LOGOUT:
+      return {
+        ...state,
+        user: {
+          access: false,
+        },
+      };
+
+    //! Opción para autentificado de usuario, obtenido por cookie
+    case GET_ACCESS_USER:
+      const { email, id, access, rol, firstName } = action.payload;
+      return {
+        ...state,
+        user: { ...state.user, id, email, access, rol, firstName },
+      };
 
     //! Opcion para traer todos los pokemons hacia la pokedex, tanto los de la Api como los de la bdd
     case GET_ALL_POKEMONS:
@@ -198,20 +198,18 @@ function rootReducer(state = initialState, action) {
         );
         orderedFavorites = orderedFavorites.filter(
           (poke) => poke.created === state.created
-          );
-        }
-        
-        // Comprobar si los datos están siendo ordenados, si no deberé ordenarlos porque arranco desde el estado inicial
-        if (state.orderOption !== "-") {
-          
-        const orderOption = state.orderOption.toLocaleLowerCase();
-        const direction = state.orderDirection.toLowerCase();
+        );
+      }
+      // Comprobar si los datos están siendo ordenados, si no deberé ordenarlos porque arranco desde el estado inicial
+      if (state.orderOption !== "-") {
+        const orderOption = state.orderOption.toLowerCase();
+        const direction = state.orderDirection.toUpperCase();
         // Ordenar los datos según la opción y dirección de orden
         orderedPokemons.sort((a, b) => {
           if (
-            direction === "(Ascending)" ||
+            direction === "(ASCENDING)" ||
             direction === "(A-Z)" ||
-            direction === "[Min-Max]"
+            direction === "[MIN-MAX]"
           ) {
             return a[orderOption] > b[orderOption] ? 1 : -1;
           } else {
@@ -221,9 +219,9 @@ function rootReducer(state = initialState, action) {
 
         orderedFavorites.sort((a, b) => {
           if (
-            direction === "(Ascending)" ||
+            direction === "(ASCENDING)" ||
             direction === "(A-Z)" ||
-            direction === "[Min-Max]"
+            direction === "[MIN-MAX]"
           ) {
             return a[orderOption] > b[orderOption] ? 1 : -1;
           } else {
@@ -234,11 +232,9 @@ function rootReducer(state = initialState, action) {
         // Comprobar si también se está aplicando un filtro
         if (filteredType !== "-") {
           orderedFilteredPokemons = orderedPokemons.filter((p) =>
-          p.types?.includes(filteredType)
+            p.types?.includes(filteredType)
           );
-        }
-        if (filteredType !== "-" && orderedFavorites.length > 0) {
-          orderedFilteredFavorites = orderedFavorites.filter((p) =>
+          orderedFilteredFavorites = orderedFavorites?.filter((p) =>
             p.types?.includes(filteredType)
           );
         } else {
@@ -251,18 +247,18 @@ function rootReducer(state = initialState, action) {
         if (filteredType !== "-") {
           orderedFilteredPokemons = orderedPokemons.filter((p) =>
             p.types?.includes(filteredType)
-            );
-            orderedFilteredFavorites = orderedFavorites.filter((p) =>
+          );
+          orderedFilteredFavorites = orderedFavorites.filter((p) =>
             p.types?.includes(filteredType)
+          );
+        } else {
+          // Si no se está ordenando ni filtrando, usar los datos iniciales, siempre discrimados por el estado de created
+          if (state.created) {
+            orderedFilteredPokemons = [...state.initialPokemons].filter(
+              (poke) => poke.created === state.created
             );
-          } else {
-            // Si no se está ordenando ni filtrando, usar los datos iniciales, siempre discrimados por el estado de created
-            if (state.created) {
-              orderedFilteredPokemons = [...state.initialPokemons].filter(
-                (poke) => poke.created === state.created
-                );
-                orderedFilteredFavorites = [...state.initialFavorites].filter(
-                  (poke) => poke.created === state.created
+            orderedFilteredFavorites = [...state.initialFavorites].filter(
+              (poke) => poke.created === state.created
             );
           } else {
             // si la accion fue reset, devolver el estado inicial
@@ -282,7 +278,8 @@ function rootReducer(state = initialState, action) {
     //! Ordenado por diferentes atributos de un pokemón, tando ascende como descendente
     case ORDER:
       const option = action.payload.option.toLowerCase();
-      const direction = action.payload.direction;
+      const direction = action.payload.direction.toUpperCase();
+
       let sortedPokemons = [...state.pokemons];
       let sortedFavorites = [...state.favorites];
       if (option !== "-") {
@@ -290,9 +287,9 @@ function rootReducer(state = initialState, action) {
         sortedPokemons.sort((a, b) => {
           // si el orden es ascendente
           if (
-            direction === "(Ascending)" ||
+            direction === "(ASCENDING)" ||
             direction === "(A-Z)" ||
-            direction === "[Min-Max]"
+            direction === "[MIN-MAX]"
           ) {
             return a[option] > b[option] ? 1 : -1;
           } else {
@@ -303,9 +300,9 @@ function rootReducer(state = initialState, action) {
         // hago lo mismo con los favoritos
         sortedFavorites.sort((a, b) => {
           if (
-            direction === "(Ascending)" ||
+            direction === "(ASCENDING)" ||
             direction === "(A-Z)" ||
-            direction === "[Min-Max]"
+            direction === "[MIN-MAX]"
           ) {
             return a[option] > b[option] ? 1 : -1;
           } else {
@@ -335,7 +332,7 @@ function rootReducer(state = initialState, action) {
         pokemons: sortedPokemons,
         favorites: sortedFavorites,
         orderOption: option.toUpperCase(),
-        orderDirection: direction,
+        orderDirection: direction.toUpperCase(),
       };
 
     default:

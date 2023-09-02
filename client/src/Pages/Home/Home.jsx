@@ -1,12 +1,17 @@
 // Home.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllPokemons, getTypes, getFavoritesByUser, filterPokeCreated } from "../../redux/actions/actions";
+import {
+  getAllPokemons,
+  getTypes,
+  getFavoritesByUser,
+  filterPokeCreated,
+} from "../../redux/actions/actions";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
 
-const Home = () => {
+const Home = ({ noTesting = true }) => {
   const pokemons = useSelector((state) => state.pokemons);
   const allTypes = useSelector((state) => state.allTypes);
   const orderOption = useSelector((state) => state.orderOption);
@@ -15,7 +20,7 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(noTesting);
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -33,7 +38,7 @@ const Home = () => {
         };
       });
     });
-  }, [pokemons]); // Se ejecuta cada vez que cambia la lista de pokémones
+  }, [pokemons]);
 
   //? Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
@@ -43,25 +48,36 @@ const Home = () => {
     // eslint-disable-next-line
   }, []);
 
-    //? Efecto para cargar todos los pokemones y los types asociados
+  //? Efecto para cargar todos los pokemones y los types asociados
   useEffect(() => {
+    let loadingTimeout;
 
     // Solo dispatch si no tengo los datos en los archivos Redux
     if (!pokemons.length && filterOption === "-" && orderOption === "-") {
-      // if (!pokemons.length || (filterOption === "-" && orderOption === "-")) {
       dispatch(getAllPokemons());
     }
 
     if (allTypes.length === 0) {
       dispatch(getTypes());
     }
-    setTimeout(() => {
+
+    // Comprueba si ya tienes algunos datos cargados en pokemons
+    if (pokemons.length > 0) {
       setIsLoading(false);
-    }, 1200);
+    } else {
+      // Si no se cargaron datos en pokemons, establece isLoading en falso después de 1.8 segundos.
+      loadingTimeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 1800);
+    }
+
+    // Limpia el temporizador si el componente se desmonta antes de que expire
+    return () => clearTimeout(loadingTimeout);
+
     // eslint-disable-next-line
   }, []);
 
-  if (isLoading || !allTypes.length) {
+  if (noTesting && (isLoading || !allTypes.length)) {
     return <Loader />;
   }
 
@@ -95,24 +111,29 @@ const Home = () => {
   };
 
   return (
-    <div className={styles.container}>
-      {pokemons.length && !isLoading &&
-         pokemons
-            .slice(
-              (currentPage - 1) * pokemonsPerPage,
-              currentPage * pokemonsPerPage
-            )
-            .map((pokemon, index) => (
-              <Card
-                pokemon={pokemon}
-                getType={getType}
-                key={index}
-                setCurrentPage={setCurrentPage}
-                numbersPokemons={pokemons.length}
-                currentPage={currentPage}
-              />
-            ))
-            }
+    <div className={styles.container} data-testid="home-component">
+      {pokemons.length && !isLoading ? (
+        pokemons
+          .slice(
+            (currentPage - 1) * pokemonsPerPage,
+            currentPage * pokemonsPerPage
+          )
+          .map((pokemon, index) => (
+            <Card
+              pokemon={pokemon}
+              getType={getType}
+              key={index}
+              setCurrentPage={setCurrentPage}
+              numbersPokemons={pokemons.length}
+              currentPage={currentPage}
+            />
+          ))
+      ) : (
+        <div className={styles.imgNothing}>
+          <h2 className={styles.textNothing}>Nothing to see here!</h2>
+        </div>
+      )}
+
       <div className={styles.buttonContainer}>
         <div className={styles.viewCreated}>
           <label htmlFor="labelfiltercreated" className={styles.labelView}>

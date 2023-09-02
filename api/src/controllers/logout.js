@@ -1,6 +1,4 @@
 const logout = async (req, res) => {
-
-    console.log("quiere hacer un logout");
   // Destruir la sesión para cerrar la sesión del usuario
   req.session.destroy((err) => {
     if (err) {
