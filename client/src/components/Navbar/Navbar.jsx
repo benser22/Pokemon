@@ -3,7 +3,8 @@ import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import styles from "./Navbar.module.css";
-import logo from "../../assets/images/pokeBall.gif";
+import logo from "../../assets/images/3dhome.png";
+import logo2 from "../../assets/images/logo.webp";
 import SearchBar from "../SearchBar/SearchBar";
 import { logoutAction } from "../../redux/actions/actions";
 import DropdownMenu from "./DropdownMenu";
@@ -53,8 +54,9 @@ const Navbar = () => {
   return (
     <nav className={styles.container}>
       <div>
-        <Link to="/home" title="Back to Home">
-          <img src={logo} alt="logo" className={styles.logo} />
+        <Link to="/home" >
+          <img src={logo2} alt="logo" className={styles.logo2} />
+          <img src={logo} alt="logo" className={styles.logo} title="Back to Home"/>
         </Link>
       </div>
       <div className={styles.links}>

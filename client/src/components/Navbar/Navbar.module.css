@@ -16,9 +16,24 @@
   z-index: 999;
 }
 
-.logo {
-  height: 10vh;
+
+.logo2 {
+  height: 5vh;
   width: auto;
+  /* margin-left: 3vh; */
+  cursor: default;
+}
+
+.logo {
+  height: 5vh;
+  width: auto;
+  margin-left: 3vh;
+}
+.logo:hover {
+  filter: brightness(110%);
+}
+.logo:active {
+  transform: translateY(1px);
 }
 
 
@@ -118,7 +133,7 @@ Abajo todo el modal
 }
 
 .optionsLabel{
-  color: orange;
+  color: yellow;
   font-size: 9px;
   pointer-events: none;
   margin-top: 7vh;

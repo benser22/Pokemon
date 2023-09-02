@@ -108,7 +108,7 @@ export default function SearchBar() {
             type="submit"
             className={styles.searchBarBtns}
           >
-            Search Card
+            Search
           </button>
         </form>
       </div>

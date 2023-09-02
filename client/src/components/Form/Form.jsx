@@ -30,13 +30,14 @@ const Form = ({ onClose, newSesion }) => {
       setIsModalMessage(true);
 
       const timer = setTimeout(() => {
-        setText(""); // Reiniciar el texto después del tiempo establecido
-      }, 2000);
+        onClose();
+      }, 3000);
 
       return () => {
-        clearTimeout(timer); // Cancelar el temporizador si el componente se desmonta
+        clearTimeout(timer);
       };
     }
+    // eslint-disable-next-line
   }, [text]);
 
   const [errors, setErrors] = useState({
@@ -120,11 +121,11 @@ const Form = ({ onClose, newSesion }) => {
       handleRegister();
     }
   };
-  
+
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
-      <FaTimes className={styles.onClose} title="Close" onClick={onClose} />
+        <FaTimes className={styles.onClose} title="Close" onClick={onClose} />
         {newSesion && <img src={logo} alt="logo" className={styles.picture} />}
         {newSesion ? <h2>LOGIN</h2> : <h2>REGISTER</h2>}
         <form onSubmit={handleSubmit} data-testid="form-component">
