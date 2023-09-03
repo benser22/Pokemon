@@ -126,17 +126,21 @@ function CreatePokemon() {
 
   const handleTypeChange = (type) => {
     if (selectedTypes.includes(type)) {
-      setSelectedTypes(selectedTypes.filter((t) => t !== type)); // me quedo con los types seleccionados si es que los hubiera
-    } else if (selectedTypes.length === 2) {
-      // controlo que no haya seleccionado mas de 2 types
+      // Si el tipo ya estaba seleccionado, lo eliminamos de selectedTypes
+      setSelectedTypes(selectedTypes.filter((t) => t !== type));
+    } else if (selectedTypes.length >= 2) {
+      // Si ya hay 2 tipos seleccionados, no permitimos seleccionar más
       setMaxTypes(true);
       setTimeout(() => {
         setMaxTypes(false);
       }, 2000);
     } else {
-      setSelectedTypes([...selectedTypes, type]);
+      // Si no se cumple ninguna de las condiciones anteriores, agregamos el tipo seleccionado
+      return setSelectedTypes([...selectedTypes, type]);
     }
+    console.log(selectedTypes);
   };
+  
   return (
     <div className={styles.Overlay}>
       <div className={styles.formContainer}>

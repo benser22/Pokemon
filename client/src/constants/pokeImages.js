@@ -73,7 +73,7 @@ const pokemonImages = [
   },
   {
     id: 19,
-    url: "https://assets.stickpng.com/images/580b57fbd9996e24bc43bd2b.png",
+    url: "https://i.pinimg.com/originals/dd/ab/3a/ddab3afad11243134c7ccd48d6db6d91.png",
   },
   {
     id: 20,

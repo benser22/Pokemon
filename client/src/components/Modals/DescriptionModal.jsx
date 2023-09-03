@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import img1 from "../../assets/images/p1.png";
-import img2 from "../../assets/images/p2.png";
-import img3 from "../../assets/images/p3.png";
+import img1 from "../../assets/Overview/1.gif"
+import img2 from "../../assets/Overview/2.gif"
+import img3 from "../../assets/Overview/3.gif"
+
 
 const DescriptionModal = ({ onClose }) => {
   const [isPaused, setIsPaused] = useState(false);
@@ -10,19 +11,19 @@ const DescriptionModal = ({ onClose }) => {
 
   const paragraphs = [
     {
-      text: `Personalización: Esta aplicación permite a los usuarios crear sus propios Pokemones a partir de información como nombre, estadísticas, imagenes randoms y tipo. La interfaz interactiva hace que el proceso de creación sea intuitivo y atractivo.`,
+      text: `Access the complete Pokédex to discover, explore, and manage all Pokémon, including the ability to add favorites, sort, filter, and access detailed information.`,
       image: img1,
     },
     {
-      text: `Diseño Interactivo: La aplicación presenta una experiencia de usuario interactiva con controles deslizantes, casillas de verificación y campos de entrada. Los usuarios pueden ver los cambios en tiempo real y recibir retroalimentación en caso de errores.`,
+      text: `Search for any Pokémon by name or ID, making it easy to find your favorites.`,
       image: img2,
     },
     {
-      text: `Creación Visual y Divertida: Con su diseño visualmente atractivo y opciones de personalización, la aplicación brinda a los fanáticos de Pokémon una forma divertida de dar vida a sus propias creaciones en el mundo Pokémon.`,
+      text: `Additionally, you can create your very own Pokémon! Use any image you prefer, or choose from a selection of preset random designs.`,
       image: img3,
     },
   ];
-
+  
 
   useEffect(() => {
     let interval;
@@ -32,7 +33,7 @@ const DescriptionModal = ({ onClose }) => {
         setActiveIndex((prevIndex) =>
           prevIndex === paragraphs.length - 1 ? 0 : prevIndex + 1
         );
-      }, 3000);
+      }, 5000);
     }
 
     return () => {
@@ -52,11 +53,11 @@ const DescriptionModal = ({ onClose }) => {
     <Overlay>
       <ModalContainer>
         <ModalContent>
+          <ModalParagraph>{paragraphs[activeIndex].text}</ModalParagraph>
           <ModalImage
             src={paragraphs[activeIndex].image}
             alt={`Imagen ${activeIndex + 1}`}
           />
-          <ModalParagraph>{paragraphs[activeIndex].text}</ModalParagraph>
           <IndicatorContainer>
             {paragraphs.map((_, index) => (
               <IndicatorDot
@@ -120,12 +121,12 @@ const ModalContainer = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2);
   padding: 20px;
   border-radius: 0px 40px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 80%;
   max-width: 80%;
-  min-width: 30%;
   text-align: center;
   position: relative;
   margin: 0 auto;
@@ -135,7 +136,8 @@ const ModalContent = styled.div`
 `;
 
 const ModalParagraph = styled.p`
-  font-size: 18px;
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 26px;
   font-weight: bold;
   margin-bottom: 20px;
   color: white;
@@ -143,12 +145,13 @@ const ModalParagraph = styled.p`
 `;
 
 const ModalImage = styled.img`
-  max-width: 20%;
-  max-height: 200px;
+  max-width: 40%;
+  min-height: 20vh;
   height: auto;
-  border-radius: 4px;
+  border-radius: 20px;
   margin: 0;
   margin-bottom: 20px;
+  box-shadow: 0 0px 4px rgba(255,255, 255, 0.8);
 `;
 
 const ModalButton = styled.button`
