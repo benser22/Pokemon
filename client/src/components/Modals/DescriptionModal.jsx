@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import img1 from "../../assets/Overview/1.gif"
-import img2 from "../../assets/Overview/2.gif"
-import img3 from "../../assets/Overview/3.gif"
-
+import img1 from "../../assets/Overview/1.gif";
+import img2 from "../../assets/Overview/2.gif";
+import img3 from "../../assets/Overview/3.gif";
 
 const DescriptionModal = ({ onClose }) => {
   const [isPaused, setIsPaused] = useState(false);
@@ -23,7 +22,6 @@ const DescriptionModal = ({ onClose }) => {
       image: img3,
     },
   ];
-  
 
   useEffect(() => {
     let interval;
@@ -72,7 +70,9 @@ const DescriptionModal = ({ onClose }) => {
             <ModalButton onClick={handlePauseToggle}>
               {isPaused ? "Resume" : "Pause"}
             </ModalButton>
-            <ModalButton onClick={onClose} style={{marginLeft: "2vh"}}>Close</ModalButton>
+            <ModalButton onClick={onClose} style={{ marginLeft: "2vh" }}>
+              Close
+            </ModalButton>
           </ButtonRow>
         </ModalContent>
       </ModalContainer>
@@ -113,7 +113,7 @@ const ModalContainer = styled.div`
   left: 15%;
   width: 70%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,10 +121,10 @@ const ModalContainer = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 20px;
   border-radius: 0px 40px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 10px rgba(255, 255, 255, 0.5);
   min-width: 80%;
   max-width: 80%;
   text-align: center;
@@ -136,7 +136,7 @@ const ModalContent = styled.div`
 `;
 
 const ModalParagraph = styled.p`
-  font-family: 'Comic Sans MS', cursive;
+  font-family: "Comic Sans MS", cursive;
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -151,7 +151,7 @@ const ModalImage = styled.img`
   border-radius: 20px;
   margin: 0;
   margin-bottom: 20px;
-  box-shadow: 0 0px 4px rgba(255,255, 255, 0.8);
+  box-shadow: 0 0px 4px rgba(255, 255, 255, 0.8);
 `;
 
 const ModalButton = styled.button`
@@ -159,11 +159,10 @@ const ModalButton = styled.button`
   color: white;
   border: none;
   padding: 10px;
-  border-radius: 4px;
   cursor: pointer;
   transition: transform 0.2s ease;
   margin-left: 85%;
-
+  border-radius: 8px;
   &:hover {
     filter: brightness(1.2);
   }
@@ -201,6 +200,6 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 10000;
 `;

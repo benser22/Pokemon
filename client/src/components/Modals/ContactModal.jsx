@@ -2,14 +2,25 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { FaBroom } from "react-icons/fa";
 import axios from "axios";
-import Swal from "sweetalert2";
+import MessageModal from "../../components/Modals/MessageModal";
 
 const ContactForm = ({ onClose }) => {
+  const [isMessage, setMessageOpen] = useState(false);
+  const [text, setText] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+
+
+
+  const handleClose = () => {
+    setText("")
+    setMessageOpen(false)
+    return;
+  };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,17 +31,20 @@ const ContactForm = ({ onClose }) => {
     e.preventDefault();
 
     if (!formData.name) {
-      Swal.fire("Warning", "Please enter your name.", "warning");
+      setText("Please enter your name");
+      setMessageOpen(true);
       return;
     }
 
     if (!formData.email) {
-      Swal.fire("Warning", "Please enter your email address.", "warning");
+      setText("Please enter your email address");
+      setMessageOpen(true);
       return;
     }
 
     if (!formData.message) {
-      Swal.fire("Warning", "Please enter your message.", "warning");
+      setText("Please you must enter a message");
+      setMessageOpen(true);
       return;
     }
 
@@ -42,15 +56,11 @@ const ContactForm = ({ onClose }) => {
         email: "",
         message: "",
       });
-      Swal.fire("Good job!", "Email sent successfully!", "success");
-      // window.alert("Email sent successfully");
+      setText("Good job! Email sent successfully!");
+      setMessageOpen(true);
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `Failed to send email: ${error.message}`,
-      });
-      // window.alert("Failed to send email:", error);
+      setText(`Ooops, ${error.message}. Failed to send email`);
+      setMessageOpen(true);
     }
   };
 
@@ -101,6 +111,13 @@ const ContactForm = ({ onClose }) => {
           </ButtonContainer>
         </Form>
       </FormContainer>
+      
+  {isMessage && (
+    <MessageModal
+      onClose={handleClose}
+      message={text}
+    />
+  )}
     </Overlay>
   );
 };

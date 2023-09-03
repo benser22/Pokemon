@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
@@ -45,7 +45,9 @@
   font-size: 1.5em;
   margin-bottom: 20px;
   color: white;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Comic Sans MS", cursive, Georgia, "Times New Roman", serif;
+  letter-spacing: 6px;
+  font-style: italic;
   text-shadow: 1px 1px 5px rgb(195, 195, 195);
 }
 
@@ -71,32 +73,29 @@
   font-size: 12px;
 }
 
+/* styles.module.css */
+
 .myButton {
-  cursor: pointer;
-  margin-top: 3vh;
-  color: rgb(255, 255, 255);
-  width: auto;
-  font-size: 14px;
+  margin-left: 35%;
+  width: 30%;
+  background-color: #375da4;
+  color: white;
+  border: none;
   padding: 10px;
-  border-radius: 40px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-image: linear-gradient(
-    90deg,
-    #173e51 0%,
-    #21546d 50%,
-    #286989 100%
-  );
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 2px #ffffff;
+  }
+
+  &:active {
+    transform: translateY(1px);
+    color: lightgray;
+  }
 }
 
-.myButton:hover {
-  filter: saturate(130%);
-  box-shadow: 0 0 4px #ffffff;
-}
-
-.myButton:active {
-  box-shadow: unset;
-  filter: brightness(150%);
-}
 
 .error {
   color: rgb(251, 16, 16);
@@ -107,10 +106,10 @@
 }
 
 .picture {
-  border-radius: 30px;
-  max-height: 10%;
-  max-width: 80%;
+  height: 20vh;
+  max-width: 100%;
   margin-top: 2vh;
+  margin-left: 6vh;
 }
 
 .close {
@@ -158,7 +157,7 @@
   font-size: 12px;
   z-index: 999999;
 }
-.onClose{
+.onClose {
   color: #fff;
   font-size: 1.2em;
   cursor: pointer;
@@ -170,6 +169,6 @@
   color: lightgray;
 }
 .onClose:active {
-  transform: translateY(1px); 
+  transform: translateY(1px);
   color: white;
 }

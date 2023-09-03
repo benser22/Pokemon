@@ -10,7 +10,8 @@ import styles from "./Form.module.css";
 import validate from "./validation";
 
 // Imagen del logo
-import logo from "../../assets/extras/login.webp";
+// import logo from "../../assets/extras/login.webp";
+import logo from "../../assets/extras/giphy.gif";
 import { FaTimes, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Form = ({ onClose, newSesion }) => {

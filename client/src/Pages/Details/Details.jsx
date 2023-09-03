@@ -29,7 +29,7 @@ const Details = ({ noTesting = true }) => {
     if (isLoading) {
       loadingTimeout = setTimeout(() => {
         setIsLoading(false);
-      }, 2000);
+      }, 3000);
     }
   
     return () => clearTimeout(loadingTimeout);
