@@ -44,8 +44,10 @@ const { Pokemon, Type, User, Favorite } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Pokemon.belongsToMany(Type, {through: "pokemon_type"});
-Type.belongsToMany(Pokemon, {through: "pokemon_type"});
+// Define la relación Pokémon <-> Type con onDelete configurado. Me sucedía que eliminaba un pokemon, pero quedaban los registros de sus types en la tabla intermedia, por eso agregue la opcion onDelete
+Pokemon.belongsToMany(Type, { through: "pokemon_type", onDelete: 'CASCADE' });
+Type.belongsToMany(Pokemon, { through: "pokemon_type", onDelete: 'CASCADE' });
+
 
 Favorite.belongsTo(User);   // Relación de Favorites a Users (muchos Favorites pertenecen a un User)
 User.hasMany(Favorite);     // Relación de Users a Favorites (un User tiene muchos Favorites)
