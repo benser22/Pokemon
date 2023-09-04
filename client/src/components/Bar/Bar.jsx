@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import Loader from "../Loader/Loader";
 
 const StyledPokemonStats = styled.div`
   display: flex;
@@ -49,12 +50,14 @@ const Bar = ({ tag, value, maxValue }) => {
   useEffect(() => {
     const animateBars = () => {
       const bars = document.querySelectorAll(`.${StatBar.styledComponentId}`);
-
-      bars.forEach((bar) => {
-        const width = bar.getAttribute("data-width");
-        bar.style.width = `${width}%`;
-        bar.style.backgroundColor = getBarColor(width);
-      });
+      
+      setTimeout(() => {
+        bars.forEach((bar) => {
+          const width = bar.getAttribute("data-width");
+          bar.style.width = `${width}%`;
+          bar.style.backgroundColor = getBarColor(width);
+        });
+      }, 200);
     };
 
     animateBars();
@@ -96,7 +99,7 @@ const Bar = ({ tag, value, maxValue }) => {
     <StyledPokemonStats>
       <StatLabel>{tag}</StatLabel>
       <StyledStat>
-        <StatBar data-width={percentage}></StatBar>
+        {percentage ? <StatBar data-width={percentage}></StatBar> : <Loader></Loader>}
         <SpanValue>
           {value}/{maxValue}
         </SpanValue>

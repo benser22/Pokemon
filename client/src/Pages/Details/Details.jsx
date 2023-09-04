@@ -23,19 +23,21 @@ const Details = ({ noTesting = true }) => {
 
   useEffect(() => {
     dispatch(getPokemonDetails(id));
-  
+
     let loadingTimeout;
-  
+    if (imageUrl) {
+      const imgElement = new Image();
+      imgElement.src = imageUrl;
+    }
     if (isLoading) {
       loadingTimeout = setTimeout(() => {
         setIsLoading(false);
-      }, 3000);
+      }, 2500);
     }
-  
+
     return () => clearTimeout(loadingTimeout);
     // eslint-disable-next-line
   }, []);
-  
 
   if (noTesting && (isLoading || !pokemon)) {
     return <Loader />;
@@ -59,7 +61,7 @@ const Details = ({ noTesting = true }) => {
       <div className={styles.detailsContainer}>
         {pokemon && (
           <>
-            <div className={styles.header} >
+            <div className={styles.header}>
               {pokemon.id >= 5000 ? (
                 <p className={styles.pokemonId}>#{pokemon.id} (created)</p>
               ) : (

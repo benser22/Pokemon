@@ -10,6 +10,7 @@ import {
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
+import { IMAGES } from "../../constants/types.js";
 
 const Home = ({ noTesting = true }) => {
   const pokemons = useSelector((state) => state.pokemons);
@@ -38,11 +39,27 @@ const Home = ({ noTesting = true }) => {
         };
       });
     });
-  }, [pokemons]);
+
+      // Precarga de las imágenes desde el objeto IMAGES
+  Object.values(IMAGES).map((url) => {
+    return new Promise((resolve) => {
+      const img = new Image(); // Crea un objeto de imagen
+      img.src = url; // Establece la fuente de la imagen
+
+      // Configura el evento onload que se ejecutará cuando la imagen se cargue
+      img.onload = () => {
+        resolve(); // Resuelve la promesa cuando la imagen se carga. Cuando se llama a resolve(), la promesa se considera resuelta exitosamente.
+      };
+    });
+  });
+
+    // eslint-disable-next-line
+  }, [pokemons.length]);
+
 
   //? Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
-    if (userCurrent.id && filterOption === "-" && orderOption === "-") {
+    if (userCurrent.id && filterOption === "-" && orderOption === "-" && !created) {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
     // eslint-disable-next-line
@@ -68,7 +85,7 @@ const Home = ({ noTesting = true }) => {
       // Si no se cargaron datos en pokemons, establece isLoading en falso después de 1.8 segundos.
       loadingTimeout = setTimeout(() => {
         setIsLoading(false);
-      }, 1800);
+      }, 2500);
     }
 
     // Limpia el temporizador si el componente se desmonta antes de que expire

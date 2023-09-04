@@ -79,7 +79,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         initialFavorites: action.payload,
         favorites: action.payload,
-        created: false,
       };
 
     case POST_FAVORITES_BY_USER:
@@ -167,16 +166,17 @@ function rootReducer(state = initialState, action) {
 
     //! filtrado por creados o no
     case FILTER_CREATES:
+      let createdState;
       let pokemonsCreated = [...state.initialPokemons];
       let favoritesCreated = [...state.initialFavorites];
       if (action.payload) {
         pokemonsCreated = pokemonsCreated.filter((poke) => poke.created);
         favoritesCreated = favoritesCreated.filter((poke) => poke.created);
         // se estan mostrando los creados
-        state.created = true;
+        createdState = true;
       } else {
         // se estan mostrando todos
-        state.created = false;
+        createdState = false;
       }
       return {
         ...state,
@@ -185,6 +185,7 @@ function rootReducer(state = initialState, action) {
         orderOption: "-",
         orderDirection: "",
         filteredType: "-",
+        created: createdState,
       };
 
     //! filtrado por types

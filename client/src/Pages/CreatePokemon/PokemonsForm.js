@@ -50,7 +50,8 @@ function PokemonForm({
 
   useEffect(() => {
     if (randomImage) {
-      const randomIndex = Math.floor(Math.random() * pokemonImages.length);
+      let randomIndex = 0;
+      randomIndex = Math.floor(Math.random() * pokemonImages.length);
       setImg(pokemonImages[randomIndex].url);
     }
   }, [randomImage, setImg]);

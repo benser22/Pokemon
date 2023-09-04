@@ -71,7 +71,9 @@ function CreatePokemon() {
     }
 
     try {
-      const {data} = await axios(`http://localhost:3001/pokemons/search/duplicated/?name=${newPokemon.name.toLowerCase()}`)
+      const { data } = await axios(
+        `http://localhost:3001/pokemons/search/duplicated/?name=${newPokemon.name.toLowerCase()}`
+      );
       if (data.duplicated) {
         setMessage("The chosen name already exists in the Pokedex");
         setTimeout(() => {
@@ -85,13 +87,18 @@ function CreatePokemon() {
 
     dispatch(postPokemon(newPokemon));
     setMessage("Pokemon successfully created!");
+    // Precarga de la imagen
+    if (img) {
+      const imgElement = new Image();
+      imgElement.src = img;
+    }
     setTimeout(() => {
       setMessage("");
       navigate("/home");
     }, 500);
     dispatch(getAllPokemons());
   };
-  
+
   // mantengo actualizado los valores del nuevo pokemon a medida que cambian en el input
   const handleInputChange = (field, value) => {
     switch (field) {
@@ -138,9 +145,8 @@ function CreatePokemon() {
       // Si no se cumple ninguna de las condiciones anteriores, agregamos el tipo seleccionado
       return setSelectedTypes([...selectedTypes, type]);
     }
-    console.log(selectedTypes);
   };
-  
+
   return (
     <div className={styles.Overlay}>
       <div className={styles.formContainer}>
@@ -169,9 +175,7 @@ function CreatePokemon() {
 
         {/* Mensajes de error de validaction de los types */}
         {maxTypes && (
-          <h2 className={styles.message}>
-            Only 2 types can be chosen at most
-          </h2>
+          <h2 className={styles.message}>Only 2 types can be chosen at most</h2>
         )}
         {minTypes && (
           <h2 className={styles.message}>Must have at least one type</h2>

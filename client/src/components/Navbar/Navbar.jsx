@@ -23,8 +23,6 @@ const Navbar = () => {
   const orderByOptions = ["RESET", ...ORDERS];
   const filterByOptions = ["RESET", ...TYPES];
 
-
-    
   useEffect(() => {
     // Si el usuario no está autenticado, redirigir a la página de inicio
     if (!user.access) {
@@ -54,31 +52,43 @@ const Navbar = () => {
   return (
     <nav className={styles.container}>
       <div>
-        <Link to="/home" >
+        <Link to="/home">
           <img src={logo2} alt="logo" className={styles.logo2} />
-          <img src={logo} alt="logo" className={styles.logo} title="Back to Home"/>
+          <img
+            src={logo}
+            alt="logo"
+            className={styles.logo}
+            title="Back to Home"
+          />
         </Link>
       </div>
       <div className={styles.links}>
         <SearchBar></SearchBar>
       </div>
-      <div style={{display:"flex", width:"30%", alignItems:"center"}}>
-          <DropdownMenu
-            title="Order By"
-            options={orderByOptions}
-            setfilterCurrent={setfilterCurrent}
-            setOrderCurrent={setOrderCurrent}
-            choice={"order"}
-          />
-          <p className={styles.optionsLabel} style={{padding:"5vh", width:"30%", marginLeft:"-35vh"}}>{orderCurrent}</p>
-          <DropdownMenu
-            title="Filter By"
-            options={filterByOptions}
-            setfilterCurrent={setfilterCurrent}
-            setOrderCurrent={setOrderCurrent}
-            choice={"filter"}
-          />
-          <p className={styles.optionsLabel} style={{marginLeft:"-22vh"}}>{filterCurrent}</p>
+      <div style={{ display: "flex", width: "30%", alignItems: "center" }}>
+        <DropdownMenu
+          title="Order By"
+          options={orderByOptions}
+          setfilterCurrent={setfilterCurrent}
+          setOrderCurrent={setOrderCurrent}
+          choice={"order"}
+        />
+        <p
+          className={styles.optionsLabel}
+          style={{ padding: "5vh", width: "30%", marginLeft: "-35vh" }}
+        >
+          {orderCurrent}
+        </p>
+        <DropdownMenu
+          title="Filter By"
+          options={filterByOptions}
+          setfilterCurrent={setfilterCurrent}
+          setOrderCurrent={setOrderCurrent}
+          choice={"filter"}
+        />
+        <p className={styles.optionsLabel} style={{ marginLeft: "-22vh" }}>
+          {filterCurrent}
+        </p>
       </div>
       <NavLink
         to={"/favorites"}
