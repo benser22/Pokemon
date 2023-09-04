@@ -108,7 +108,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         pokemons: [action.payload, ...state.pokemons],
-        initialPokemons: [action.payload, ...state.pokemons],
+        initialPokemons: [action.payload, ...state.initialPokemons],
       };
 
     //! Opción para limpiar el objeto que uso para Detail, o para la el resultado de la SearchBar
@@ -122,7 +122,7 @@ function rootReducer(state = initialState, action) {
     case POST_POKEMON:
       return {
         ...state,
-        initialPokemons: [action.payload, ...state.pokemons],
+        initialPokemons: [action.payload, ...state.initialPokemons],
         pokemons: [action.payload, ...state.pokemons],
       };
 
@@ -131,9 +131,12 @@ function rootReducer(state = initialState, action) {
       const updatedPokemons = state.pokemons.filter(
         (poke) => poke.id !== action.payload
       );
+      const updatedInitialPokemons = state.initialPokemons.filter(
+        (poke) => poke.id !== action.payload
+      );
       return {
         ...state,
-        initialPokemons: updatedPokemons,
+        initialPokemons: updatedInitialPokemons,
         pokemons: updatedPokemons,
       };
 
