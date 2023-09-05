@@ -62,13 +62,13 @@ const postPokemons = async (req, res) => {
       },
     });
 
-    // una vez que tengo los registros enteros, hago la relación en la tabla intermedia. Utilicé un for para recorrer el arreglo de type porque si hacía el addType del arreglo completo, perdía el orden en el que fueron agregagos desde el front
-    types.forEach(async (type) => {
+
+    for (const type of types) {
       const selectedType = selectedTypes.find((myType) => myType.name === type);
       if (selectedType) {
-        await newPokemon.addType(selectedType); // hago la relacion en la tabla intermedia de mi nuevo pokemón con cada uno de los tipos correspondientes
+        await newPokemon.addType(selectedType); // Hace la relación en la tabla intermedia de mi nuevo Pokémon con cada uno de los tipos correspondientes
       }
-    });
+    }
 
     const dataValues = {
       id: newId,
