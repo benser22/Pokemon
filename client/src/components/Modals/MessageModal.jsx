@@ -39,10 +39,6 @@ const ModalContent = styled.div`
   left: 50%;
   top: 40%;
   transform: translate(-50%, -50%); /* Ajusta para centrar completamente */
-
-  @media (max-width: 768px) {
-    margin-top: 90%;
-  }
 `;
 
 const CustomText = styled.p`
@@ -50,6 +46,9 @@ const CustomText = styled.p`
   color: white;
   font-family: "Helvetica Neue", sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  @media only screen and (max-width: 576px) {
+    font-size: 14px;
+  }
 `;
 
 const ModalButton = styled.button`
@@ -69,6 +68,12 @@ const ModalButton = styled.button`
   &:active {
     animation: ${pressAnimation} 0.2s ease;
     transform: translateY(2px);
+  }
+
+  @media only screen and (max-width: 576px) {
+    font-size: 10px;
+    padding: 4px;
+    width: max-content;
   }
 `;
 

@@ -60,22 +60,29 @@ const Form = ({ onClose, newSesion }) => {
   };
 
   const handleRegister = async () => {
-    const { email } = userData;
+    const { email, password } = userData;
     const URL = "http://localhost:3001/pokemons";
+    // const URL = "https://pokemonapi-production-fda4.up.railway.app/pokemons";
+
 
     try {
-      const response = await axios.post(`${URL}/register`, userData);
-
-      if (response.status === 201) {
-        loginForm(response);
-        onClose();
+      if (!email.trim() || !password.trim()) {
+        setText("Please enter all the data");
       } else {
-        throw new Error("Failed to create user");
+        const response = await axios.post(`${URL}/register`, userData);
+        
+        if (response.status === 201) {
+          setText(`Congratulations, you have successfully registered`)
+          setTimeout(() => {
+            loginForm(response);
+          }, 3000);
+        } else {
+          throw new Error("Failed to create user");
+        }
       }
     } catch (error) {
       if (error.response) {
         const { status } = error.response;
-
         if (status === 400) {
           setText("Error: you must complete all the fields to register");
         } else if (status === 409) {
@@ -94,14 +101,21 @@ const Form = ({ onClose, newSesion }) => {
   const loginForm = async () => {
     const { email, password } = userData;
     try {
-      const { data } = await axios.get(
-        `http://localhost:3001/pokemons/login/${email}&${password}`
-      );
-      await dispatch(getAccesUser());
-
-      if (data.user) {
-        dispatch(login(data.user));
-        onClose();
+      if (!email.trim() || !password.trim()) {
+        setText("Please enter all the data");
+      } else {
+        const { data } = await axios.get(
+          `http://localhost:3001/pokemons/login/${email}&${password}`
+        );
+        // const { data } = await axios.get(
+        //   `https://pokemonapi-production-fda4.up.railway.app/pokemons/login/${email}&${password}`
+        // );
+        await dispatch(getAccesUser());
+          
+        if (data.user) {
+          await dispatch(login(data.user));
+          onClose();
+        }
       }
     } catch (error) {
       if (error.request.status === 403) {
@@ -121,6 +135,10 @@ const Form = ({ onClose, newSesion }) => {
     } else {
       handleRegister();
     }
+  };
+  const handleClose = () => {
+    setText("");
+    setIsModalMessage(false);
   };
 
   return (
@@ -225,7 +243,7 @@ const Form = ({ onClose, newSesion }) => {
         </form>
       </div>
       {isModalMessage && (
-        <MessageModal onClose={onClose} message={text}></MessageModal>
+        <MessageModal onClose={handleClose} message={text}></MessageModal>
       )}
     </div>
   );

@@ -73,11 +73,9 @@
   font-size: 12px;
 }
 
-/* styles.module.css */
-
 .myButton {
   margin-left: 35%;
-  width: 30%;
+  width: max-content;
   background-color: #375da4;
   color: white;
   border: none;
@@ -171,4 +169,13 @@
 .onClose:active {
   transform: translateY(1px);
   color: white;
+}
+
+/* RESPONSIVE MODE */
+
+@media only screen and (max-width: 576px) {
+  .myButton{
+    padding: 8px;
+    font-size: 12px;
+  }
 }

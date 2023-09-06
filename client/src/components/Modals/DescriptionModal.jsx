@@ -105,6 +105,9 @@ const ButtonRow = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  @media only screen and (max-width: 576px) {
+    margin-right: 40%;
+  }
 `;
 
 const ModalContainer = styled.div`
@@ -118,6 +121,11 @@ const ModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   animation: ${fadeIn} 0.8s ease;
+  @media only screen and (max-width: 576px) {
+    width: 80%;
+    left: 10%;
+    top: -20%;
+  }
 `;
 
 const ModalContent = styled.div`
@@ -142,6 +150,10 @@ const ModalParagraph = styled.p`
   margin-bottom: 20px;
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  /* RESPONSIVE MODE */
+  @media only screen and (max-width: 576px) {
+    font-size: 14px;
+  }
 `;
 
 const ModalImage = styled.img`
@@ -152,6 +164,10 @@ const ModalImage = styled.img`
   margin: 0;
   margin-bottom: 20px;
   box-shadow: 0 0px 4px rgba(255, 255, 255, 0.8);
+  @media only screen and (max-width: 576px) {
+    min-height: 10vh;
+    max-width: 50%;
+  }
 `;
 
 const ModalButton = styled.button`
@@ -170,6 +186,11 @@ const ModalButton = styled.button`
   &:active {
     animation: ${pressAnimation} 0.2s ease;
     transform: translateY(3px);
+  }
+
+  @media only screen and (max-width: 576px) {
+    padding: 8px;
+    font-size: 12px;
   }
 `;
 

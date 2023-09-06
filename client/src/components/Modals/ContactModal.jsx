@@ -213,6 +213,11 @@ const Button = styled.button`
     animation: ${pressAnimation} 0.2s ease;
     transform: translateY(3px);
   }
+  
+  @media only screen and (max-width: 576px) {
+    padding: 8px;
+    font-size: 12px;
+  }
 `;
 
 const SubmitButton = styled(Button)`
@@ -242,6 +247,11 @@ const CloseButton = styled.button`
   &:active {
     animation: ${pressAnimation} 0.2s ease;
     transform: translateY(3px);
+  }
+  
+  @media only screen and (max-width: 576px) {
+    padding: 8px;
+    font-size: 12px;
   }
 `;
 

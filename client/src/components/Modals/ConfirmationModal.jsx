@@ -38,7 +38,7 @@ const pressAnimation = keyframes`
 
 const ModalContent = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
-  padding: 10px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -49,8 +49,8 @@ const ModalContent = styled.div`
   top: 40%;
   transform: translate(-50%, -50%);
 
-  @media (max-width: 768px) {
-    margin-top: 90%;
+  @media only screen and (max-width: 576px) {
+    width: 70%;
   }
 `;
 
@@ -64,6 +64,9 @@ const CustomText = styled.p`
   color: white;
   font-family: "Helvetica Neue", sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  @media only screen and (max-width: 576px) {
+    font-size: 16px;
+  }
 `;
 
 const ModalButton = styled.button`
@@ -82,6 +85,10 @@ const ModalButton = styled.button`
   &:active {
     animation: ${pressAnimation} 0.2s ease;
     transform: translateY(2px);
+  }
+  @media only screen and (max-width: 576px) {
+    font-size: 10px;
+    padding: 8px;
   }
 `;
 

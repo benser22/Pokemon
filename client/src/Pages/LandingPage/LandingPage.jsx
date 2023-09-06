@@ -121,18 +121,16 @@ const LandingPage = () => {
           {!user?.email ? (
             <> Login </>
           ) : (
-            <>
+            <div className={styles.email}>
               {userCurrent.email} ({isLoading ? "Loading..." : rol})
-            </>
+            </div>
           )}
         </div>
         <div
           className={styles.navItem}
           onClick={handleLogout}
           title="Sign out"
-          style={{ cursor: "pointer", marginInline: "-5vh" }}
         >
-          {/* {userCurrent.email ? <>Logout</> : <>Sign-Up</>} */}
           {user?.email ? <>Logout</> : <>Sign-Up</>}
         </div>
       </div>
