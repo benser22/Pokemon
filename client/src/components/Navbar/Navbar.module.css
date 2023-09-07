@@ -11,11 +11,9 @@
   z-index: 999;
 }
 
-
 .logo2 {
   height: 5vh;
   width: auto;
-  /* margin-left: 3vh; */
   cursor: default;
 }
 
@@ -30,7 +28,6 @@
 .logo:active {
   transform: translateY(1px);
 }
-
 
 .links {
   color: white;
@@ -47,15 +44,6 @@
   filter: brightness(120%);
   cursor: pointer;
   color: yellow;
-}
-
-@media screen and (max-width: 700px) {
-  .links {
-    font-size: 0.6em;
-    padding-left: 3px;
-    padding-right: 3px;
-    height: 100%;
-  }
 }
 
 /* 
@@ -127,9 +115,93 @@ Abajo todo el modal
   color: yellow;
 }
 
-.optionsLabel{
+.optionsLabel {
   color: yellow;
   font-size: 9px;
   pointer-events: none;
-  margin-top: 7vh;
+}
+
+.drop {
+  display: flex;
+  width: 30%;
+  align-items: center;
+  margin-bottom: 1vh;
+}
+
+.orderLabel,
+.filterLabel {
+  padding: 5vh;
+  width: 30%;
+  margin-left: -35vh;
+  margin-bottom: -5vh;
+}
+.favoritesLabel {
+  text-decoration: none;
+  margin-left: -20vh;
+}
+.createLabel {
+  text-decoration: none;
+}
+
+/*?  RESPONSIVE MODE   */
+
+@media only screen and (max-width: 576px) {
+  .links {
+    margin-top: 5vh;
+    right: 95%;
+    margin-right: 7vh;
+  }
+
+  .container {
+    display: flex;
+    height: 20vh;
+    margin-bottom: -50vh;
+    border: unset;
+    box-shadow: unset;
+  }
+
+  .logo2 {
+    position: absolute;
+    left: 5%;
+    top: 10%;
+  }
+  .logo {
+    position: absolute;
+    left: 8%;
+    top: 32%;
+    z-index: 999999;
+  }
+
+  .favoritesLabel {
+    position: absolute;
+    left: 36%;
+    margin-top: 10vh;
+  }
+  .createLabel {
+    position: absolute;
+    left: 28%;
+    margin-top: 12%;
+  }
+
+  .logout {
+    position: absolute;
+    left: 52%;
+    top: 0;
+    margin-top: 2vh;
+  }
+
+  .drop {
+    margin-top: 5vh;
+    position: absolute;
+    flex-direction: row;
+  }
+
+  .optionsLabel {
+    color: orange;
+    margin-top: 2vh;
+    min-width: 12vh;
+    margin-left: 2vh;
+    margin-right: -8vh;
+    font-size: 1vh;
+  }
 }

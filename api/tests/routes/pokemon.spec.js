@@ -29,16 +29,12 @@ describe("Routes", () => {
 
   describe("GET /pokemons", () => {
     beforeEach(() =>
-      Pokemon.sync({ force: true }).then(() =>
-        Pokemon.create({
-          id: 25,
-          name: "Pikachu",
-          img: "www.image.com",
-        })
-      )
+      Pokemon.sync({ force: true }).then(() => Pokemon.create(newPokemon))
     );
 
-    it("should get 200", (done) => {
+    // aquí no utilizo funcion flecha para poder utilizar this.timeout y darle tiempo a la función asyncronica anterior, ya que pasaba de largo muy rapido hacia los siguientes tests. Mocha esperará hasta 1000 milisegundos para que esta prueba se complete antes de considerarla como un error por tiempo de espera.
+    it("should get 200", function(done) {
+      this.timeout(1000);
       agent
         .get("/pokemons")
         .expect(200)
@@ -51,7 +47,7 @@ describe("Routes", () => {
     describe("DELETE /pokemons/:pokemonID", () => {
       it("should delete a Pokémon by ID and return 200", (done) => {
         agent
-          .delete("/pokemons/25")
+          .delete("/pokemons/3000")
           .expect(200)
           .end((err, res) => {
             if (err) return done(err);
@@ -73,6 +69,12 @@ describe("Routes", () => {
             done();
           });
       });
+    });
+
+    afterEach((done) => {
+      Pokemon.destroy({ where: { name: "ditto" } })
+        .then(() => done())
+        .catch((err) => done(err));
     });
   });
 
@@ -104,16 +106,6 @@ describe("Routes", () => {
     });
   });
 
-  describe("GET /user/:userId/favorites", () => {
-    it("should get 200 and a valid JSON with content", (done) => {
-      agent
-        .get(`pokemons/user/${userId}/favorites`)
-        .expect(200)
-        .expect("Content-Type", /json/);
-      done();
-    });
-  });
-
   describe("POST /user/:userId/favorites", () => {
     it("should add a Pokémon to the user's favorites list", (done) => {
       agent
@@ -126,6 +118,16 @@ describe("Routes", () => {
           expect(res.body.id).to.equal(newPokemon.id);
           done();
         });
+    });
+  });
+
+  describe("GET /user/:userId/favorites", () => {
+    it("should get 200 and a valid JSON with content", (done) => {
+      agent
+        .get(`pokemons/user/${userId}/favorites`)
+        .expect(200)
+        .expect("Content-Type", /json/);
+      done();
     });
   });
 
@@ -186,16 +188,14 @@ describe("User Registration", () => {
     });
 
     afterEach((done) => {
-      User.destroy({ where: { email: "user@example.com"} })
+      User.destroy({ where: { email: "user@example.com" } })
         .then(() => done())
         .catch((err) => done(err));
     });
     afterEach((done) => {
-      User.destroy({ where: { email: "otherUser@example.com"} })
+      User.destroy({ where: { email: "otherUser@example.com" } })
         .then(() => done())
         .catch((err) => done(err));
     });
-
   });
 });
-

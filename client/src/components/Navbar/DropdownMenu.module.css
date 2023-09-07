@@ -24,6 +24,7 @@
   }
   
   .dropdownContent {
+    margin-top: 1.5%;
     width: 30vh;
     min-width: max-content;
     font-size: 10px;
@@ -53,3 +54,42 @@
     display: block;
   }
   
+
+  /*?  RESPONSIVE MODE   */
+
+@media only screen and (max-width: 576px) {
+
+  .dropdown {
+    position: absolute;
+    font-size: 1.5vh;
+    top: 5%;
+
+  }
+
+  .dropdownContent {
+    margin-top: 11.70vh;
+    width: 25vh;
+    left: 55%;
+  }
+  .dropdownContent p {
+    font-size: 0.8vh;
+  }
+  
+   
+  .Order{
+    position: absolute;
+    width: max-content;
+    right: 20%;
+    margin-top: 7vh;
+  }
+  
+  
+  .Filter{
+    position: absolute;
+    width: max-content;
+    right: -35%;
+    margin-top: 7vh;
+  }
+
+  
+  }

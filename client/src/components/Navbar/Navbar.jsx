@@ -51,7 +51,7 @@ const Navbar = () => {
 
   return (
     <nav className={styles.container}>
-      <div>
+      <div className={styles.logos}>
         <Link to="/home">
           <img src={logo2} alt="logo" className={styles.logo2} />
           <img
@@ -65,7 +65,7 @@ const Navbar = () => {
       <div className={styles.links}>
         <SearchBar></SearchBar>
       </div>
-      <div style={{ display: "flex", width: "30%", alignItems: "center" }}>
+      <div className={styles.drop}>
         <DropdownMenu
           title="Order By"
           options={orderByOptions}
@@ -73,10 +73,7 @@ const Navbar = () => {
           setOrderCurrent={setOrderCurrent}
           choice={"order"}
         />
-        <p
-          className={styles.optionsLabel}
-          style={{ padding: "5vh", width: "30%", marginLeft: "-35vh" }}
-        >
+        <p className={`${styles.optionsLabel} ${styles.orderLabel}`}>
           {orderCurrent}
         </p>
         <DropdownMenu
@@ -86,18 +83,17 @@ const Navbar = () => {
           setOrderCurrent={setOrderCurrent}
           choice={"filter"}
         />
-        <p className={styles.optionsLabel} style={{ marginLeft: "-22vh" }}>
+        <p className={`${styles.optionsLabel} ${styles.filterLabel}`}>
           {filterCurrent}
         </p>
       </div>
       <NavLink
         to={"/favorites"}
-        className={styles.links}
-        style={{ textDecoration: "none", marginLeft: "-20vh" }}
+        className={`${styles.links} ${styles.favoritesLabel}`}
       >
         <p>Favorites</p>
       </NavLink>
-      <NavLink to="/create" style={{ textDecoration: "none", color: "black" }}>
+      <NavLink to="/create" className={`${styles.links} ${styles.createLabel}`}>
         <div className={styles.links}>
           <p>Create</p>
         </div>

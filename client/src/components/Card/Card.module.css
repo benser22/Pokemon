@@ -51,8 +51,9 @@
 }
 
 .pokemonImage {
-  margin: -4vh;
+  margin-top: -3vh;
   margin-bottom: 4vh;
+  max-height: 20vh;
 }
 
 .pokemonName {
@@ -241,4 +242,87 @@ Estilos dinamicos para los fondos de las cartas
 
 .waterBackground {
   background-image: url("../../assets/types/background/water1.png");
+}
+
+/*?  RESPONSIVE MODE   */
+
+@media only screen and (max-width: 576px) {
+  .cardContainer {
+    margin: unset;
+    height: min-content;
+    width: min-content;
+    margin-left: 1vh;
+    margin-top: 21vh;
+  }
+  
+  .card {
+    margin-top: unset;
+    margin-bottom: unset;
+    margin-left: unset;
+    margin-right: unset;
+    margin-bottom: -15vh;
+    gap: unset;
+    border-radius: 8px;
+    height: 16vh;
+    min-width: 12vh;
+    max-width: 12vh;
+  }
+
+  .pokemonName {
+    font-size: 0.5em;
+    margin-top: 3vh;
+    margin-bottom: 0.5vh;
+  }
+
+  .body {
+    gap: 1vh;
+  }
+
+  .pokemonImage {
+    min-width: 6vh;
+    min-height: 8vh;
+    max-height: 9vh;
+    margin-top: -5px;
+    margin-bottom: 40%;
+    margin-left: 1vh;
+  }
+
+  .type {
+    font-size: 0.4rem;
+    margin-top: -0.8vh;
+    height: 1vh;
+    margin-bottom: 1.2vh;
+  }
+
+  .typeImage {
+    width: 10px;
+    height: 10px;
+    margin-right: 1vh;
+    border-radius: 8px;
+  }
+
+  .ids {
+    font-size: 0.35em;
+    margin-right: 8px;
+    margin-top: -3px;
+  }
+
+  .deleteIcon {
+    width: 11px;
+    height: 10px;
+    margin-right: 1vh;
+  }
+
+  .star {
+    height: 2.5vh;
+  }
+
+  .shiny {
+    font-size: 7px;
+  }
+
+  .checkShiny {
+    height: 8px;
+  }
+
 }

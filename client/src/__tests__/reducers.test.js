@@ -23,7 +23,7 @@ const initialState = {
 
 describe("Test Redux: Reducers", () => {
   it("should handle ADD_POKEMON", async () => {
-    const pokemonData = { id: 2222, name: "Pokechanta" };
+    const pokemonData = { id: 2222, name: "Homero Pokemon" };
     const action = { type: ADD_POKEMON, payload: pokemonData };
 
     const newState = rootReducer(initialState, action);
@@ -32,13 +32,10 @@ describe("Test Redux: Reducers", () => {
   });
 
   it("should handle DELETE_POKEMON", () => {
-    const initialState = {
-      pokemons: [{ id: 22, name: "Pokechanta" }],
-    };
 
     const action = {
       type: DELETE_POKEMON,
-      payload: 22,
+      payload: 2222,
     };
 
     const newState = rootReducer(initialState, action);

@@ -153,7 +153,6 @@ export default function Card({
             style={{
               height: "max-content",
               width: "max-content",
-              maxHeight: "20vh",
             }}
           />
         </div>

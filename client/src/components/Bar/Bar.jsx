@@ -24,6 +24,10 @@ const StatLabel = styled.div`
   flex: 1;
   margin-right: -1vh;
   margin-bottom: 0.5vh;
+
+  @media only screen and (max-width: 576px) {
+    font-size: 10px;
+  }
 `;
 
 const StatBar = styled.div`
@@ -43,6 +47,11 @@ const SpanValue = styled.span`
   font-weight: bold;
   margin-left: 1vh;
   letter-spacing: 0.1em;
+  /*?  RESPONSIVE MODE   */
+
+@media only screen and (max-width: 576px) {
+  font-size: 10px;
+}
 `;
 
 const Bar = ({ tag, value, maxValue }) => {

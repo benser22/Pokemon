@@ -19,11 +19,16 @@ const Home = ({ noTesting = true }) => {
   const filterOption = useSelector((state) => state.filteredType);
   const created = useSelector((state) => state.created);
   const [currentPage, setCurrentPage] = useState(1);
-  const pokemonsPerPage = 12;
-  const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
   const [isLoading, setIsLoading] = useState(noTesting);
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  
+  // const pokemonsPerPage = 12;
+  
+  // Determine la cantidad de tarjetas por página en función de si es móvil o no
+  const isMobile = window.innerWidth <= 580; // Puedes ajustar este valor según tus necesidades
+  const pokemonsPerPage = isMobile ? 9 : 12;
+  const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
 
   //? Efecto para precargar las imagenes, mejorando el UX
   useEffect(() => {

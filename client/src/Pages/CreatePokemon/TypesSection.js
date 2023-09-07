@@ -6,7 +6,7 @@ function TypesSection({ allTypes, selectedTypes, handleTypeChange }) {
     <div>
       <h2
         id="pokelabeltypes"
-        className={styles.formLabel}
+        className={styles.TypeLabel}
         style={{ marginLeft: "50%", marginTop: "0%", fontSize: "1em" }}
       >
         Types

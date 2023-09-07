@@ -67,6 +67,7 @@ const getAllPokemons = async (req, res) => {
         attack,
         defense,
       } = pokemon.dataValues;
+
       return {
         id,
         name,

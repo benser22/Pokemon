@@ -3,20 +3,32 @@ import styles from "./DropdownMenu.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { filter, order } from "../../redux/actions/actions";
 
-const DropdownMenu = ({ title, options, setOrderCurrent, setfilterCurrent, choice}) => {
+const DropdownMenu = ({
+  title,
+  options,
+  setOrderCurrent,
+  setfilterCurrent,
+  choice,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const dispatch = useDispatch();
   const filterLabel = useSelector((state) => state.filteredType);
   const orderLabel = useSelector((state) => state.orderOption);
   const directionLabel = useSelector((state) => state.orderDirection);
 
-  useEffect(() =>{
+  useEffect(() => {
     setOrderCurrent(orderLabel + " " + directionLabel);
-    setfilterCurrent(filterLabel)
-   }, [setfilterCurrent, setOrderCurrent, filterLabel, orderLabel, directionLabel] )
+    setfilterCurrent(filterLabel);
+  }, [
+    setfilterCurrent,
+    setOrderCurrent,
+    filterLabel,
+    orderLabel,
+    directionLabel,
+  ]);
 
   const handleItemClick = (option) => {
-    if (choice === "filter"){
+    if (choice === "filter") {
       const optionFilter = option.split(" ")[0];
       dispatch(filter(optionFilter));
       // setfilterCurrent(optionFilter);
@@ -25,7 +37,7 @@ const DropdownMenu = ({ title, options, setOrderCurrent, setfilterCurrent, choic
       const directionOrder = option.split(" ")[1] || " ";
       dispatch(order(optionOrder, directionOrder));
       // setOrderCurrent(optionOrder + " " + directionOrder);
-    } 
+    }
   };
 
   return (
@@ -34,7 +46,7 @@ const DropdownMenu = ({ title, options, setOrderCurrent, setfilterCurrent, choic
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <p>{title}</p>
+      <p className={styles[`${title.split(" ")[0]}`]}>{title}</p>
       {isHovered && (
         <div className={styles.dropdownContent}>
           {options.map((option, index) => (

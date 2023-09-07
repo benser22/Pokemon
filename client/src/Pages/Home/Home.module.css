@@ -155,3 +155,50 @@
     opacity: 1;
   }
 }
+
+/* RESPONSIVE MODE */
+
+@media only screen and (max-width: 576px) {
+  
+  .textNothing {
+    margin-top: 30vh;
+    margin-left: 8vh;
+    font-size: 1.5em;
+    color: rgb(255, 247, 0);
+  }
+  
+  .buttonContainer {
+    max-height: 7vh;
+    min-height: 7vh;
+  }
+
+  .pageButton {
+    margin-bottom: 2vh;
+    font-size: 8px;
+    padding: 1px 4px;
+    margin-right: 0vh;
+    margin-top: 2vh;
+    margin-left: 1vh;
+  }
+
+  .buttonContainer {
+    max-height: 6vh;
+    margin: unset;
+    padding: unset;
+  }
+
+  .checkView {
+    height: 10px;
+    margin-right: 1vh;
+  }
+
+  .viewCreated {
+    font-size: 6px;
+    letter-spacing: 1px;
+    margin-bottom: 4vh;
+    writing-mode: vertical-rl;
+    rotate: -90deg;
+    margin-left: 2vh;
+  }
+
+}

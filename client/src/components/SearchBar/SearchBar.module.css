@@ -1,18 +1,3 @@
-/* SearchBar.module.css */
-.searchBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-.searchAdd {
-  display: flex;
-  justify-content: center;
-  height: 2.5rem;
-  margin-bottom: 10px;
-}
-
 .searchAddForm {
   display: flex;
   justify-content: center;
@@ -261,4 +246,118 @@ footer
   font-weight: bold;
   margin-bottom: 1vh;
   margin-left: 50%;
+}
+
+/*?  RESPONSIVE MODE   */
+
+@media only screen and (max-width: 576px) {
+  .searchAddForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10vh;
+    margin-top: 4vh;
+    /* margin-right: -70vh; */
+    padding: unset;
+    width: 60vh;
+    margin-left: 30vh;
+  }
+
+  .searchInput {
+    width: 50%;
+    height: 3vh;
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+
+  .searchBarBtns {
+    padding: unset;
+    width: 5em;
+    height: 3vh;
+    /* margin-bottom: 1vh; */
+    font-size: 10px;
+  }
+
+  .modalContent,
+  .modalContent1 {
+    height: 95%;
+    font-size: 0.5em;
+    padding: 1%;
+  }
+
+  .modalContent1 button,
+  .modalContent button {
+    padding: 0.5vh;
+  }
+
+  .pokesad {
+    width: 25%;
+    height: 25%;
+  }
+
+  .pokemonDetails {
+    min-width: 50vh;
+    margin: 0;
+  }
+
+  .pokemonInfo {
+    font-size: 0.5em;
+    margin-bottom: 1vh;
+    width: 30vh;
+  }
+
+  .pokemonInfo p {
+    font-size: 0.5em;
+  }
+  .pokemonImg {
+    max-width: 30vh;
+    max-height: 30vh;
+    min-width: 30vh;
+    min-height: 30vh;
+    margin-top: -5vh;
+    margin-bottom: -2vh;
+  }
+
+  .pokemonName {
+    letter-spacing: 0.5em;
+    margin-top: -4%;
+    margin-bottom: 3vh;
+    font-size: 2.5em;
+  }
+
+  .headerModal {
+    font-size: 0.8em;
+    width: 50%;
+    margin-top: -1vh;
+  }
+
+  .FaTimes {
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    margin-top: 1vh;
+    margin-right: -10vh;
+    padding: 5px 7.5px;
+  }
+
+  .buttonAdd {
+    height: 5vh;
+    width: 60%;
+    margin-left: -10vh;
+    margin-top: -6vh;
+    margin-bottom: -3vh;
+  }
+
+  .typeImage {      
+    margin-top: -1vh;
+    margin-bottom: 1vh;
+  }
+  
+  .titleTypes {
+    display: none;
+  }
+
+
+
 }
