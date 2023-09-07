@@ -25,7 +25,7 @@ const deletePokemon = async (req, res) => {
     // Eliminar el Pokémon de la base de datos
     await pokemonToDelete.destroy();
 
-    res.status(200).json({ message: "Pokemon and related records deleted successfully" });
+    res.status(200).json({ message: "Pokemon deleted successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error deleting Pokemon" });

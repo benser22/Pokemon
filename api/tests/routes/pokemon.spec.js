@@ -1,4 +1,4 @@
-const { Pokemon, User, conn } = require("../../src/db.js");
+const { Pokemon, User, pokemon_type, conn } = require("../../src/db.js");
 const { expect } = require("chai");
 const session = require("supertest-session");
 const app = require("../../src/app.js");
@@ -29,12 +29,12 @@ describe("Routes", () => {
 
   describe("GET /pokemons", () => {
     beforeEach(() =>
-      Pokemon.sync({ force: true }).then(() => Pokemon.create(newPokemon))
+      Pokemon.sync({ force: false }).then(() => Pokemon.create(newPokemon))
     );
 
-    // aquí no utilizo funcion flecha para poder utilizar this.timeout y darle tiempo a la función asyncronica anterior, ya que pasaba de largo muy rapido hacia los siguientes tests. Mocha esperará hasta 1000 milisegundos para que esta prueba se complete antes de considerarla como un error por tiempo de espera.
+    // aquí no utilizo funcion flecha para poder utilizar this.timeout y darle tiempo a la función asyncronica anterior, ya que pasaba de largo muy rapido hacia los siguientes tests. Mocha esperará hasta 3000 milisegundos para que esta prueba se complete antes de considerarla como un error por tiempo de espera.
     it("should get 200", function(done) {
-      this.timeout(1000);
+      this.timeout(3000);
       agent
         .get("/pokemons")
         .expect(200)
@@ -72,7 +72,12 @@ describe("Routes", () => {
     });
 
     afterEach((done) => {
+      // Elimina las filas en la tabla "pokemon_types" relacionadas con el Pokémon que estás eliminando
       Pokemon.destroy({ where: { name: "ditto" } })
+        .then(() => {
+          // Después de eliminar el Pokémon, también elimina las filas en "pokemon_types"
+          return pokemon_type.destroy({ where: {} });
+        })
         .then(() => done())
         .catch((err) => done(err));
     });

@@ -68,7 +68,7 @@ function PokemonForm({
         <label htmlFor="pokename" className={styles.formLabel}>Name:</label>
         <input
           id="pokename"
-          className={styles.formInput}
+          className={styles.stringsImputs}
           type="text"
           value={name}
           onChange={(e) => handleInputChange("name", e.target.value)}
@@ -210,7 +210,7 @@ function PokemonForm({
         </label>
         <input
           id="pokeurl"
-          className={styles.formInput}
+          className={styles.stringsImputs}
           type="text"
           value={disableImageInput || randomImage ? "" : img}
           onChange={(e) => handleImageInputChange(e.target.value)}

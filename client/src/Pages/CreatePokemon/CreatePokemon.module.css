@@ -61,6 +61,7 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
+.stringsImputs,
 .formInput {
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   width: 100%;
@@ -70,7 +71,10 @@
   font-size: 13px;
   margin-right: 35vh;
   margin-bottom: 5px;
-  padding: 4px;
+}
+
+.stringsImputs{
+  padding: 6px;
 }
 
 .formButton {

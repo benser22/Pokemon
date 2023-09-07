@@ -62,8 +62,6 @@ const Form = ({ onClose, newSesion }) => {
   const handleRegister = async () => {
     const { email, password } = userData;
     const URL = "http://localhost:3001/pokemons";
-    // const URL = "https://pokemonapi-production-fda4.up.railway.app/pokemons";
-
 
     try {
       if (!email.trim() || !password.trim()) {
@@ -75,7 +73,7 @@ const Form = ({ onClose, newSesion }) => {
           setText(`Congratulations, you have successfully registered`)
           setTimeout(() => {
             loginForm(response);
-          }, 3000);
+          }, 2000);
         } else {
           throw new Error("Failed to create user");
         }
@@ -107,9 +105,6 @@ const Form = ({ onClose, newSesion }) => {
         const { data } = await axios.get(
           `http://localhost:3001/pokemons/login/${email}&${password}`
         );
-        // const { data } = await axios.get(
-        //   `https://pokemonapi-production-fda4.up.railway.app/pokemons/login/${email}&${password}`
-        // );
         await dispatch(getAccesUser());
           
         if (data.user) {
