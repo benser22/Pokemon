@@ -10,9 +10,9 @@ import Details from "./Pages/Details/Details";
 import Favorites from "./components/Favorites/Favorites";
 
 function App() {
-  // Obtener la ubicación actual usando useLocation
+  // Obtengo la ubicación actual usando useLocation
   const location = useLocation();
-  // Verificar si la ruta es "/"
+  // Verifico si la ruta es "/" o la del Error404 para no mostrar la nav
   const notNav = location.pathname === "/" || location.pathname === "/error404";    
 
   return (

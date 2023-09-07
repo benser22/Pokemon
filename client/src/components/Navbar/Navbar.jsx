@@ -12,8 +12,8 @@ import { TYPES, ORDERS } from "../../constants/types";
 
 const Navbar = () => {
   const location = useLocation();
-  const [logout, setLogout] = useState(false); // Estado para controlar si se ha realizado el cierre de sesión
-  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
+  const [logout, setLogout] = useState(false); 
+  const [showModal, setShowModal] = useState(false); 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();

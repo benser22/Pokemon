@@ -1,8 +1,6 @@
 // controllers/favoritesController.js
 const { User, Favorite } = require("../db");
 
-// ... (otros controladores y funciones)
-
 // Eliminar un favorito de un usuario por nombre de Pokémon
 const deleteFavoriteByUser = async (req, res) => {
   const userId = req.params.userId;

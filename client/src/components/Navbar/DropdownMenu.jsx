@@ -31,12 +31,10 @@ const DropdownMenu = ({
     if (choice === "filter") {
       const optionFilter = option.split(" ")[0];
       dispatch(filter(optionFilter));
-      // setfilterCurrent(optionFilter);
     } else {
       const optionOrder = option.split(" ")[0];
       const directionOrder = option.split(" ")[1] || " ";
       dispatch(order(optionOrder, directionOrder));
-      // setOrderCurrent(optionOrder + " " + directionOrder);
     }
   };
 

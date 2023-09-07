@@ -169,7 +169,7 @@ describe("User Registration", () => {
           if (err) return done(err);
           expect(res.text).to.contain(`${newUser.email} created successfully`);
 
-          // Delete the user after creation
+          // Delete el usuario nuevo despues de la creación
           User.destroy({ where: { email: newUser.email } })
             .then(() => {
               done();

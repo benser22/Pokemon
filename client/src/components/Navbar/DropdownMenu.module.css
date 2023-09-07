@@ -1,95 +1,87 @@
-
-  .dropdown {
-    color: white;
-    font-family: "fuentePokemon", "Times New Roman", Times, serif;
-    letter-spacing: 2px;
-    font-weight:lighter;
-    font-size: 12px;
-    text-align: center;
-    cursor: pointer;
-    text-shadow: 1px 1px 1px rgb(0, 0, 0);
-    width: 30vh;
-    margin-right: 5vh;
-    margin-left: -6vh;
-  }
-
-  .dropdown:hover{
-    box-shadow: #213770;
-    filter: brightness(120%);
-    color: yellow;
+.dropdown {
+  color: white;
+  font-family: "fuentePokemon", "Times New Roman", Times, serif;
+  letter-spacing: 2px;
+  font-weight: lighter;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
+  width: 30vh;
+  margin-right: 5vh;
+  margin-left: -6vh;
 }
-  
-  .dropdown span {
-    font-weight: bold;
-  }
-  
-  .dropdownContent {
-    margin-top: 1.5%;
-    width: 30vh;
-    min-width: max-content;
-    font-size: 10px;
-    position: absolute;
-    display: none;
-    color: white;
-    font-family: "fuentePokemon", "Times New Roman", Times, serif;
-    border-radius: 0 0 8px 8px;
-    letter-spacing: 4px;
-    font-weight: lighter;
-    text-align: center;
-    text-shadow: 1px 1px 1px rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-  
-  .dropdownContent p {
-    transition: color 0.2s; 
-    margin-top: -5px;
-    margin-bottom: 5px;
-  }
-  
-  .dropdownContent p:hover {
-    color: #c3a209; 
-  }
-  
-  .dropdown:hover .dropdownContent {
-    display: block;
-  }
-  
 
-  /*?  RESPONSIVE MODE   */
+.dropdown:hover {
+  box-shadow: #213770;
+  filter: brightness(120%);
+  color: yellow;
+}
+
+.dropdown span {
+  font-weight: bold;
+}
+
+.dropdownContent {
+  margin-top: 1.5%;
+  width: 30vh;
+  min-width: max-content;
+  font-size: 10px;
+  position: absolute;
+  display: none;
+  color: white;
+  font-family: "fuentePokemon", "Times New Roman", Times, serif;
+  border-radius: 0 0 8px 8px;
+  letter-spacing: 4px;
+  font-weight: lighter;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dropdownContent p {
+  transition: color 0.2s;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+.dropdownContent p:hover {
+  color: #c3a209;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+/*?  RESPONSIVE MODE   */
 
 @media only screen and (max-width: 576px) {
-
   .dropdown {
     position: absolute;
     font-size: 1.5vh;
     top: 5%;
-
   }
 
   .dropdownContent {
-    margin-top: 11.70vh;
+    margin-top: 11.7vh;
     width: 25vh;
     left: 55%;
   }
   .dropdownContent p {
     font-size: 0.8vh;
   }
-  
-   
-  .Order{
+
+  .Order {
     position: absolute;
     width: max-content;
     right: 20%;
     margin-top: 7vh;
   }
-  
-  
-  .Filter{
+
+  .Filter {
     position: absolute;
     width: max-content;
     right: -35%;
     margin-top: 7vh;
   }
-
-  
-  }
+}

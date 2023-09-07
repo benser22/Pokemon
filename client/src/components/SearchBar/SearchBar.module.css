@@ -258,7 +258,6 @@ footer
     align-items: center;
     margin-bottom: 10vh;
     margin-top: 4vh;
-    /* margin-right: -70vh; */
     padding: unset;
     width: 60vh;
     margin-left: 30vh;
@@ -275,7 +274,6 @@ footer
     padding: unset;
     width: 5em;
     height: 3vh;
-    /* margin-bottom: 1vh; */
     font-size: 10px;
   }
 

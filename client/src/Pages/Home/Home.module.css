@@ -1,7 +1,6 @@
 /* Home.module.css */
 .container {
   background-image: url("/src/assets/backgrounds/backG1.png");
-  /* background-image: url("/src/assets/backgrounds/pokemonfondo.png"); */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

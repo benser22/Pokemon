@@ -20,7 +20,7 @@ function PokemonForm({
   const [displayValidation, setDisplayValidation] = useState({});
   const [disableImageInput, setDisableImageInput] = useState(false);
   const [randomImage, setRandomImage] = useState(false);
-  const numericHeight = parseFloat(height); // Convertir a número
+  const numericHeight = parseFloat(height);
 
   const handleRandomImageChange = () => {
     setRandomImage(!randomImage);

@@ -1,4 +1,3 @@
-// controllers/postFavoritesController.js
 const { User, Favorite } = require("../db");
 
 const postFavoritesByUser = async (req, res) => {
@@ -30,7 +29,7 @@ const postFavoritesByUser = async (req, res) => {
     }
     
     const [favorite, favoriteCreated] = await Favorite.findOrCreate({
-      where: { name, userId: user.id }, // Agrega userId para asegurarte de buscar solo para el usuario actual
+      where: { name, userId: user.id }, // Agrego userId para asegurarme de buscar solo para el usuario actual
       defaults: {
         name,
         userId: user.id,
@@ -63,7 +62,7 @@ const postFavoritesByUser = async (req, res) => {
           .json({ message: "Favorite already added to user" });
       }
 
-      // Asociar el favorito al usuario
+      // Asocio el favorito al usuario
       await user.addFavorite(favorite);
     }
     return res

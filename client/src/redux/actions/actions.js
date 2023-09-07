@@ -50,8 +50,6 @@ export const login = (data) => {
   };
 };
 
-// En el archivo "actions.js" (o donde definas tus acciones)
-
 export const logoutAction = () => {
   return async function (dispatch) {
     try {
@@ -123,7 +121,7 @@ export const postFavoritesByUser = (idUser, info) => {
         payload: data,
       });
     } catch (error) {
-      throw Error (error.message);
+      throw Error(error.message);
     }
   };
 };

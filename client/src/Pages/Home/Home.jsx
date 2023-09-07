@@ -22,11 +22,9 @@ const Home = ({ noTesting = true }) => {
   const [isLoading, setIsLoading] = useState(noTesting);
   const userCurrent = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  
-  // const pokemonsPerPage = 12;
-  
-  // Determine la cantidad de tarjetas por página en función de si es móvil o no
-  const isMobile = window.innerWidth <= 580; // Puedes ajustar este valor según tus necesidades
+
+  const isMobile = window.innerWidth <= 580;
+  // Ajusto la cantidad de pokemons que se van a mostrar en pantalla de acuerdo a si es un celular
   const pokemonsPerPage = isMobile ? 9 : 12;
   const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
 
@@ -45,26 +43,30 @@ const Home = ({ noTesting = true }) => {
       });
     });
 
-      // Precarga de las imágenes desde el objeto IMAGES
-  Object.values(IMAGES).map((url) => {
-    return new Promise((resolve) => {
-      const img = new Image(); // Crea un objeto de imagen
-      img.src = url; // Establece la fuente de la imagen
+    // Precarga de las imágenes desde el objeto IMAGES
+    Object.values(IMAGES).map((url) => {
+      return new Promise((resolve) => {
+        const img = new Image(); // Crea un objeto de imagen
+        img.src = url; // Establece la fuente de la imagen
 
-      // Configura el evento onload que se ejecutará cuando la imagen se cargue
-      img.onload = () => {
-        resolve(); // Resuelve la promesa cuando la imagen se carga. Cuando se llama a resolve(), la promesa se considera resuelta exitosamente.
-      };
+        // Configura el evento onload que se ejecutará cuando la imagen se cargue
+        img.onload = () => {
+          resolve(); // Resuelve la promesa cuando la imagen se carga. Cuando se llama a resolve(), la promesa se considera resuelta exitosamente.
+        };
+      });
     });
-  });
 
     // eslint-disable-next-line
   }, [pokemons.length]);
 
-
   //? Precargo los favoritos en la home para que se rendericen correctamente las estrellitas
   useEffect(() => {
-    if (userCurrent.id && filterOption === "-" && orderOption === "-" && !created) {
+    if (
+      userCurrent.id &&
+      filterOption === "-" &&
+      orderOption === "-" &&
+      !created
+    ) {
       dispatch(getFavoritesByUser(userCurrent.id));
     }
     // eslint-disable-next-line

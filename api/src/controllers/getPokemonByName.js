@@ -1,7 +1,7 @@
 const axios = require("axios");
 const URL = "https://pokeapi.co/api/v2/pokemon/";
 const formatData = require("../utils/formatData");
-const { Pokemon, Type } = require("../db"); // Importa tu modelo Pokemon
+const { Pokemon, Type } = require("../db"); 
 
 async function getPokByName(req, res) {
   let name = req.query.name.toLowerCase();
@@ -27,10 +27,10 @@ async function getPokByName(req, res) {
           return res.status(404).json({ message: "Pokémon not found." });
         }
         
-        // Obtén los nombres de los tipos desde el resultado
+        // Obtengo los nombres de los tipos desde el resultado
         const mytypes = dbResult.types.map((type) => type.dataValues.name)
 
-        // Asigna los datos del pokémon encontrado junto con los nombres de los tipos
+        // Asigno los datos del pokémon encontrado junto con los nombres de los tipos
         const pokemonData = {
           ...dbResult.dataValues,
           types: mytypes,

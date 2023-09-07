@@ -1,4 +1,3 @@
-// reducers.test.js
 import rootReducer from "../redux/reducer/reducer";
 import {
   ORDER,

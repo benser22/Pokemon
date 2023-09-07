@@ -1,7 +1,5 @@
-// Home.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { getTypes, getFavoritesByUser } from "../../redux/actions/actions";
 import styles from "./Favorites.module.css";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader2";
