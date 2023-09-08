@@ -83,11 +83,6 @@
   border-radius: 8px;
   cursor: pointer;
 
-  &:hover {
-    filter: brightness(1.2);
-    box-shadow: 0 0 2px #ffffff;
-  }
-
   &:active {
     transform: translateY(1px);
     color: lightgray;
@@ -119,9 +114,9 @@
   padding: 10px 15px;
 }
 
-.close:hover {
+/* .close:hover {
   color: #c0df3e;
-}
+} */
 
 .close:active {
   transform: scale(0.8);
@@ -170,12 +165,9 @@
   margin-left: 100%;
   margin-top: -1vh;
 }
-.onClose:hover {
-  color: lightgray;
-}
+
 .onClose:active {
   transform: translateY(1px);
-  color: white;
 }
 
 /* RESPONSIVE MODE */

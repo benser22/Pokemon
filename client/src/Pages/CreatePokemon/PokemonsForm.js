@@ -22,20 +22,19 @@ function PokemonForm({
   const [randomImage, setRandomImage] = useState(false);
   const numericHeight = parseFloat(height);
 
-  const handleRandomImageChange = () => {
-    setRandomImage(!randomImage);
+  useEffect(() => {
     if (randomImage) {
-      setImg(""); // Limpia la imagen si desactivas "Random image"
+      let randomIndex = 0;
+      randomIndex = Math.floor(Math.random() * pokemonImages.length);
+      setImg(pokemonImages[randomIndex].url);
     }
-  };
-
-  const handleImageCheckboxChange = () => {
-    setDisableImageInput(!disableImageInput);
-  };
+    // eslint-disable-next-line
+  }, [randomImage]);
 
   useEffect(() => {
     disableImageInput ? setImg("default") : setImg(img);
-  }, [disableImageInput, img, setImg]);
+    // eslint-disable-next-line
+  }, [disableImageInput]);
 
   useEffect(() => {
     setDisplayValidation(validation);
@@ -48,13 +47,16 @@ function PokemonForm({
     };
   }, [validation]);
 
-  useEffect(() => {
+  const handleRandomImageChange = () => {
+    setRandomImage(!randomImage);
     if (randomImage) {
-      let randomIndex = 0;
-      randomIndex = Math.floor(Math.random() * pokemonImages.length);
-      setImg(pokemonImages[randomIndex].url);
+      setImg(""); // Limpia la imagen si desactivas "Random image"
     }
-  }, [randomImage, setImg]);
+  };
+
+  const handleImageCheckboxChange = () => {
+    setDisableImageInput(!disableImageInput);
+  };
 
   const handleImageInputChange = (value) => {
     if (!disableImageInput && !randomImage) {
@@ -65,7 +67,9 @@ function PokemonForm({
   return (
     <form onSubmit={handleSubmit} data-testid="pokemon-form">
       <div className={styles.formGroup}>
-        <label htmlFor="pokename" className={styles.formLabel}>Name:</label>
+        <label htmlFor="pokename" className={styles.formLabel}>
+          Name:
+        </label>
         <input
           id="pokename"
           className={styles.stringsImputs}
@@ -221,7 +225,7 @@ function PokemonForm({
           }}
         />
         <label htmlFor="pokecheck1" className={styles.checkboxLabel}>
-          <input 
+          <input
             id="pokecheck1"
             type="checkbox"
             checked={disableImageInput}

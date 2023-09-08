@@ -108,6 +108,7 @@ footer
 }
 
 .mybutton {
+  margin-top: -4vh;
   width: 20px;
   padding: 8px;
   border-radius: 8px;

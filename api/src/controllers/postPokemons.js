@@ -88,7 +88,6 @@ const postPokemons = async (req, res) => {
       types,
     };
 
-    console.log(dataValues);
     res.status(201).json(dataValues);
   } catch (error) {
     console.error(error);

@@ -14,11 +14,14 @@ function App() {
   const location = useLocation();
   // Verifico si la ruta es "/" o la del Error404 para no mostrar la nav
   const notNav = location.pathname === "/" || location.pathname === "/error404";    
+  
+  // Verifico si la ruta es "/detail" de cualquier pokemon
+  const isDetailPage = /^\/detail\/\d+$/.test(location.pathname);
 
   return (
     <div className="App">
-      {/* Renderizar la Navbar solo si no es la página de inicio */}
-      {!notNav && <Navbar />}
+      {/* Renderizar la Navbar solo si no es la página de inicio, error404 o detail*/}
+      {!notNav && !isDetailPage && <Navbar />}
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
