@@ -133,6 +133,8 @@
   gap: 1vh;
 }
 .star {
+  cursor: pointer;
+  width: 24px;
   margin-bottom: 6vh;
 }
 
