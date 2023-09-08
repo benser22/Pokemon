@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "react-modal";
+import ConfirmationModal from "../Modals/ConfirmationModal";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/images/3dhome.png";
 import logo2 from "../../assets/images/logo.webp";
@@ -9,11 +9,15 @@ import SearchBar from "../SearchBar/SearchBar";
 import { logoutAction } from "../../redux/actions/actions";
 import DropdownMenu from "./DropdownMenu";
 import { TYPES, ORDERS } from "../../constants/types";
+import ResultSearch from "../ResultSearch/ResultSearch";
 
 const Navbar = () => {
   const location = useLocation();
-  const [logout, setLogout] = useState(false); 
-  const [showModal, setShowModal] = useState(false); 
+  const [logout, setLogout] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [searchId, setSearchId] = useState(0);
+  const [searchName, setSearchName] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,6 +26,18 @@ const Navbar = () => {
 
   const orderByOptions = ["RESET", ...ORDERS];
   const filterByOptions = ["RESET", ...TYPES];
+
+  useEffect(() => {
+    if (searchId !== 0 || searchName !== "") {
+      setOpenModal(true);
+      handleClean();
+    }
+  }, [searchId, searchName]);
+
+  const handleClean = () => {
+    setSearchId(null);
+    setSearchName(null);
+  };
 
   useEffect(() => {
     // Si el usuario no está autenticado, redirigir a la página de inicio
@@ -35,12 +51,6 @@ const Navbar = () => {
     setShowModal(true); // Muestro el modal de confirmación de cierre de sesión
   };
 
-  const handleConfirmLogout = () => {
-    setLogout(true); // Actualizo el estado de 'logout' para indicar que se ha realizado el cierre de sesión
-    setShowModal(false); // Oculto el modal de confirmación de cierre de sesión
-    dispatch(logoutAction());
-  };
-
   useEffect(() => {
     if (logout) {
       navigate("/"); // Redirijo al usuario a la página de inicio cuando se realiza el cierre de sesión
@@ -48,6 +58,10 @@ const Navbar = () => {
     }
     // eslint-disable-next-line
   }, [logout]);
+
+  const closeModals = () => {
+    setShowModal(false);
+  };
 
   return (
     <nav className={styles.container}>
@@ -63,7 +77,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className={styles.links}>
-        <SearchBar></SearchBar>
+        <SearchBar setSearchId={setSearchId} setSearchName={setSearchName} />
       </div>
       <div className={styles.drop}>
         <DropdownMenu
@@ -111,40 +125,18 @@ const Navbar = () => {
           {user?.firstName}
         </p>
       </NavLink>
-      <Modal
-        isOpen={showModal}
-        onRequestClose={() => setShowModal(false)}
-        contentLabel="Confirm Logout"
-        className={styles.modalContent}
-        overlayClassName={styles.modalOverlay}
-        appElement={document.getElementById("root")}
-      >
-        <h2 className={styles.myh2}>Confirm Logout</h2>
-        <hr
-          style={{
-            width: "100%",
-            boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
-          }}
-        ></hr>
-        <p
-          style={{
-            fontWeight: "bold",
-            fontFamily: "sans-serif",
-            fontSize: "14px",
-          }}
-        >
-          Are you sure you want to log out?
-        </p>
-        <button style={{ fontSize: "14px" }} onClick={handleConfirmLogout}>
-          Logout
-        </button>
-        <button
-          style={{ fontSize: "14px" }}
-          onClick={() => setShowModal(false)}
-        >
-          Cancel
-        </button>
-      </Modal>
+      {openModal && (
+        <ResultSearch
+          setOpenModal={setOpenModal}
+        ></ResultSearch>
+      )}
+      {showModal && (
+        <ConfirmationModal
+          onClose={closeModals}
+          setLogout={setLogout}
+          logout={logout}
+        />
+      )}
     </nav>
   );
 };
