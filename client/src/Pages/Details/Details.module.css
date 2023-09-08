@@ -192,9 +192,9 @@ footer
 
   .mybutton {
     border-radius: 4px;
-    font-size: 1em;
+    font-size: 0.8em;
     width: 3.5em;
-    margin-top: 6vh;
-    margin-right: 45vh;
+    margin-left: 10vh;
+    margin-top: 10vh;
   }
 }

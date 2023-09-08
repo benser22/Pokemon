@@ -94,7 +94,6 @@
   }
 }
 
-
 .error {
   color: rgb(251, 16, 16);
   font-size: 12px;
@@ -145,7 +144,6 @@
 
 .showPasswordButton {
   cursor: pointer;
-  max-width: unset;
   padding: 8px;
   height: 31px;
   background: #e8f0fe;
@@ -156,12 +154,13 @@
   z-index: 999999;
 }
 
-.eyes{
+.eyes {
   background-color: #e8f0fe;
-  width: 20px;
-  padding: 1px;
+  width: 2.5vh;
+  height: max-content;
+  padding: 2px;
+  border: none;
 }
-
 
 .onClose {
   height: 20px;
@@ -182,8 +181,22 @@
 /* RESPONSIVE MODE */
 
 @media only screen and (max-width: 576px) {
-  .myButton{
+  .myButton {
     padding: 8px;
     font-size: 12px;
+  }
+
+  .showPasswordButton {
+    background: #e8f0fe;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .eyes {
+    background-color: #e8f0fe;
+    width: 2.5vh;
+    height: auto;
+      padding: unset;
+    border: none;
   }
 }

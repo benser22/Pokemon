@@ -135,6 +135,7 @@
 .star {
   cursor: pointer;
   width: 24px;
+  height: 24px;
   margin-bottom: 6vh;
 }
 
@@ -316,6 +317,7 @@ Estilos dinamicos para los fondos de las cartas
   }
 
   .star {
+    width: 2.5vh;
     height: 2.5vh;
   }
 

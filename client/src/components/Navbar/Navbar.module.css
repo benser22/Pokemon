@@ -185,7 +185,8 @@ Abajo todo el modal
 
   .logout {
     position: absolute;
-    left: 52%;
+    width: 100%;
+    left: 20%;
     top: 0;
     margin-top: 2vh;
   }
