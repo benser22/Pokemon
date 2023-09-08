@@ -1,7 +1,7 @@
 const axios = require("axios");
 const URL = "https://pokeapi.co/api/v2/pokemon/";
 const formatData = require("../utils/formatData");
-const { Pokemon, Type, pokemon_type } = require("../db");
+const { Pokemon, Type, pokemon_type, Favorite } = require("../db");
 
 async function getPokById(req, res) {
   const { id } = req.params;
@@ -20,11 +20,20 @@ async function getPokById(req, res) {
     } catch (apiError) {
       // Si no se encuentra en la PokeAPI, intento buscar en la base de datos.
       try {
-        // Busco el pokémon en la base de datos sin incluir la relación con Type
         const dbResult = await Pokemon.findByPk(id);
 
         if (!dbResult) {
-          return res.status(404).json({ message: "Pokémon not found." });
+          try {
+            // utilizo findOne y no findByPK, porque en la lógica de mi modelo de Favorite, id no es primarykey...
+            const favoriteResult = await Favorite.findOne({
+              where: { id: id },
+            });
+            // Si se encuentra en la tabla "Favorite"...
+            return res.status(200).json(favoriteResult);
+          } catch (error) {
+            // Si ocurre un error en la búsqueda en la tabla "Favorite"...
+            return res.status(404).json({ message: "Pokémon not found." });
+          }
         }
 
         // Busco los registros de la tabla intermedia pokemon_type relacionados con el Pokémon.
@@ -52,7 +61,7 @@ async function getPokById(req, res) {
           return type ? type.name : null;
         });
 
-        // Construye el objeto con los datos del Pokémon incluyendo los nombres de los tipos.
+        // Construyo el objeto con los datos del Pokémon incluyendo los nombres de los tipos.
         const pokemonData = {
           ...dbResult.dataValues,
           types: typeNames,

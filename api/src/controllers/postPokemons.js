@@ -1,4 +1,4 @@
-const { Pokemon, Type } = require("../db");
+const { Pokemon, Type, Favorite } = require("../db");
 
 const postPokemons = async (req, res) => {
   try {
@@ -33,13 +33,17 @@ const postPokemons = async (req, res) => {
 
     if (img === "default") img = "https://i.ibb.co/m0smdZW/default.png";
     
-    // Obtengo el último id de la tabla Pokemon
     let lastPokemon = await Pokemon.findOne({
       order: [["id", "DESC"]],
     });
 
-    // Calculo el nuevo id sumándole 1 al último id, y si es el primer registro lo inicializo en 5000 para no tener problemas con los id que vienen de la Api
-    let newId = lastPokemon ? lastPokemon.id + 1 : 5000;
+    // Obtengo el último ID de la tabla Favorites
+    let lastFavorite = await Favorite.findOne({
+      order: [["id", "DESC"]],
+    });
+
+    // Calculo el nuevo ID sumándole 1 al mayor ID entre ambas tablas, inicializado en 5000
+    let newId = Math.max(lastPokemon ? lastPokemon.id : 4999, lastFavorite ? lastFavorite.id : 4999) + 1;
 
     let newPokemon = await Pokemon.create({
       id: newId,
@@ -72,7 +76,7 @@ const postPokemons = async (req, res) => {
 
     const dataValues = {
       id: newId,
-      name,
+      name: lowerCaseName,
       img,
       hp,
       attack,
@@ -83,6 +87,8 @@ const postPokemons = async (req, res) => {
       created,
       types,
     };
+
+    console.log(dataValues);
     res.status(201).json(dataValues);
   } catch (error) {
     console.error(error);
