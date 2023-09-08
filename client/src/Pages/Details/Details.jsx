@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  getPokemonDetails,
-  clearStatePokemon,
-} from "../../redux/actions/actions.js";
+import { getPokemonDetails, clearStatePokemon } from "../../redux/actions/actions.js";
 import styles from "./Details.module.css";
 import { IMAGES } from "../../constants/types.js";
-import { FaHome } from "react-icons/fa";
+import HomeIcon from "../../assets/images/3dhome.png";
 import Loader from "../../components/Loader/Loader2";
 import imgDefault from "../../assets/default.png";
 import Bar from "../../components/Bar/Bar.jsx";
@@ -113,13 +110,7 @@ const Details = ({ noTesting = true }) => {
             </div>
           </>
         )}
-        <button
-          className={styles.mybutton}
-          onClick={handleHomeClick}
-          title="Back to Home"
-        >
-          <FaHome />
-        </button>
+          <img src={HomeIcon} alt="Homeicon" title="Back to home" className={styles.mybutton} onClick={handleHomeClick}/>
       </div>
     </div>
   );

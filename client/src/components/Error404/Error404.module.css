@@ -18,22 +18,24 @@
 }
 
 .mybutton {
+  width: 40px;
   margin: 0;
   padding: 6px 10px;
   font-size: 28px;
-  background-color: #277280;
-  color: #ffffff;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
+  filter: brightness(90%);
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .mybutton:hover {
-  filter: brightness(120%);
-  color: #ffcb05;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-
+  filter: brightness(90%);
 }
+
+.mybutton:active {
+  transform: translateY(2px);
+}
+
 
 

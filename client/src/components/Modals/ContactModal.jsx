@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { FaBroom } from "react-icons/fa";
+import broom from "../../assets/extras/broom.png";
 import axios from "axios";
 import MessageModal from "../../components/Modals/MessageModal";
 
@@ -13,14 +13,11 @@ const ContactForm = ({ onClose }) => {
     message: "",
   });
 
-
-
   const handleClose = () => {
-    setText("")
-    setMessageOpen(false)
+    setText("");
+    setMessageOpen(false);
     return;
   };
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -106,21 +103,28 @@ const ContactForm = ({ onClose }) => {
               Submit
             </SubmitButton>
             <ResetButton id="buttonreset" type="button" onClick={handleReset}>
-              <FaBroom id="button clean" title="Clean form" />
+              <IconWrapper>
+                <IconImage src={broom} alt="Broom Icon" title="clean data"/>
+              </IconWrapper>{" "}
             </ResetButton>
           </ButtonContainer>
         </Form>
       </FormContainer>
-      
-  {isMessage && (
-    <MessageModal
-      onClose={handleClose}
-      message={text}
-    />
-  )}
+
+      {isMessage && <MessageModal onClose={handleClose} message={text} />}
     </Overlay>
   );
 };
+
+const IconWrapper = styled.div`
+  width: 16px;
+  height: 16px; 
+`;
+
+const IconImage = styled.img`
+  width: 100%;
+  height: 100%;
+`;
 
 const pressAnimation = keyframes`
   0% {
@@ -213,7 +217,7 @@ const Button = styled.button`
     animation: ${pressAnimation} 0.2s ease;
     transform: translateY(3px);
   }
-  
+
   @media only screen and (max-width: 576px) {
     padding: 8px;
     font-size: 12px;
@@ -248,7 +252,7 @@ const CloseButton = styled.button`
     animation: ${pressAnimation} 0.2s ease;
     transform: translateY(3px);
   }
-  
+
   @media only screen and (max-width: 576px) {
     padding: 8px;
     font-size: 12px;

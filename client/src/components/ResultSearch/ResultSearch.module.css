@@ -49,11 +49,11 @@
 }
 
 .FaTimes:hover {
-  color: #c0df3e;
+  filter: brightness(1.1);
 }
 
 .FaTimes:active {
-  transform: scale(0.8);
+  transform: scale(0.9);
   filter: brightness(0.8);
 }
 

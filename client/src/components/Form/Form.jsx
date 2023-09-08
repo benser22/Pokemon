@@ -10,7 +10,9 @@ import styles from "./Form.module.css";
 import validate from "./validation";
 
 import logo from "../../assets/extras/giphy.gif";
-import { FaTimes, FaEye, FaEyeSlash } from "react-icons/fa";
+import Eye from "../../assets/extras/eyeOpen.png";
+import EyeSlash from "../../assets/extras/eyeClose.png";
+import CloseIcon from "../../assets/close2.png";
 
 const Form = ({ onClose, newSesion }) => {
   const dispatch = useDispatch();
@@ -66,9 +68,9 @@ const Form = ({ onClose, newSesion }) => {
         setText("Please enter all the data");
       } else {
         const response = await axios.post(`${URL}/register`, userData);
-        
+
         if (response.status === 201) {
-          setText(`Congratulations, you have successfully registered`)
+          setText(`Congratulations, you have successfully registered`);
           setTimeout(() => {
             loginForm(response);
           }, 2000);
@@ -104,7 +106,7 @@ const Form = ({ onClose, newSesion }) => {
           `http://localhost:3001/pokemons/login/${email}&${password}`
         );
         await dispatch(getAccesUser());
-          
+
         if (data.user) {
           await dispatch(login(data.user));
           onClose();
@@ -137,7 +139,13 @@ const Form = ({ onClose, newSesion }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
-        <FaTimes className={styles.onClose} title="Close" onClick={onClose} />
+        <img
+          src={CloseIcon}
+          className={styles.onClose}
+          title="Close"
+          onClick={onClose}
+          alt="Close Icon"
+        />
         {newSesion && <img src={logo} alt="logo" className={styles.picture} />}
         {newSesion ? <h2>LOGIN</h2> : <h2>REGISTER</h2>}
         <form onSubmit={handleSubmit} data-testid="form-component">
@@ -206,7 +214,7 @@ const Form = ({ onClose, newSesion }) => {
               onClick={toggleShowPassword}
               className={styles.showPasswordButton}
             >
-              {showPassword ? <FaEye /> : <FaEyeSlash />}
+              {showPassword ? <img src={Eye} className={styles.eyes} alt="Eye_Icon"/> : <img src={EyeSlash} className={styles.eyes} alt="EyeC_Icon"/>}
             </button>
           </div>
           {errors.password && (

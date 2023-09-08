@@ -9,7 +9,8 @@ import {
 } from "../../redux/actions/actions";
 import { NavLink, useLocation } from "react-router-dom";
 import imgDefault from "../../assets/default.png";
-import { Star } from "react-feather";
+import yellowStar from "../../assets/extras/yellowStar.png";
+import whiteStar from "../../assets/extras/whiteStar.png";
 
 export default function Card({
   pokemon,
@@ -22,7 +23,6 @@ export default function Card({
   const formattedName = capitalizeFirstLetter(pokemon.name);
   const [isShinyCreated, setIsShinyCreated] = useState(false);
   const [isShiny, setIsShiny] = useState(pokemon.isShiny || false);
-  const [fillColor, setFillColor] = useState("white"); // Color de relleno inicial esttella
   const [isFavorite, setIsFavorite] = useState(false);
   const userCurrent = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
@@ -44,7 +44,7 @@ export default function Card({
   }
 
   const handleDelete = () => {
-    if ((numbersPokemons - 1) % 12 === 0 && currentPage > 1) setCurrentPage(1);      
+    if ((numbersPokemons - 1) % 12 === 0 && currentPage > 1) setCurrentPage(1);
     dispatch(deletePokemon(pokemon.id));
   };
 
@@ -71,16 +71,13 @@ export default function Card({
       dispatch(postFavoritesByUser(userCurrent.id, pokemon));
     } else {
       // me aseguro que si al sacar de favorites un pokemon  y era el único mostrado en la pagina, no este la pagina vacia
-       dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
+      dispatch(deleteFavoritesByUser(userCurrent.id, pokemon.name));
       //  dispatch(getFavoritesByUser(userCurrent.id));
-      if ((numbersPokemons - 1) % 12 === 0 && currentPage > 1) setCurrentPage(1);      
+      if ((numbersPokemons - 1) % 12 === 0 && currentPage > 1)
+        setCurrentPage(1);
     }
     setIsFavorite(!isFavorite);
   };
-
-  useEffect(() => {
-    isFavorite ? setFillColor("gold") : setFillColor("white");
-  }, [isFavorite]);
 
   return (
     <div className={styles.cardContainer}>
@@ -120,12 +117,9 @@ export default function Card({
               title={!isFavorite ? "Add to favorites" : "Remove to favorites"}
               style={{ height: "0" }}
             >
-              <Star
-                size={26}
-                strokeWidth={2}
-                stroke="black"
-                fill={fillColor}
-                cursor="pointer"
+              <img
+                src={isFavorite ? yellowStar : whiteStar}
+                alt="Star"
                 onClick={handleFavorite}
                 className={styles.star}
               />
