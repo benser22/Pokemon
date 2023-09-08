@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { clearStatePokemon, addPokemon } from "../../redux/actions/actions";
-import { FaTimes } from "react-icons/fa";
+import closeIcon from "../../assets/close2.png";
 import styles from "./ResultSearch.module.css";
 import poke_angry from "../../assets/extras/poke_angry.gif";
 import default_search from "../../assets/default_search.png";
@@ -45,11 +45,14 @@ function ResultSearch({ setOpenModal }) {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <FaTimes
+        <img
+          src={closeIcon}
           className={styles.FaTimes}
+          alt="Close icon"
           title="Close"
           onClick={handleCloseModal}
-        ></FaTimes>
+          style={{width:"25px"}}
+        ></img>
         {pokemon.name ? (
           <>
             {/* el id */}
@@ -72,8 +75,16 @@ function ResultSearch({ setOpenModal }) {
                 <Bar tag={"Attack"} value={pokemon.attack} maxValue={255} />
                 <Bar tag={"Defense"} value={pokemon.defense} maxValue={255} />
                 <Bar tag={"Speed"} value={pokemon.speed} maxValue={255} />
-                <Bar tag={"Height (mts)"} value={pokemon.height} maxValue={20} />
-                <Bar tag={"Weight (kgs)"} value={pokemon.weight} maxValue={1000} />
+                <Bar
+                  tag={"Height (mts)"}
+                  value={pokemon.height}
+                  maxValue={20}
+                />
+                <Bar
+                  tag={"Weight (kgs)"}
+                  value={pokemon.weight}
+                  maxValue={1000}
+                />
               </div>
             </div>
             {/* el footer con los types */}
@@ -101,7 +112,7 @@ function ResultSearch({ setOpenModal }) {
           </>
         ) : (
           <>
-          {/* modal de pokemon no encontrado */}
+            {/* modal de pokemon no encontrado */}
             <img
               src={poke_angry}
               alt="poke_angry"

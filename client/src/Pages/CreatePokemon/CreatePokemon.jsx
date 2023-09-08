@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./CreatePokemon.module.css";
 import { getAllPokemons, postPokemon } from "../../redux/actions/actions";
 import { useNavigate, NavLink } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
+// import img src={HomeIcon} from "../../assets/images/3dhome.png";
+import CloseIcon from "../../assets/close2.png";
 import validateForm from "./validateForm";
 import PokemonForm from "./PokemonsForm";
 import TypesSection from "./TypesSection";
@@ -181,7 +182,7 @@ function CreatePokemon() {
           <h2 className={styles.message}>Must have at least one type</h2>
         )}
         <NavLink to="/home" className={styles.navLink}>
-          <FaTimes title="Close" />
+          <img src={CloseIcon} alt="Close_Icon" title="Close" style={{height:"20px"}} />
         </NavLink>
       </div>
     </div>

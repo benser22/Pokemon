@@ -108,21 +108,16 @@ footer
 }
 
 .mybutton {
+  width: 20px;
   padding: 8px;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
   font-size: 1.5em;
   width: 2.5em;
   cursor: pointer;
-  border: groove gray 1px;
   margin-right: 8vh;
 }
 
 .mybutton:hover {
-  color: yellow;
-  box-shadow: 0 0 2px rgb(255, 255, 255);
-  background-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-1%);
 }
 
