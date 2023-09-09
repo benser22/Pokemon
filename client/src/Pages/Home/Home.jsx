@@ -101,7 +101,7 @@ const Home = ({ noTesting = true }) => {
     // eslint-disable-next-line
   }, []);
 
-  if (noTesting && (isLoading || !allTypes.length)) {
+  if (noTesting && (isLoading || !allTypes.length || !pokemons.length)) {
     return <Loader />;
   }
 
